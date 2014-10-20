@@ -1,6 +1,4 @@
-.project
 .settings
-.cocos-project.json
 .DS_Store
 
 /plain/runtime
