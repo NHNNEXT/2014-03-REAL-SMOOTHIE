@@ -135,6 +135,27 @@ var StatusLayer = cc.Layer.extend({
 	}
 });
 
+var networkLayer = cc.Layer.extend({
+	xmlHttp:null,
+	theUrl:null,
+	ctor:function () {
+		this._super();
+		this.init();
+	},
+
+	init: function () {
+		this.theUrl = "localhost:8080";
+		this.xmlHttp = new XMLHttpRequest();
+		this.xmlHttp.open( "GET", this.theUrl, false );
+		this.xmlHttp.send( null );
+		cc.log("hihi");
+		request.onreadystatechange = function() {
+			var result = request.responseText;
+			cc.log(result);
+		}
+	}
+});
+
 var HelloWorldScene = cc.Scene.extend({
 	onEnter:function () {
 		this._super();
@@ -142,5 +163,6 @@ var HelloWorldScene = cc.Scene.extend({
 		this.addChild(new BackgroundLayer());
 		this.addChild(new AnimationLayer());
 		this.addChild(new StatusLayer());
+		this.addChild(new networkLayer());
 	}
 });
