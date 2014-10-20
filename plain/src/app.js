@@ -172,7 +172,7 @@ var StatusLayer = cc.Layer.extend({
 				res.CloseSelected_png,
 				function () {
 					cc.log("Menu is clicked!");
-					cc.director.popScene();
+					//cc.director.runScene(new HelloWorldScene());
 				}, this);
 		closeItem.attr({
 			x: size.width - 20,
@@ -194,6 +194,7 @@ var HelloWorldScene = cc.Scene.extend({
 		this._super();
 		var layer = new HelloWorldLayer();
 		//this.addChild(layer);
+		cc.log("Menu is clicked!");
 		this.addChild(new BackgroundLayer());
 		this.addChild(new AnimationLayer());
 		this.addChild(new StatusLayer());

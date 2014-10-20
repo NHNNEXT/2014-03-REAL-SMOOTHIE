@@ -3,5 +3,5 @@
 .cocos-project.json
 .DS_Store
 
-/client/runtime
-/client/frameworks
+/plain/runtime
+/plain/frameworks
