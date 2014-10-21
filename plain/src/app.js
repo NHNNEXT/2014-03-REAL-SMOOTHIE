@@ -107,6 +107,7 @@ var AnimationLayer = cc.Layer.extend({
 });
 
 var StatusLayer = cc.Layer.extend({
+	_wsiSendText:null,
 	ctor:function () {
 		this._super();
 		this.init();
@@ -120,6 +121,27 @@ var StatusLayer = cc.Layer.extend({
 				function () {
 					cc.log("Menu is clicked!");
 					cc.director.runScene(new HelloWorldScene());
+					this._wsiSendText = new WebSocket("ws://echo.websocket.org");
+					this._wsiSendText.onopen = function(evt) {
+						cc.log("this is evnet : " + evt);
+					};
+					
+					this._wsiSendText.send("this is count : " + layerInstanceCache.AnimationLayer.clickCount);
+					
+					this._wsiSendText.onmessage = function(evt) {
+						var textStr = "response text msg: "+evt.data;
+						cc.log("onmessage");
+						cc.log(textStr);
+					};
+					
+					this._wsiSendText.onerror = function(evt) {
+						cc.log("sendText Error was fired");
+					};
+					
+					this._wsiSendText.onclose = function(evt) {
+						cc.log("_wsiSendText websocket instance closed.");
+						layerInstanceCache.AnimationLayer.clickCount = 0;
+					};
 				}, this);
 		closeItem.attr({
 			x: size.width - 20,
@@ -156,13 +178,18 @@ var networkLayer = cc.Layer.extend({
 	}
 });
 
+var layerInstanceCache = {
+	AnimationLayer:null
+}
+
 var HelloWorldScene = cc.Scene.extend({
 	onEnter:function () {
 		this._super();
 		cc.log("Scene Started!");
+		layerInstanceCache.AnimationLayer = new AnimationLayer()
 		this.addChild(new BackgroundLayer());
-		this.addChild(new AnimationLayer());
+		this.addChild(layerInstanceCache.AnimationLayer);
 		this.addChild(new StatusLayer());
-		this.addChild(new networkLayer());
+		//this.addChild(new networkLayer());
 	}
 });
