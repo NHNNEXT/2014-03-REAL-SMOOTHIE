@@ -18,37 +18,16 @@ public class ApiVerticle extends Verticle {
 		
 		initMessage();
 		RouteMatcher matcher = new RouteMatcher();
-		matcher.get("/api/saveresult", new Handler<HttpServerRequest>() {
 
-			@Override
+		matcher.get("/api/saveresult", new Handler<HttpServerRequest>() {
 			public void handle(HttpServerRequest req) {
-                MultiMap params = req.params();
-                JsonObject logJson = new JsonObject();
-                
-                String moveStr = params.get("moves");
-                int moves = -1;
-                if (moveStr == null) {
-                	req.response().putHeader("content-type", "application/json");
-    				req.response().end(failMessage.toString());
-                } else {
-                	moves = Integer.parseInt(moveStr);
-                	// DB 접근하여 하이스코어 알아오기
-                	req.response().putHeader("content-type", "application/json");
-    				req.response().end(successMessage.toString());
-                }
-                
-                logJson.putString("time", new Date().toString());
-                logJson.putNumber("moves", moves);
-                
-                JsonObject operation = new JsonObject();
-				operation.putString("action", "save");
-				operation.putString("collection", "test");
-				operation.putObject("document", logJson);
-                // and call the event we want to use
-                vertx.eventBus().send("vertx.mongopersistor", operation);
-				
+				handleMoves(req);
 			}
-			
+		});
+		matcher.post("/api/saveresult", new Handler<HttpServerRequest>() {
+			public void handle(HttpServerRequest req) {
+				handleMoves(req);
+			}
 		});
 		
 		vertx.createHttpServer().requestHandler(matcher).listen(8080);
@@ -64,5 +43,33 @@ public class ApiVerticle extends Verticle {
 		success.putNumber("code", 0);
 		success.putString("message", "success");
 		successMessage.putObject("error", success);
+	}
+	
+	public void handleMoves(HttpServerRequest req) {
+        MultiMap params = req.params();
+        JsonObject logJson = new JsonObject();
+        
+        String moveStr = params.get("moves");
+        int moves = -1;
+        if (moveStr == null) {
+        	req.response().putHeader("content-type", "application/json");
+			req.response().end(failMessage.toString());
+        } else {
+        	moves = Integer.parseInt(moveStr);
+        	// DB 접근하여 하이스코어 알아오기
+        	req.response().putHeader("content-type", "application/json");
+			req.response().end(successMessage.toString());
+        }
+        
+        logJson.putString("time", new Date().toString());
+        logJson.putNumber("moves", moves);
+        
+        JsonObject operation = new JsonObject();
+		operation.putString("action", "save");
+		operation.putString("collection", "test");
+		operation.putObject("document", logJson);
+        // and call the event we want to use
+        vertx.eventBus().send("vertx.mongopersistor", operation);
+		
 	}
 }
