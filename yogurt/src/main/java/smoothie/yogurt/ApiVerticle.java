@@ -25,12 +25,13 @@ public class ApiVerticle extends Verticle {
                 MultiMap params = req.params();
                 JsonObject logJson = new JsonObject();
                 
-                Integer moves = Integer.parseInt(params.get("moves"));
-                if (moves == null) {
+                String moveStr = params.get("moves");
+                int moves = -1;
+                if (moveStr == null) {
                 	req.response().putHeader("content-type", "application/json");
     				req.response().end(failMessage.toString());
-    				moves = -1;
                 } else {
+                	moves = Integer.parseInt(moveStr);
                 	// DB 접근하여 하이스코어 알아오기
                 	req.response().putHeader("content-type", "application/json");
     				req.response().end(successMessage.toString());
