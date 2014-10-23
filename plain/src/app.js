@@ -156,5 +156,12 @@ var HelloWorldScene = cc.Scene.extend({
 				cc.log(response);
 			}
 		});
+		Ajax.getInstance().POST({
+			url: "http://httpbin.org/post",
+			data: "name=sally",
+			callback: function(response) {
+				cc.log(response);
+			}
+		});
 	}
 });
