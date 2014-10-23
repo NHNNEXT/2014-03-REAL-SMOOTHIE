@@ -88,7 +88,8 @@ var AnimationLayer = cc.Layer.extend({
 			rect_arr[i].opacity = 180;
 		}
 		
-		//Create a "one by one" touch event listener (processes one touch at a time)
+		// Create a "one by one" touch event listener (processes one touch at a
+		// time)
 		var listener = cc.EventListener.create({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
 			delta: "",
@@ -107,7 +108,6 @@ var AnimationLayer = cc.Layer.extend({
 });
 
 var StatusLayer = cc.Layer.extend({
-	_wsiSendText:null,
 	ctor:function () {
 		this._super();
 		this.init();
@@ -121,27 +121,6 @@ var StatusLayer = cc.Layer.extend({
 				function () {
 					cc.log("Menu is clicked!");
 					cc.director.runScene(new HelloWorldScene());
-					this._wsiSendText = new WebSocket("ws://echo.websocket.org");
-					this._wsiSendText.onopen = function(evt) {
-						cc.log("this is evnet : " + evt);
-					};
-					
-					this._wsiSendText.send("this is count : " + layerInstanceCache.AnimationLayer.clickCount);
-					
-					this._wsiSendText.onmessage = function(evt) {
-						var textStr = "response text msg: "+evt.data;
-						cc.log("onmessage");
-						cc.log(textStr);
-					};
-					
-					this._wsiSendText.onerror = function(evt) {
-						cc.log("sendText Error was fired");
-					};
-					
-					this._wsiSendText.onclose = function(evt) {
-						cc.log("_wsiSendText websocket instance closed.");
-						layerInstanceCache.AnimationLayer.clickCount = 0;
-					};
 				}, this);
 		closeItem.attr({
 			x: size.width - 20,
@@ -157,27 +136,6 @@ var StatusLayer = cc.Layer.extend({
 	}
 });
 
-var networkLayer = cc.Layer.extend({
-	xmlHttp:null,
-	theUrl:null,
-	ctor:function () {
-		this._super();
-		this.init();
-	},
-
-	init: function () {
-		this.theUrl = "localhost:8080";
-		this.xmlHttp = new XMLHttpRequest();
-		this.xmlHttp.open( "GET", this.theUrl, false );
-		this.xmlHttp.send( null );
-		cc.log("hihi");
-		request.onreadystatechange = function() {
-			var result = request.responseText;
-			cc.log(result);
-		}
-	}
-});
-
 var layerInstanceCache = {
 	AnimationLayer:null
 }
@@ -190,6 +148,13 @@ var HelloWorldScene = cc.Scene.extend({
 		this.addChild(new BackgroundLayer());
 		this.addChild(layerInstanceCache.AnimationLayer);
 		this.addChild(new StatusLayer());
-		//this.addChild(new networkLayer());
+		
+		Ajax.getInstance().POST({
+			url: "http://httpbin.org/post",
+			data: "name=sally",
+			callback: function(response) {
+				cc.log(response);
+			}
+		});
 	}
 });
