@@ -7,7 +7,9 @@ var res = {
 		Pipe_2way_line : "res/type-2way_l.png",
 		Pipe_2way_curve : "res/type-2way_c.png",
 		Pipe_3way : "res/type-3way.png",
-		Pipe_4way : "res/type-4way.png"
+		Pipe_4way : "res/type-4way.png",
+		sally : "res/sally.png",
+		cony : "res/cony.png"
 };
 
 var g_resources = [];

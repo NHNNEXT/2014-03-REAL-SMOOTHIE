@@ -19,6 +19,11 @@
         "src/Ajax.js",
         "src/Pipe.js",
         "src/BoardLayer.js",
-        "src/config/BoardType.js"
+        "src/Enemy.js",
+        "src/Character.js",
+        "src/CharacterLayer.js",
+        "src/config/BoardType.js",
+        "src/config/CharacterType.js",
+        "src/config/EnemyType.js"
     ]
 }

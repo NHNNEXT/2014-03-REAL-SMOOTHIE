@@ -1,4 +1,4 @@
 var BoardType = {
-	row: 3,
-	col: 3
+	row: 4,
+	col: 4
 }

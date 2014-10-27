@@ -18,7 +18,7 @@ var BoardLayer = cc.Layer.extend ({
 		//this.getContentSize()
 		//this.setContentSize(560, 560)
 		//this.setAnchorPoint(0.5, 0.5);
-		this.setPosition((cc.director.getWinSize().width - BoardType.row * PIPE.SIZE.WIDTH)/2, (cc.director.getWinSize().height - BoardType.col * PIPE.SIZE.HEIGHT)/2);
+		this.setPosition((cc.director.getWinSize().width - BoardType.col * PIPE.SIZE.WIDTH)/2, (cc.director.getWinSize().height - BoardType.row * PIPE.SIZE.HEIGHT)/2);
 		//this.setColor(new cc.Color(0,0,0,1));
 		//this.setPosition(100, 100);
 		
