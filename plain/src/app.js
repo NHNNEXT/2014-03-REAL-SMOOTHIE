@@ -12,7 +12,6 @@ var HelloWorldScene = cc.Scene.extend({
 		this.addChild(layerInstanceCache.GameLayer);
 		this.addChild(new StatusLayer());
 		
-		var GM = new GameManger();
 		
 //		Ajax.getInstance().POST({
 //			url: "http://httpbin.org/post",

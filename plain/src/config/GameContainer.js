@@ -1,4 +1,10 @@
 var SMTH = SMTH || {};
 SMTH.CONTAINER = {
-	PIPES: []
+	PIPES: [],
+	"PLAY_STATE": null
+};
+
+SMTH.PLAY_STATE = {
+	"PLAY_STATE_IDEAL": 0,
+	"PLAY_STATE_ROTATING": 1
 };

@@ -49,6 +49,7 @@ var Pipe = cc.Sprite.extend({
 	column: null,
 	active: null,
 	connectedWith: null,
+	visitFlag: false,
 	ctor:function (initialPipeType) {
 		this._super(PIPE.RESOURCE_MAPPER[initialPipeType]);
 		this.type = initialPipeType;
@@ -126,10 +127,15 @@ var Pipe = cc.Sprite.extend({
 		*/
 	},
 	rotateRight: function () {
-		this.runAction(cc.sequence(cc.rotateTo(0.5, this.rotation + 90)));
+		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation + 90), cc.callFunc(function(){
+			SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_IDEAL;
+		}) ));
+		
 	},
 	rotateLeft: function () {
-		this.runAction(cc.sequence(cc.rotateTo(0.5, this.rotation - 90)));
+		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation - 90), cc.callFunc(function(){
+			SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_IDEAL;
+		}) ));
 	},
 	
 	isOpened : function(dir) {
@@ -161,6 +167,7 @@ Pipe.prototype.pipeTouchHandler = {
 		var target = event.getCurrentTarget();
 		cc.log("sprite onTouchesEnded.. ");
 		target.setOpacity(255);
+		SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_ROTATING;
 		if ((this.delta === undefined || this.delta.x >= 0) && target.rotation%90==0) {
 			target.rotateRight();
 		} else if ((this.delta === undefined || this.delta.x < 0) && target.rotation%90==0)  {
