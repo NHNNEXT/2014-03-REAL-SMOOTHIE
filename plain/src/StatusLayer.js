@@ -11,6 +11,7 @@ var StatusLayer = cc.Layer.extend({
 				res.CloseSelected_png,
 				function () {
 					cc.log("Menu is clicked!");
+					
 					cc.director.runScene(new HelloWorldScene());
 				}, this);
 		closeItem.attr({

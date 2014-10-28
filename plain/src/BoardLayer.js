@@ -8,12 +8,20 @@ var BoardLayer = cc.Layer.extend ({
 	},
 	
 	init: function() {
+		SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_IDEAL;
+		
+		//SMTH.CONTAINER안에 pipe를 초기화
+		SMTH.CONTAINER.PIPES =[];
+		for(var key in PIPE_CONTAINER){
+			PIPE_CONTAINER[key] = [];
+		}
+		
 		this._createMap(BoardType.row, BoardType.col);
 		this.setPosition((cc.director.getWinSize().width - BoardType.col * PIPE.SIZE.WIDTH)/2, (cc.director.getWinSize().height - BoardType.row * PIPE.SIZE.HEIGHT)/2);
 		this._gameManager = new GameManger();
-
-		SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_IDEAL;
+		
 		this.scheduleUpdate();
+
 	},
 	update: function(dt) {
 		if(SMTH.CONTAINER.PLAY_STATE === SMTH.PLAY_STATE.PLAY_STATE_IDEAL) {
@@ -27,7 +35,7 @@ var BoardLayer = cc.Layer.extend ({
 				var rotate = Math.floor(Math.random() * 4) * 90;
 				var pipe = Pipe.getOrCreate(type);
 				SMTH.CONTAINER.PIPES.push(pipe);
-				pipe.setPosition(90, r, c);
+				pipe.setPosition(rotate, r, c);
 				this.addChild(pipe);
 			}
 		}

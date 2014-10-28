@@ -18,7 +18,7 @@ var GameManger = cc.Class.extend({
 	},
 	initRoute: function() {
 		// visitFlag 초기화
-		for(i in this.pipes) {
+		for(var i in this.pipes) {
 			this.pipes[i].visitFlag = false;
 			this.pipes[i].connectedWith = [];
 			this.pipes[i].setColor(cc.color(255, 255, 255));
@@ -26,7 +26,7 @@ var GameManger = cc.Class.extend({
 		
 	},
 	colorRoute : function() {
-		for(i in this.pipes) {
+		for(var i in this.pipes) {
 			if(this.pipes[i].visitFlag) {
 				this.pipes[i].setColor(cc.color(0, 0, 255));
 			}
