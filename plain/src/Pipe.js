@@ -49,6 +49,8 @@ var Pipe = cc.Sprite.extend({
 	},
 	init: function() {
 		this.active = false;
+		
+		this.directions = [];
 
 		var pipeTouchListener = cc.EventListener.create({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -62,6 +64,9 @@ var Pipe = cc.Sprite.extend({
 	},
 	setPosition: function(initialPipeRotation, row, column) {
 		this.rotation = initialPipeRotation;
+		for(var i=0 ; i < initialPipeRotation/90 ; i++) {
+			this.directions = this.directions.map(this._setRightDirection);
+		}
 		this.row = row;
 		this.column = column;
 
@@ -117,12 +122,44 @@ var Pipe = cc.Sprite.extend({
 		*/
 	},
 	rotateRight: function () {
-		cc.log("rotate Right");
-		this.runAction(cc.sequence(cc.rotateTo(0.5, this.rotation + 90)));		
+		this.runAction(cc.sequence(cc.rotateTo(0.5, this.rotation + 90)));
+		this.directions = this.directions.map(this._setRightDirection);
+		cc.log(this.directions);
 	},
 	rotateLeft: function () {
-		this.runAction(cc.sequence(cc.rotateTo(0.5, this.rotation - 90)));		
-	}
+		this.runAction(cc.sequence(cc.rotateTo(0.5, this.rotation - 90)));
+		this.directions = this.directions.map(this._setLeftDirection);
+		cc.log(this.directions);
+	},
+	
+	_setDirections: function() {
+		if(this.type === PIPE.TYPE.L_TYPE) {
+			this.directions.push(PIPE.DIRECTION.UP);
+			this.directions.push(PIPE.DIRECTION.RIGHT);
+		} else if (this.type === PIPE.TYPE.I_TYPE) {
+			this.directions.push(PIPE.DIRECTION.RIGHT);
+			this.directions.push(PIPE.DIRECTION.LEFT);
+		} else if (this.type === PIPE.TYPE.T_TYPE) {
+			this.directions.push(PIPE.DIRECTION.RIGHT);
+			this.directions.push(PIPE.DIRECTION.LEFT);
+			this.directions.push(PIPE.DIRECTION.UP);
+		} else if (this.type === PIPE.TYPE.X_TYPE) {
+			this.directions.push(PIPE.DIRECTION.RIGHT);
+			this.directions.push(PIPE.DIRECTION.LEFT);
+			this.directions.push(PIPE.DIRECTION.DOWN);
+			this.directions.push(PIPE.DIRECTION.UP);
+		}
+	},
+	
+	_setRightDirection: function(value) {
+		var result = (value + 1)%4;
+		return result;
+	},
+	
+	_setLeftDirection: function(value) {
+		var result = (value + 3)%4;
+		return result;
+	},
 });
 
 
@@ -171,10 +208,12 @@ Pipe.getOrCreate = function(type) {
 		var pipe = pipeList[i];
 		if (pipe.active == false) {
 			pipe.active = true;
+			pipe._setDirections();
 			return pipe;
 		}
 	}
 	var pipe = Pipe._create(type);
+	pipe._setDirections();
 	return pipe;
 }
 
