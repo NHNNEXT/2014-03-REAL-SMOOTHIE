@@ -18,6 +18,7 @@ var BoardLayer = cc.Layer.extend ({
 				var type = Math.floor(Math.random() * 4);
 				var rotate = Math.floor(Math.random() * 4) * 90;
 				var pipe = Pipe.getOrCreate(type);
+				SMTH.CONTAINER.PIPES.push(pipe);
 				pipe.setPosition(90, r, c);
 				this.addChild(pipe);
 			}

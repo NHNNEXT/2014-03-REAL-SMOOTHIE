@@ -21,9 +21,11 @@
         "src/BoardLayer.js",
         "src/Enemy.js",
         "src/Character.js",
+        "src/GameManager.js",
         "src/CharacterLayer.js",
         "src/config/BoardType.js",
         "src/config/CharacterType.js",
-        "src/config/EnemyType.js"
+        "src/config/EnemyType.js",
+        "src/config/GameContainer.js"
     ]
 }

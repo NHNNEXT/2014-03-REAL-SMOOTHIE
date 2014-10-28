@@ -15,7 +15,6 @@ var GameLayer = cc.Layer.extend({
 
 });
 
-
 var onTouchBegan = function (touch, event) { 
 	var target = event.getCurrentTarget();  
 	var locationInNode = target.convertToNodeSpace(touch.getLocation());    

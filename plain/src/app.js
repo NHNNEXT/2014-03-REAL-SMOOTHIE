@@ -12,19 +12,21 @@ var HelloWorldScene = cc.Scene.extend({
 		this.addChild(layerInstanceCache.GameLayer);
 		this.addChild(new StatusLayer());
 		
-		Ajax.getInstance().POST({
-			url: "http://httpbin.org/post",
-			data: "name=sally",
-			callback: function(response) {
-				cc.log(response);
-			}
-		});
-		Ajax.getInstance().POST({
-			url: "http://httpbin.org/post",
-			data: "name=sally",
-			callback: function(response) {
-				cc.log(response);
-			}
-		});
+		var GM = new GameManger();
+		
+//		Ajax.getInstance().POST({
+//			url: "http://httpbin.org/post",
+//			data: "name=sally",
+//			callback: function(response) {
+//				cc.log(response);
+//			}
+//		});
+//		Ajax.getInstance().POST({
+//			url: "http://httpbin.org/post",
+//			data: "name=sally",
+//			callback: function(response) {
+//				cc.log(response);
+//			}
+//		});
 	}
 });
