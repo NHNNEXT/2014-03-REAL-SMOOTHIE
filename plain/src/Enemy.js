@@ -1,4 +1,4 @@
-var Enemy = cc.Sprite.extend({
+var Enemy = Block.extend({
 	ctor:function (type) {
 		this._super(EnemyType[type].resouceName);
 		this.init(type);

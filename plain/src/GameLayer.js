@@ -9,7 +9,6 @@ var GameLayer = cc.Layer.extend({
 	},
 	init:function () {
 		this.addChild(new BoardLayer());
-		this.addChild(new CharacterLayer());
 	}
 	
 

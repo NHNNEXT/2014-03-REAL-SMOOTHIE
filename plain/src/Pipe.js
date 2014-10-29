@@ -42,15 +42,9 @@ PIPE.RESOURCE_MAPPER[PIPE.TYPE.X_TYPE] = res.Pipe_4way;
 PIPE.RESOURCE_MAPPER[PIPE.TYPE.T_TYPE] = res.Pipe_3way;
 
 var Pipe = cc.Sprite.extend({
-	type: null, // 파이프 종
 	rotation: null, // 회전된 방향(각도?)
-	directions: null, // [4] 으로 초기화. 파이프가 열려있는 방
-	row: null,
-	column: null,
-	active: null,
-	connectedWith: null,
-	visitFlag: false,
 	ctor:function (initialPipeType) {
+		cc.log("initialPipeType : " + initialPipeType);
 		this._super(PIPE.RESOURCE_MAPPER[initialPipeType]);
 		this.type = initialPipeType;
 		this.init();
