@@ -25,6 +25,7 @@
     "src/Enemy.js",
     "src/Pipe.js",
     "src/Friend.js",
-    "src/GameManager.js"
+    "src/GameManager.js",
+    "src/Route.js"
   ]
 }

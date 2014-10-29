@@ -1,6 +1,7 @@
 
 var GameManger = cc.Class.extend({
 	pipes : null,
+	routes: null,
 	ctor:function () {
 		//this._super();
 		this.init();
@@ -8,13 +9,15 @@ var GameManger = cc.Class.extend({
 
 	init:function () {
 		this.pipes = SMTH.CONTAINER.PIPES;
+		this.routes = [];
 	},
 	updateRoute: function() {
 		this.initRoute();
 		
 		this.checkIsConnected();
 		this.checkRoute();
-		this.colorRoute();		
+		this._getRoutes();
+		this.colorRoute();
 	},
 	initRoute: function() {
 		// visitFlag 초기화
@@ -23,19 +26,39 @@ var GameManger = cc.Class.extend({
 			this.pipes[i].connectedWith = [];
 			this.pipes[i].setColor(cc.color(255, 255, 255));
 		}
+		this.routes = [];
 		
 	},
 	colorRoute : function() {
 		for(var i in this.pipes) {
-			if(this.pipes[i].visitFlag) {
+			if(this.pipes[i].visitFlag && this.pipes[i].type != 1) {
 				this.pipes[i].setColor(cc.color(0, 0, 255));
+			}
+		};
+		for (var i in this.routes) {
+			var route = this.routes[i];
+			if (route.numberOfEnemies > 0) {
+				route.colorRed();
+			}
+		}
+	},
+	
+
+	_getRoutes: function() {
+		for (var i = 0; i < BoardType.row; i++) {
+			var row = BoardType.MAP[i];
+			for (var j = 0; j < BoardType.col ; j++) {
+				if (row[j] == BLOCK_TYPE.FRIEND) {
+					var route = new Route(this._getPipe(j, i));
+					this.routes.push(route);
+				} 
 			}
 		}
 	},
 	
 	checkRoute : function() {
 		for(var i=0 ; i < BoardType.col ; i++) {
-			if(this.pipes[i].isOpened(PIPE.DIRECTION.DOWN)) {
+			if(this.pipes[i].type==1) {
 				this.checkRouteFrom(this.pipes[i]);
 			}
 		}

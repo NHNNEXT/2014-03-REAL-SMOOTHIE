@@ -20,9 +20,7 @@ var BoardLayer = cc.Layer.extend ({
 		this._createMap(BoardType.row, BoardType.col);
 		this.setPosition((cc.director.getWinSize().width - BoardType.col * PIPE.SIZE.WIDTH)/2, (cc.director.getWinSize().height - BoardType.row * PIPE.SIZE.HEIGHT)/2);
 		this._gameManager = new GameManger();
-		
 		this.scheduleUpdate();
-
 	},
 	update: function(dt) {
 		if(SMTH.CONTAINER.PLAY_STATE === SMTH.PLAY_STATE.PLAY_STATE_IDEAL) {
@@ -30,8 +28,8 @@ var BoardLayer = cc.Layer.extend ({
 		}
 	},
 	
+	
 	_createBlock : function(type, r, c) {
-//		r = BoardType.row - r -1;
 		if(type === BLOCK_TYPE.PIPE) {
 			var type = Math.floor(Math.random() * 4);
 			var rotate = Math.floor(Math.random() * 4) * 90;
