@@ -41,10 +41,9 @@ PIPE.RESOURCE_MAPPER[PIPE.TYPE.I_TYPE] = res.Pipe_2way_line;
 PIPE.RESOURCE_MAPPER[PIPE.TYPE.X_TYPE] = res.Pipe_4way;
 PIPE.RESOURCE_MAPPER[PIPE.TYPE.T_TYPE] = res.Pipe_3way;
 
-var Pipe = cc.Sprite.extend({
-	rotation: null, // 회전된 방향(각도?)
+var Pipe = Block.extend({
 	ctor:function (initialPipeType) {
-		cc.log("initialPipeType : " + initialPipeType);
+		cc.log("res : " + PIPE.RESOURCE_MAPPER[initialPipeType]);
 		this._super(PIPE.RESOURCE_MAPPER[initialPipeType]);
 		this.type = initialPipeType;
 		this.init();
