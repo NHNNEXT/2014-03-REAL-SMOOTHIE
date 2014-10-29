@@ -1,7 +1,6 @@
 var BoardLayer = cc.Layer.extend ({
-	_column : null,
-	_row : null,
 	_gameManager : null,
+	_level: null,
 
 	ctor:function () {
 		this._super();
@@ -9,6 +8,7 @@ var BoardLayer = cc.Layer.extend ({
 	},
 	
 	init: function() {
+		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_IDEAL;
 		
 		//SMTH.CONTAINER안에 pipe를 초기화
@@ -17,8 +17,8 @@ var BoardLayer = cc.Layer.extend ({
 			PIPE_CONTAINER[key] = [];
 		}
 		
-		this._createMap(BoardType.row, BoardType.col);
-		this.setPosition((cc.director.getWinSize().width - BoardType.col * PIPE.SIZE.WIDTH)/2, (cc.director.getWinSize().height - BoardType.row * PIPE.SIZE.HEIGHT)/2);
+		this._createMap(this._level.row, this._level.col);
+		this.setPosition((cc.director.getWinSize().width - this._level.col * PIPE.SIZE.WIDTH)/2, (cc.director.getWinSize().height - this._level.row * PIPE.SIZE.HEIGHT)/2);
 		this._gameManager = new GameManger();
 		this.scheduleUpdate();
 	},
@@ -57,7 +57,7 @@ var BoardLayer = cc.Layer.extend ({
 	},
 	_createMap : function(row, col) { 
 		//캐릭터(아군,적) 배치 -> 장애물 -> 파이프
-		var map = BoardType.MAP;
+		var map = this._level.MAP;
 		for (var r = 0; r < row; r++) {
 			for (var c = 0; c < col; c++) {
 				cc.log("map" + map[r]);
