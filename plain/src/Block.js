@@ -1,10 +1,33 @@
+var BLOCK = {
+		"TYPE": {
+			PIPE: 0,
+			FRIEND: 1,
+			ENEMY : 2
+		},
+		"ROTATION": {
+			UP: 0,
+			RIGHT: 90,
+			DOWN: 180,
+			LEFT: 270		
+		},
+		"DIRECTION": {
+			UP: 0,
+			RIGHT: 90,
+			DOWN: 180,
+			LEFT: 270		
+		},
+		"SIZE": {
+			WIDTH: 140,
+			HEIGHT: 140
+		}
+};
+
 var Block = cc.Sprite.extend({
 	type: null,
 	row: null,
 	column: null,
 	active: null,
 	connectedWith: null,
-	rotation: null,
 	visitFlag: false,
 	ctor:function (resourceName) {
 		cc.log("block : " + resourceName);

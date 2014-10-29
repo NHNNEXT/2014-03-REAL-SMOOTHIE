@@ -2,8 +2,6 @@ var BoardLayer = cc.Layer.extend ({
 	_column : null,
 	_row : null,
 	_gameManager : null,
-	playCharacters : null,
-	emenyCharacters :  null,
 
 	ctor:function () {
 		this._super();
@@ -11,9 +9,6 @@ var BoardLayer = cc.Layer.extend ({
 	},
 	
 	init: function() {
-		this.playCharacters = [];
-		this.emenyCharacters = [];
-		
 		SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_IDEAL;
 		
 		//SMTH.CONTAINER안에 pipe를 초기화
@@ -26,7 +21,7 @@ var BoardLayer = cc.Layer.extend ({
 		this.setPosition((cc.director.getWinSize().width - BoardType.col * PIPE.SIZE.WIDTH)/2, (cc.director.getWinSize().height - BoardType.row * PIPE.SIZE.HEIGHT)/2);
 		this._gameManager = new GameManger();
 		
-//		this.scheduleUpdate();
+		this.scheduleUpdate();
 
 	},
 	update: function(dt) {
@@ -36,7 +31,7 @@ var BoardLayer = cc.Layer.extend ({
 	},
 	
 	_createBlock : function(type, r, c) {
-		r = BoardType.row - r -1;
+//		r = BoardType.row - r -1;
 		if(type === BLOCK_TYPE.PIPE) {
 			var type = Math.floor(Math.random() * 4);
 			var rotate = Math.floor(Math.random() * 4) * 90;
@@ -47,7 +42,7 @@ var BoardLayer = cc.Layer.extend ({
 		} 
 		if(type === BLOCK_TYPE.FRIEND) {
 			var friend = new Friend(0)
-			this.playCharacters.push(friend);
+			SMTH.CONTAINER.PIPES.push(friend);
 			var pos = friend._coordinateToPosition(r, c);
 			friend.x = pos.x;
 			friend.y = pos.y;
@@ -55,7 +50,7 @@ var BoardLayer = cc.Layer.extend ({
 		}
 		if(type === BLOCK_TYPE.ENEMY) {
 			var enemy = new Enemy(0)
-			this.emenyCharacters.push(enemy);
+			SMTH.CONTAINER.PIPES.push(enemy);
 			var pos = enemy._coordinateToPosition(r, c);
 			enemy.x = pos.x;
 			enemy.y = pos.y;

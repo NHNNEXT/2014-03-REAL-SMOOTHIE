@@ -9,27 +9,16 @@ var F = BLOCK_TYPE.FRIEND;
 var E = BLOCK_TYPE.ENEMY;
 
 var BoardType = {
-	row: 6,
-	col: 4,
-	FRIENDS : {
-		ROW: [],
-		COL: [],
-		POS: [cc.p(0,0), cc.p(1,0), cc.p(2,0), cc.p(3,0)]
-	},
-	EMENY : {
-		ROW: [],
-		COL: [],
-		POS: []
-	},
-	MAP : [
-	       [E,E,E,E],
-	       [P,P,P,P],
-	       [P,P,P,P],
-	       [P,P,P,P],
-	       [P,P,P,P],
-	       [F,F,F,F]
-	]
+		MAP : [
+		       [E,E,E,E],
+		       [P,P,P,P],
+		       [P,P,P,P],
+		       [P,P,P,P],
+		       [F,F,F,F]
+		       ]
 }
+BoardType.row = BoardType.MAP.length;
+BoardType.col = BoardType.MAP[0].length;
 
 
-
+BoardType.MAP.reverse();

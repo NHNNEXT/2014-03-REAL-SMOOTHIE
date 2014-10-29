@@ -23,7 +23,7 @@ var PIPE = {
 		HEIGHT: 140
 	}
 };
-
+//TODO : 넌이제 BLOCK_TYPE
 var PIPE_TYPE = {};
 PIPE_TYPE[PIPE.TYPE.L_TYPE] = {0:true, 90:true, 180:false, 270:false};
 PIPE_TYPE[PIPE.TYPE.I_TYPE] = {0:true, 90:false, 180:true, 270:false};
@@ -43,12 +43,12 @@ PIPE.RESOURCE_MAPPER[PIPE.TYPE.T_TYPE] = res.Pipe_3way;
 
 var Pipe = Block.extend({
 	ctor:function (initialPipeType) {
-		cc.log("res : " + PIPE.RESOURCE_MAPPER[initialPipeType]);
 		this._super(PIPE.RESOURCE_MAPPER[initialPipeType]);
-		this.type = initialPipeType;
+		this.pipeType = initialPipeType;
 		this.init();
 	},
 	init: function() {
+		this.type = BLOCK.TYPE.PIPE;
 		this.active = false;
 		
 		this.connectedWith = [];
@@ -132,7 +132,7 @@ var Pipe = Block.extend({
 	},
 	
 	isOpened : function(dir) {
-		var pipetype = PIPE_TYPE[this.type];
+		var pipetype = PIPE_TYPE[this.pipeType];
 		return pipetype[(360+dir-this.rotation) % 360]
 	}
 });
