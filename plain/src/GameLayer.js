@@ -7,7 +7,7 @@ var GameLayer = cc.Layer.extend({
 		this._super();
 		this.init();
 	},
-	init:function () {
+	init:function (levelConfig) {
 		this.addChild(new BoardLayer());
 	}
 	

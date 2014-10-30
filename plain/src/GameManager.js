@@ -2,6 +2,7 @@
 var GameManger = cc.Class.extend({
 	pipes : null,
 	routes: null,
+	_level: null,
 	ctor:function () {
 		//this._super();
 		this.init();
@@ -10,6 +11,7 @@ var GameManger = cc.Class.extend({
 	init:function () {
 		this.pipes = SMTH.CONTAINER.PIPES;
 		this.routes = [];
+		this._level = SMTH.STATUS.CURRENT_LEVEL;
 	},
 	updateRoute: function() {
 		this.initRoute();
@@ -45,9 +47,9 @@ var GameManger = cc.Class.extend({
 	
 
 	_getRoutes: function() {
-		for (var i = 0; i < BoardType.row; i++) {
-			var row = BoardType.MAP[i];
-			for (var j = 0; j < BoardType.col ; j++) {
+		for (var i = 0; i < SMTH.STATUS.CURRENT_LEVEL.row; i++) {
+			var row = this._level.MAP[i];
+			for (var j = 0; j < this._level.col ; j++) {
 				if (row[j] == BLOCK_TYPE.FRIEND) {
 					var route = new Route(this._getPipe(j, i));
 					this.routes.push(route);
@@ -57,7 +59,7 @@ var GameManger = cc.Class.extend({
 	},
 	
 	checkRoute : function() {
-		for(var i=0 ; i < BoardType.col ; i++) {
+		for(var i=0 ; i < this._level.col ; i++) {
 			if(this.pipes[i].type==1) {
 				this.checkRouteFrom(this.pipes[i]);
 			}
@@ -75,8 +77,8 @@ var GameManger = cc.Class.extend({
 	},
 	
 	checkIsConnected : function() {
-		for (var r = 0; r < BoardType.row-1; r++) {
-			for (var c = 0; c < BoardType.col; c++) {
+		for (var r = 0; r < this._level.row-1; r++) {
+			for (var c = 0; c < this._level.col; c++) {
 				var upPipe = this._getPipe(c,r+1);
 				var downPipe = this._getPipe(c,r);
 				if(this._checkVerticalConnection(upPipe, downPipe)) {
@@ -85,8 +87,8 @@ var GameManger = cc.Class.extend({
 				}
 			}
 		}
-		for (var r = 0; r < BoardType.row; r++) {
-			for (var c = 0; c < BoardType.col-1; c++) {
+		for (var r = 0; r < this._level.row; r++) {
+			for (var c = 0; c < this._level.col-1; c++) {
 				var leftPipe = this._getPipe(c,r);
 				var rightPipe = this._getPipe(c+1,r);
 				if(this._checkHorizontalConnection(leftPipe, rightPipe)) {
@@ -106,7 +108,7 @@ var GameManger = cc.Class.extend({
 	},
 		
 	_getPipe: function(col, row) {
-		return SMTH.CONTAINER.PIPES[row*BoardType.col+col];
+		return SMTH.CONTAINER.PIPES[row*this._level.col+col];
 	}
 
 });

@@ -1,15 +1,12 @@
 
-var layerInstanceCache = {
-	GameLayer:null
-}
-
 var HelloWorldScene = cc.Scene.extend({
 	onEnter:function () {
 		this._super();
 		cc.log("Scene Started!");
-		layerInstanceCache.GameLayer = new GameLayer()
+		
+		SMTH.STATUS.CURRENT_LEVEL = SMTH.LEVEL.LEVEL0;
 		this.addChild(new BackgroundLayer());
-		this.addChild(layerInstanceCache.GameLayer);
+		this.addChild(new GameLayer());
 		this.addChild(new StatusLayer());
 		
 		
