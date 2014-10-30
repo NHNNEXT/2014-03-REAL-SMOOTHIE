@@ -100,11 +100,11 @@ var GameManger = cc.Class.extend({
 	},
 	_checkVerticalConnection: function(upPipe, downPipe) {
 		if(upPipe.type > 0 && downPipe.type > 0) return false;
-		return upPipe.isOpened(PIPE.DIRECTION.DOWN) && downPipe.isOpened(PIPE.DIRECTION.UP);
+		return upPipe.isOpened(BLOCK.DIRECTION.DOWN) && downPipe.isOpened(BLOCK.DIRECTION.UP);
 	},
 	_checkHorizontalConnection: function(leftPipe, rightPipe) {
 		if(leftPipe.type > 0 && rightPipe.type > 0) return false;
-		return leftPipe.isOpened(PIPE.DIRECTION.RIGHT) && rightPipe.isOpened(PIPE.DIRECTION.LEFT);
+		return leftPipe.isOpened(BLOCK.DIRECTION.RIGHT) && rightPipe.isOpened(BLOCK.DIRECTION.LEFT);
 	},
 		
 	_getPipe: function(col, row) {

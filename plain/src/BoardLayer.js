@@ -18,7 +18,7 @@ var BoardLayer = cc.Layer.extend ({
 		}
 		
 		this._createMap(this._level.row, this._level.col);
-		this.setPosition((cc.director.getWinSize().width - this._level.col * PIPE.SIZE.WIDTH)/2, (cc.director.getWinSize().height - this._level.row * PIPE.SIZE.HEIGHT)/2);
+		this.setPosition((cc.director.getWinSize().width - this._level.col * BLOCK.SIZE.WIDTH)/2, (cc.director.getWinSize().height - this._level.row * BLOCK.SIZE.HEIGHT)/2);
 		this._gameManager = new GameManger();
 		this.scheduleUpdate();
 	},
@@ -55,17 +55,25 @@ var BoardLayer = cc.Layer.extend ({
 			return enemy;
 		}
 	},
+//	_createMap : function(row, col) { 
+//		//캐릭터(아군,적) 배치 -> 장애물 -> 파이프
+//		var map = this._level.MAP;
+//		for (var r = 0; r < row; r++) {
+//			for (var c = 0; c < col; c++) {
+//				var block = this._createBlock(map[r][c], r, c);
+//				this.addChild(block);
+//			}
+//		}
+//	},
 	_createMap : function(row, col) { 
-		//캐릭터(아군,적) 배치 -> 장애물 -> 파이프
 		var map = this._level.MAP;
+		var levelLoader = new LevelLoader(this._level);
 		for (var r = 0; r < row; r++) {
 			for (var c = 0; c < col; c++) {
-				cc.log("map" + map[r]);
-				var block = this._createBlock(map[r][c], r, c);
-				cc.log(block);
+				var block = SMTH.CONTAINER.PIPES[r*col+c];
 				this.addChild(block);
 			}
 		}
-	},
+	}
 });
 

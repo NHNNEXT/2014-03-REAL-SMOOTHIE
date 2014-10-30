@@ -1,9 +1,21 @@
 (function() {
-	var P = BLOCK_TYPE.PIPE;
+	var P = BLOCK_TYPE.PIPE.RAND.P;
+	var IU = BLOCK_TYPE.PIPE.I.U;
+	var IR = BLOCK_TYPE.PIPE.I.R;
 	var F = BLOCK_TYPE.FRIEND;
 	var E = BLOCK_TYPE.ENEMY;
 	
 	var LEVEL = {
+		"TUTORIAL0": {
+			"MAP" : [
+			         [E,E,E,E],
+			         [IU,IU,IU,IU],
+			         [IR,IR,IR,IR],
+			         [IU,IU,IU,IU],
+			         [F,F,F,F]
+			         ].reverse()
+	
+		},
 		"LEVEL0": {
 			"MAP" : [
 			       [E,E,E,E],
