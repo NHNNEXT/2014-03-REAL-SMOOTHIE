@@ -4,7 +4,11 @@ var HelloWorldScene = cc.Scene.extend({
 		this._super();
 		cc.log("Scene Started!");
 		
-		SMTH.STATUS.CURRENT_LEVEL = SMTH.LEVEL.LEVEL0;
+		if (SMTH.STATUS.CURRENT_LEVEL == SMTH.LEVEL.TUTORIAL0) {
+			SMTH.STATUS.CURRENT_LEVEL = SMTH.LEVEL.LEVEL0;
+		} else {
+			SMTH.STATUS.CURRENT_LEVEL = SMTH.LEVEL.TUTORIAL0;
+		}
 		this.addChild(new BackgroundLayer());
 		this.addChild(new GameLayer());
 		this.addChild(new StatusLayer());

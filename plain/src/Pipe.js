@@ -1,45 +1,16 @@
-var PIPE = {
-	"TYPE": {
-		L_TYPE: 0, 
-		I_TYPE: 1,
-		X_TYPE: 2,
-		T_TYPE: 3
-	},
-	"ROTATION": {
-		UP: 0,
-		RIGHT: 90,
-		DOWN: 180,
-		LEFT: 270		
-	},
-	"DIRECTION": {
-		UP: 0,
-		RIGHT: 90,
-		DOWN: 180,
-		LEFT: 270		
-	},
-	"RESOURCE_MAPPER": {},
-	"SIZE": {
-		WIDTH: 140,
-		HEIGHT: 140
-	}
-};
-//TODO : 넌이제 BLOCK_TYPE
-var PIPE_TYPE = {};
-PIPE_TYPE[PIPE.TYPE.L_TYPE] = {0:true, 90:true, 180:false, 270:false};
-PIPE_TYPE[PIPE.TYPE.I_TYPE] = {0:true, 90:false, 180:true, 270:false};
-PIPE_TYPE[PIPE.TYPE.T_TYPE] = {0:false, 90:true, 180:true, 270:true};
-PIPE_TYPE[PIPE.TYPE.X_TYPE] = {0:true, 90:true, 180:true, 270:true};
 
 var PIPE_CONTAINER = {}
-PIPE_CONTAINER[PIPE.TYPE.L_TYPE] = [];
-PIPE_CONTAINER[PIPE.TYPE.I_TYPE] = [];
-PIPE_CONTAINER[PIPE.TYPE.X_TYPE] = [];
-PIPE_CONTAINER[PIPE.TYPE.T_TYPE] = [];
+PIPE_CONTAINER[PIPE_TYPE.RAND.L] = [];
+PIPE_CONTAINER[PIPE_TYPE.RAND.I] = [];
+PIPE_CONTAINER[PIPE_TYPE.RAND.X] = [];
+PIPE_CONTAINER[PIPE_TYPE.RAND.T] = [];
 
-PIPE.RESOURCE_MAPPER[PIPE.TYPE.L_TYPE] = res.Pipe_2way_curve;
-PIPE.RESOURCE_MAPPER[PIPE.TYPE.I_TYPE] = res.Pipe_2way_line;
-PIPE.RESOURCE_MAPPER[PIPE.TYPE.X_TYPE] = res.Pipe_4way;
-PIPE.RESOURCE_MAPPER[PIPE.TYPE.T_TYPE] = res.Pipe_3way;
+var PIPE = {};
+PIPE.RESOURCE_MAPPER = {};
+PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.L] = res.Pipe_2way_curve;
+PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.I] = res.Pipe_2way_line;
+PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.X] = res.Pipe_4way;
+PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.T] = res.Pipe_3way;
 
 var Pipe = Block.extend({
 	ctor:function (initialPipeType) {
@@ -73,7 +44,7 @@ var Pipe = Block.extend({
 		this.y = position.y;
 	},
 	_coordinateToPosition: function(row, column) {
-		return cc.p(column*PIPE.SIZE.WIDTH + PIPE.SIZE.WIDTH/2 , row*PIPE.SIZE.HEIGHT + PIPE.SIZE.HEIGHT/2);
+		return cc.p(column*BLOCK.SIZE.WIDTH + BLOCK.SIZE.WIDTH/2 , row*BLOCK.SIZE.HEIGHT + BLOCK.SIZE.HEIGHT/2);
 	},
 	update:function (dt) {
 		// Keys are only enabled on the browser
@@ -132,15 +103,15 @@ var Pipe = Block.extend({
 	},
 	
 	isOpened : function(dir) {
-		var pipetype = PIPE_TYPE[this.pipeType];
-		return pipetype[(360+dir-this.rotation) % 360]
+		var pipeInfo = PIPE_TYPE.INFO[this.pipeType];
+		return pipeInfo[(360+dir-this.rotation) % 360]
 	}
 });
 
 
 Pipe.prototype.pipeTouchHandler = {
 	"onTouchBegan": function (touch, event) { 
-		var target = event.getCurrentTarget();  
+		var target = event.getCurrentTarget();
 		var locationInNode = target.convertToNodeSpace(touch.getLocation());    
 		var s = target.getContentSize();
 		var rect = cc.rect(0, 0, s.width, s.height);
