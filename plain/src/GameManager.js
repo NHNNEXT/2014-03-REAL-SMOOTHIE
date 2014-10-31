@@ -33,7 +33,7 @@ var GameManger = cc.Class.extend({
 	},
 	colorRoute : function() {
 		for(var i in this.pipes) {
-			if(this.pipes[i].visitFlag && this.pipes[i].type != 1) {
+			if(this.pipes[i].visitFlag && this.pipes[i].type != BLOCK.TYPE.FRIEND) {
 				this.pipes[i].setColor(cc.color(0, 0, 255));
 			}
 		};
@@ -47,10 +47,10 @@ var GameManger = cc.Class.extend({
 	
 
 	_getRoutes: function() {
-		for (var i = 0; i < SMTH.STATUS.CURRENT_LEVEL.row; i++) {
+		for (var i = 0; i < this._level.row; i++) {
 			var row = this._level.MAP[i];
 			for (var j = 0; j < this._level.col ; j++) {
-				if (row[j] == BLOCK_TYPE.FRIEND) {
+				if (row[j] == BLOCK.TYPE.FRIEND) {
 					var route = new Route(this._getPipe(j, i));
 					this.routes.push(route);
 				} 
@@ -60,7 +60,7 @@ var GameManger = cc.Class.extend({
 	
 	checkRoute : function() {
 		for(var i=0 ; i < this._level.col ; i++) {
-			if(this.pipes[i].type==1) {
+			if(this.pipes[i].type==BLOCK.TYPE.FRIEND) {
 				this.checkRouteFrom(this.pipes[i]);
 			}
 		}

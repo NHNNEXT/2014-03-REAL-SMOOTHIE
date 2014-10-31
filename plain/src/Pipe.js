@@ -161,4 +161,6 @@ Pipe.getOrCreate = function(type) {
 	return pipe;
 }
 
-
+Pipe.isPipe = function(type) {
+	return type < 5000;
+}

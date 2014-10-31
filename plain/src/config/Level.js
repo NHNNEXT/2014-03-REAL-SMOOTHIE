@@ -1,9 +1,9 @@
 (function() {
-	var P = BLOCK_TYPE.PIPE.RAND.P;
-	var IU = BLOCK_TYPE.PIPE.I.U;
-	var IR = BLOCK_TYPE.PIPE.I.R;
-	var F = BLOCK_TYPE.FRIEND;
-	var E = BLOCK_TYPE.ENEMY;
+	var P = BLOCK.TYPE.PIPE.RAND.P;
+	var IU = BLOCK.TYPE.PIPE.I.U;
+	var IR = BLOCK.TYPE.PIPE.I.R;
+	var F = BLOCK.TYPE.FRIEND;
+	var E = BLOCK.TYPE.ENEMY;
 	
 	var LEVEL = {
 		"TUTORIAL0": {

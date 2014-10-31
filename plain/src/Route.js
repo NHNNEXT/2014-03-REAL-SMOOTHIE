@@ -26,7 +26,7 @@ var Route = cc.Class.extend({
 	countEnemy: function() {
 		for (var i = this.pipes.length - 1;  i >= 0; i--) {
 			var pipe = this.pipes[i];
-			if (pipe.type == BLOCK_TYPE.ENEMY) {
+			if (pipe.type == BLOCK.TYPE.ENEMY) {
 				this.numberOfEnemies += 1;
 			}
 		}
@@ -35,7 +35,7 @@ var Route = cc.Class.extend({
 	colorRed: function() {
 		for (var i in this.pipes) {
 			var pipe = this.pipes[i];
-			if (pipe.type != BLOCK_TYPE.FRIEND) {
+			if (pipe.type != BLOCK.TYPE.FRIEND) {
 				pipe.setColor(cc.color(255, 0, 0));
 			}
 		}

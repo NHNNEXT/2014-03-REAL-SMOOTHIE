@@ -30,7 +30,7 @@ var BoardLayer = cc.Layer.extend ({
 	
 	
 	_createBlock : function(type, r, c) {
-		if(type === BLOCK_TYPE.PIPE) {
+		if(Pipe.isPipe(type)) {
 			var type = Math.floor(Math.random() * 4);
 			var rotate = Math.floor(Math.random() * 4) * 90;
 			var pipe = Pipe.getOrCreate(type);
@@ -38,7 +38,7 @@ var BoardLayer = cc.Layer.extend ({
 			pipe.setPosition(rotate, r, c);
 			return pipe;
 		} 
-		if(type === BLOCK_TYPE.FRIEND) {
+		if(type === BLOCK.TYPE.FRIEND) {
 			var friend = new Friend(0)
 			SMTH.CONTAINER.PIPES.push(friend);
 			var pos = friend._coordinateToPosition(r, c);
@@ -46,7 +46,7 @@ var BoardLayer = cc.Layer.extend ({
 			friend.y = pos.y;
 			return friend;
 		}
-		if(type === BLOCK_TYPE.ENEMY) {
+		if(type === BLOCK.TYPE.ENEMY) {
 			var enemy = new Enemy(0)
 			SMTH.CONTAINER.PIPES.push(enemy);
 			var pos = enemy._coordinateToPosition(r, c);

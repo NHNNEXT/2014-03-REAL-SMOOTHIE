@@ -1,4 +1,3 @@
-
 var PIPE_TYPE = {
 		"RAND" : {
 			// P for All pipes
@@ -40,17 +39,11 @@ var PIPE_TYPE = {
 		}
 };
 
-var BLOCK_TYPE = {
-		"PIPE" : PIPE_TYPE,
-		"FRIEND" : 5000,
-		"ENEMY" : 6000
-};
-
 var BLOCK = {
 		"TYPE": {
-			PIPE: 0,
-			FRIEND: 1,
-			ENEMY : 2
+			"PIPE" : PIPE_TYPE,
+			"FRIEND" : 5000,
+			"ENEMY" : 6000
 		},
 		"ROTATION": {
 			UP: 0,
