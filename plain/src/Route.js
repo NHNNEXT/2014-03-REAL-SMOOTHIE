@@ -15,9 +15,9 @@ var Route = cc.Class.extend({
 	},
 	
 	searchRoute : function(block) {
-		if(this.blocks.indexOf(block) >= 0) return;
-		
+		if (this.blocks.indexOf(block) >= 0) return;
 		this.blocks.push(block);
+		if (block.isEnemy()) return;
 		
 		for(var p in block.connectedWith) {
 			this.searchRoute(block.connectedWith[p]);

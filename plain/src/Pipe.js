@@ -26,7 +26,7 @@ var Pipe = Block.extend({
 			delta: "",
 			swallowTouches: false,
 			onTouchBegan: this.pipeTouchHandler.onTouchBegan,
-			onTouchMoved: this.pipeTouchHandler.onTouchMoved,
+			onTouchMoved: this.pipeTouchHandler.onTouchMoved.bind(this),
 			onTouchEnded: this.pipeTouchHandler.onTouchEnded.bind(this),
 		});
 		cc.eventManager.addListener(pipeTouchListener.clone(), this);
