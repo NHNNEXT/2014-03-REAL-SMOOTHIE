@@ -53,7 +53,6 @@ var GameManger = cc.Class.extend({
 			var route = this.routes[i];
 			if (route.numberOfEnemies > 0) {
 				route.colorRed();
-				route.hurt();
 			}
 		}
 	},

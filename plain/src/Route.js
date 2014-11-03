@@ -43,12 +43,12 @@ var Route = cc.Class.extend({
 	},
 	
 	hurt: function() {
-		
 		for (var i in this.blocks) {
 			var block = this.blocks[i];
 			if (block.isPipe()) {
 				block.hurt();
 			} else if(block.isEnemy()) {
+				cc.log("tew?");
 				block.hurt();
 			}
 		}
