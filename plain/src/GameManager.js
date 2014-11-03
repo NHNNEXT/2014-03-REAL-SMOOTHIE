@@ -14,16 +14,25 @@ var GameManger = cc.Class.extend({
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 	},
 	updateRoute: function() {
+		// 보드 상의 모든 파이프의 연결 정보를 초기화 
 		this.initRoute();
-		
+		// 파이프 연결 상태 체크 
 		this.checkIsConnected();
+		// 연결 상태 정보로 라우트를 만들기 위한 정보 구축  
 		this.checkRoute();
+		// 라우트를 생성
 		this._getRoutes();
+		// 라우트를 식별하기 위한 채색작업 수행
 		this.colorRoute();
+		// 공격에 해당하는 라우트에 hurt 메시지를 보냄
+		this.killRoute();
 	},
 	initRoute: function() {
 		// visitFlag 초기화
 		for(var i in this.pipes) {
+			if(this.pipes[i].HP <= 0) {
+				continue;
+			}
 			this.pipes[i].visitFlag = false;
 			this.pipes[i].connectedWith = [];
 			this.pipes[i].setColor(cc.color(255, 255, 255));
@@ -34,6 +43,9 @@ var GameManger = cc.Class.extend({
 	colorRoute : function() {
 		for(var i in this.pipes) {
 			if(this.pipes[i].visitFlag && this.pipes[i].type != BLOCK.TYPE.FRIEND) {
+				if(this.pipes[i].HP <= 0) {
+					continue;
+				}
 				this.pipes[i].setColor(cc.color(0, 0, 255));
 			}
 		};
@@ -41,11 +53,18 @@ var GameManger = cc.Class.extend({
 			var route = this.routes[i];
 			if (route.numberOfEnemies > 0) {
 				route.colorRed();
+				route.hurt();
 			}
 		}
 	},
-	
-
+	killRoute : function() {
+		for (var i in this.routes) {
+			var route = this.routes[i];
+			if (route.numberOfEnemies > 0) {
+				route.hurt();
+			}
+		}
+	},
 	_getRoutes: function() {
 		for (var i = 0; i < this._level.row; i++) {
 			var row = this._level.MAP[i];
@@ -100,10 +119,12 @@ var GameManger = cc.Class.extend({
 	},
 	_checkVerticalConnection: function(upPipe, downPipe) {
 		if(upPipe.type > 0 && downPipe.type > 0) return false;
+		if(upPipe.HP <= 0 || downPipe.HP <= 0) return false;
 		return upPipe.isOpened(BLOCK.DIRECTION.DOWN) && downPipe.isOpened(BLOCK.DIRECTION.UP);
 	},
 	_checkHorizontalConnection: function(leftPipe, rightPipe) {
 		if(leftPipe.type > 0 && rightPipe.type > 0) return false;
+		if(leftPipe.HP <= 0 || rightPipe.HP <= 0) return false;
 		return leftPipe.isOpened(BLOCK.DIRECTION.RIGHT) && rightPipe.isOpened(BLOCK.DIRECTION.LEFT);
 	},
 		

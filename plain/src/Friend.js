@@ -5,9 +5,13 @@ var Friend = Block.extend({
 		this.init();
 	},
 	init: function() {
+		this.HP = 1;
 		this.type = BLOCK.TYPE.FRIEND;
 	},
 	isOpened : function(dir) {
+		return true;
+	},
+	isFriend : function() {
 		return true;
 	}
 });

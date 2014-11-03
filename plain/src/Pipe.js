@@ -20,6 +20,7 @@ var Pipe = Block.extend({
 	},
 	init: function() {
 		this.type = BLOCK.TYPE.PIPE;
+		this.HP = PIPE_TYPE.HP;
 		this.active = false;
 		
 		this.connectedWith = [];
@@ -30,7 +31,7 @@ var Pipe = Block.extend({
 			swallowTouches: false,
 			onTouchBegan: this.pipeTouchHandler.onTouchBegan,
 			onTouchMoved: this.pipeTouchHandler.onTouchMoved,
-			onTouchEnded: this.pipeTouchHandler.onTouchEnded,
+			onTouchEnded: this.pipeTouchHandler.onTouchEnded.bind(this),
 		});
 		cc.eventManager.addListener(pipeTouchListener.clone(), this);		
 	},
@@ -77,19 +78,6 @@ var Pipe = Block.extend({
 		}
 		*/
 	},
-	destroy:function () {
-		/*
-		MW.LIFE--;
-
-		var explosion = Explosion.getOrCreateExplosion();
-		explosion.x = this.x;
-		explosion.y = this.y;
-
-		if (MW.SOUND) {
-			cc.audioEngine.playEffect(res.shipDestroyEffect_mp3);
-		}
-		*/
-	},
 	rotateRight: function () {
 		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation + 90), cc.callFunc(function(){
 			SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_IDEAL;
@@ -105,6 +93,10 @@ var Pipe = Block.extend({
 	isOpened : function(dir) {
 		var pipeInfo = PIPE_TYPE.INFO[this.pipeType];
 		return pipeInfo[(360+dir-this.rotation) % 360]
+	}, 
+	
+	isPipe : function() {
+		return true;
 	}
 });
 
@@ -131,18 +123,26 @@ Pipe.prototype.pipeTouchHandler = {
 		var target = event.getCurrentTarget();
 		cc.log("sprite onTouchesEnded.. ");
 		target.setOpacity(255);
-		SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_ROTATING;
-		if ((this.delta === undefined || this.delta.x >= 0) && target.rotation%90==0) {
-			target.rotateRight();
-		} else if ((this.delta === undefined || this.delta.x < 0) && target.rotation%90==0)  {
-			target.rotateLeft();
+		if(this.HP <= 0 && this.isRotten === false) {
+			return;
+		} else {
+			SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_ROTATING;
+			if ((this.delta === undefined || this.delta.x >= 0) && target.rotation%90==0) {
+				target.rotateRight();
+			} else if ((this.delta === undefined || this.delta.x < 0) && target.rotation%90==0)  {
+				target.rotateLeft();
+			}
 		}
+		
 	}
 };
 
 Pipe._create = function(type) {
 	var pipe = new Pipe(type);
 	pipe.active = true;
+	pipe.visible = true;
+	pipe.HP = 1;
+	pipe.isRotten = false;
 	PIPE_CONTAINER[type].push(pipe);
 	
 	return pipe;
@@ -154,6 +154,10 @@ Pipe.getOrCreate = function(type) {
 		var pipe = pipeList[i];
 		if (pipe.active == false) {
 			pipe.active = true;
+			pipe.visible = true;
+			pipe.HP = 1;
+			pipe.isRotten = false;
+			pipe.scale = 1;
 			return pipe;
 		}
 	}
@@ -161,6 +165,24 @@ Pipe.getOrCreate = function(type) {
 	return pipe;
 }
 
-Pipe.isPipe = function(type) {
-	return type < 5000;
-}
+Pipe.getPipe = function(type) {
+	// ALL RANDOM then choose pipe type
+	if (type == 0) {
+		type = 1000 + Math.floor(Math.random() * 4) * 1000;
+	}
+	// Random Rotate
+	if (type % 1000 == 0) {
+		var angle = 90 + Math.floor(Math.random() * 4) * 90;
+		type += angle;
+	}
+	// PIPE
+	var pipeShape = type - type % 1000;
+	var pipe = Pipe.getOrCreate(pipeShape);
+	var angle = type % 1000;
+	pipe.rotation = angle;
+	
+	return pipe;
+};
+//Pipe.isPipe = function(type) {
+//	return type < 5000;
+//}

@@ -36,7 +36,8 @@ var PIPE_TYPE = {
 			2000: {0:true, 90:false, 180:true, 270:false},
 			3000: {0:true, 90:true, 180:true, 270:true},
 			4000: {0:false, 90:true, 180:true, 270:true}
-		}
+		},
+		"HP" : 1
 };
 
 var BLOCK = {
