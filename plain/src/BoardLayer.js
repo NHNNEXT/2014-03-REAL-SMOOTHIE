@@ -9,7 +9,7 @@ var BoardLayer = cc.Layer.extend ({
 	
 	init: function() {
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
-		SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_IDEAL;
+		SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
 		
 		//SMTH.CONTAINER안에 pipe를 초기화
 		SMTH.CONTAINER.PIPES =[];
@@ -17,13 +17,17 @@ var BoardLayer = cc.Layer.extend ({
 			PIPE_CONTAINER[key] = [];
 		}
 		
-		this._createMap(this._level.row, this._level.col);
-		this.setPosition((cc.director.getWinSize().width - this._level.col * BLOCK.SIZE.WIDTH)/2, (cc.director.getWinSize().height - this._level.row * BLOCK.SIZE.HEIGHT)/2);
+		var row = this._level.row;
+		var col = this._level.col;
+		var winSize = cc.director.getWinSize()
+		
+		this._createMap(row, col);
+		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
 		this._gameManager = new GameManger();
 		this.scheduleUpdate();
 	},
 	update: function(dt) {
-		if(SMTH.CONTAINER.PLAY_STATE === SMTH.PLAY_STATE.PLAY_STATE_IDEAL) {
+		if(SMTH.STATUS.PLAY_STATE === SMTH.CONST.PLAY_STATE.IDEAL) {
 			this._gameManager.updateRoute();
 			this._corpseCollector();
 			this._fillBoard();
@@ -34,10 +38,11 @@ var BoardLayer = cc.Layer.extend ({
 	_createBlock : function(type, r, c) {
 		if(Pipe.isPipe(type)) {
 			var type = Math.floor(Math.random() * 4);
-			var rotate = Math.floor(Math.random() * 4) * 90;
+			var angle = Math.floor(Math.random() * 4) * 90;
 			var pipe = Pipe.getOrCreate(type);
+			pipe.rotation = angle;
 			SMTH.CONTAINER.PIPES.push(pipe);
-			pipe.setPosition(rotate, r, c);
+			pipe.setPositionByRowCol(r, c);
 			return pipe;
 		} 
 		if(type === BLOCK.TYPE.FRIEND) {
@@ -100,7 +105,7 @@ var BoardLayer = cc.Layer.extend ({
 				var block = SMTH.CONTAINER.PIPES[r*col+c];
 				if(block === null) {
 					var randomNewPipe = Pipe.getPipe(BLOCK.TYPE.PIPE.RAND.P);
-					randomNewPipe.setPosition(randomNewPipe.rotation, r, c);
+					randomNewPipe.setPositionByRowCol(r, c);
 					SMTH.CONTAINER.PIPES[r*col+c] = randomNewPipe;
 					this.addChild(randomNewPipe);
 					// block 객체가 정말 사라진건지 확인 필요 
