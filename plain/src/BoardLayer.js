@@ -1,3 +1,4 @@
+
 var BoardLayer = cc.Layer.extend ({
 	_gameManager : null,
 	_level: null,
@@ -6,21 +7,21 @@ var BoardLayer = cc.Layer.extend ({
 		this._super();
 		this.init();
 	},
-	
+
 	init: function() {
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
-		
+
 		//SMTH.CONTAINER안에 pipe를 초기화
 		SMTH.CONTAINER.PIPES =[];
 		for(var key in PIPE_CONTAINER){
 			PIPE_CONTAINER[key] = [];
 		}
-		
+
 		var row = this._level.row;
 		var col = this._level.col;
 		var winSize = cc.director.getWinSize()
-		
+
 		this._createMap(row, col);
 		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
 		this._gameManager = new GameManger();
@@ -35,32 +36,28 @@ var BoardLayer = cc.Layer.extend ({
 	},
 	
 	_checkIsGameCleared :function () {
-		//TODO: 게임 종료 규칙을 외부에서 가져다 쓸수 있도록 추후변경 필
-		//적이 있는지 확인 적이 없으면 게임 클리어
-		
-		
-//		var locShip = this._ship;
-//		if (MW.LIFE > 0 && !locShip.active) {
-//			locShip.born();
-//		} else if (MW.LIFE <= 0 && !locShip.active) {
-//			this._state = STATE_GAMEOVER;
-//			// XXX: needed for JS bindings.
-//			this._ship = null;
-//			this.runAction(cc.sequence(
-//					cc.delayTime(0.2),
-//					cc.callFunc(this.onGameOver, this)
-//			));
-//		}
+		var locShip = this._ship;
+		if (MW.LIFE > 0 && !locShip.active) {
+			locShip.born();
+		} else if (MW.LIFE <= 0 && !locShip.active) {
+			this._state = STATE_GAMEOVER;
+			// XXX: needed for JS bindings.
+			this._ship = null;
+			this.runAction(cc.sequence(
+					cc.delayTime(0.2),
+					cc.callFunc(this.onGameOver, this)
+			));
+		}
 	},
-	
 	_onGameClear:function () {
-//		cc.audioEngine.stopMusic();
-//		cc.audioEngine.stopAllEffects();
-//		var scene = new cc.Scene();
-//		scene.addChild(new GameOver());
-//		cc.director.runScene(new cc.TransitionFade(1.2, scene));
+		cc.audioEngine.stopMusic();
+		cc.audioEngine.stopAllEffects();
+		var scene = new cc.Scene();
+		scene.addChild(new GameOver());
+		cc.director.runScene(new cc.TransitionFade(1.2, scene));
 	},
-	
+
+
 	_createBlock : function(type, r, c) {
 		if(Pipe.isPipe(type)) {
 			var type = Math.floor(Math.random() * 4);
@@ -89,14 +86,14 @@ var BoardLayer = cc.Layer.extend ({
 		}
 	},
 //	_createMap : function(row, col) { 
-//		//캐릭터(아군,적) 배치 -> 장애물 -> 파이프
-//		var map = this._level.MAP;
-//		for (var r = 0; r < row; r++) {
-//			for (var c = 0; c < col; c++) {
-//				var block = this._createBlock(map[r][c], r, c);
-//				this.addChild(block);
-//			}
-//		}
+//	//캐릭터(아군,적) 배치 -> 장애물 -> 파이프
+//	var map = this._level.MAP;
+//	for (var r = 0; r < row; r++) {
+//	for (var c = 0; c < col; c++) {
+//	var block = this._createBlock(map[r][c], r, c);
+//	this.addChild(block);
+//	}
+//	}
 //	},
 	_createMap : function(row, col) { 
 		var map = this._level.MAP;
@@ -140,4 +137,3 @@ var BoardLayer = cc.Layer.extend ({
 		}		
 	}	
 });
-
