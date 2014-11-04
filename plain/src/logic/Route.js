@@ -1,6 +1,7 @@
 var Route = cc.Class.extend({
 	blocks : null,
 	friend : null,
+	destroied: 0,
 	numberOfEnemies: 0,
 	attackFlag: false,
 	ctor:function (friend) {
@@ -43,25 +44,18 @@ var Route = cc.Class.extend({
 		}
 	},
 	
-	colorRed: function() {
-		for (var i in this.blocks) {
-			var block = this.blocks[i];
-			if (block.type != BLOCK.TYPE.FRIEND) {
-				block.setColor(cc.color(255, 0, 0));
-			}
-		}
-	},
-	
 	hurt: function() {
 		for (var i in this.blocks) {
 			var block = this.blocks[i];
-			if (block.isPipe()) {
-				block.hurt();
-			} else if(block.isEnemy()) {
-				cc.log("tew?");
-				block.hurt();
-			}
+			block.hurt();
 		}
+//		SMTH.MANAGER.addCustomListener("pipePung", function() {
+//			this.destroied++;
+//			if (this.destroied == this.blocks.length) {
+//				SMTH.MANAGER.dispatchCustomEvent("routePung");
+//				SMTH.MANAGER.removeCustomListeners("pipePung")
+//			}
+//		}.bind(this))
 		
 	}
 

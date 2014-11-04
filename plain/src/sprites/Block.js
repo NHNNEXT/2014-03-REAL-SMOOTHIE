@@ -19,27 +19,22 @@ var Block = cc.Sprite.extend({
 	},
 	hurt: function() { // 파이프와 적이 파괴되는 경우를 생각해서 만든거임
 		this.HP--;
-		if(this.HP <= 0) {
-			this.destroy();
-		}
-	},
-	destroy: function () {
-//		if (this.fading == true) {
-//			return;
+//		if(this.HP <= 0) {
+//			this.destroy();
 //		}
-//		this.fading = true;
-
-		this.runAction(cc.sequence(cc.callFunc(function(){
-				cc.log("시작!");
-			}),
+	},
+	destroy: function (callback) {
+		this.runAction(cc.sequence(
 			// 왜지? 왜 집에서 다시 하니까 fadeOut이 잘 되지?
 			cc.fadeOut(1), 
 			cc.callFunc(function(){
-				cc.log("끝!!");
 				this.active = false;
 				this.isRotten = true;
 				this.visible = false;
-				this.retain();
+				if (this.isPipe()) {
+					this.retain();
+				}
+				if (callback != null || callback != undefined) callback();
 			}.bind(this))
 		));
 	},

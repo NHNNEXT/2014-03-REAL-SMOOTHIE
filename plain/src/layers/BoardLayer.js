@@ -1,10 +1,11 @@
 
 var BoardLayer = cc.Layer.extend ({
-	_gameManager : null,
+	_routeController : null,
 	_level: null,
 
 	ctor:function () {
 		this._super();
+		this.tag = 3;
 		this.init();
 	},
 
@@ -24,12 +25,16 @@ var BoardLayer = cc.Layer.extend ({
 
 		this._createMap(row, col);
 		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
-		this._gameManager = new GameManger();
-		this.scheduleUpdate();
+		this._routeController = new RouteController();
+//		this.scheduleUpdate();
+		SMTH.EVENT_MANAGER.addCustomListener("rotateEnd", function(e) {
+			this.update();
+		}.bind(this));
 	},
 	update: function(dt) {
+		cc.log("update!");
 		if(SMTH.STATUS.PLAY_STATE === SMTH.CONST.PLAY_STATE.IDEAL) {
-			this._gameManager.updateRoute();
+			this._routeController.updateRoute();
 			this._corpseCollector();
 			this._fillBoard();
 			this._checkIsGameCleared();
@@ -78,47 +83,10 @@ var BoardLayer = cc.Layer.extend ({
 		this.parent.addChild(new GameClearLayer());
 	},
 
-
-	_createBlock : function(type, r, c) {
-		if(Pipe.isPipe(type)) {
-			var type = Math.floor(Math.random() * 4);
-			var angle = Math.floor(Math.random() * 4) * 90;
-			var pipe = Pipe.getOrCreate(type);
-			pipe.rotation = angle;
-			SMTH.CONTAINER.PIPES.push(pipe);
-			pipe.setPositionByRowCol(r, c);
-			return pipe;
-		} 
-		if(type === BLOCK.TYPE.FRIEND) {
-			var friend = new Friend(0)
-			SMTH.CONTAINER.PIPES.push(friend);
-			var pos = friend._coordinateToPosition(r, c);
-			friend.x = pos.x;
-			friend.y = pos.y;
-			return friend;
-		}
-		if(type === BLOCK.TYPE.ENEMY) {
-			var enemy = new Enemy(0)
-			SMTH.CONTAINER.PIPES.push(enemy);
-			var pos = enemy._coordinateToPosition(r, c);
-			enemy.x = pos.x;
-			enemy.y = pos.y;
-			return enemy;
-		}
-	},
-//	_createMap : function(row, col) { 
-//	//캐릭터(아군,적) 배치 -> 장애물 -> 파이프
-//	var map = this._level.MAP;
-//	for (var r = 0; r < row; r++) {
-//	for (var c = 0; c < col; c++) {
-//	var block = this._createBlock(map[r][c], r, c);
-//	this.addChild(block);
-//	}
-//	}
-//	},
 	_createMap : function(row, col) { 
 		var map = this._level.MAP;
 		var levelLoader = new LevelLoader(this._level);
+		// levelLoader가 SMTH.CONTAINER에 파이프 등록하면 해당 내용 사용
 		for (var r = 0; r < row; r++) {
 			for (var c = 0; c < col; c++) {
 				var block = SMTH.CONTAINER.PIPES[r*col+c]; // 좌표에 레퍼런스 할당.
@@ -133,7 +101,6 @@ var BoardLayer = cc.Layer.extend ({
 			for (var c = 0; c < col; c++) {
 				var block = SMTH.CONTAINER.PIPES[r*col+c];
 				if(block.HP <= 0 && block.isRotten) {
-					cc.log("r:" + r + ", c: " + c);
 					SMTH.CONTAINER.PIPES[r*col+c] = null;
 					this.removeChild(block);
 					// block 객체가 정말 사라진건지 확인 필요 

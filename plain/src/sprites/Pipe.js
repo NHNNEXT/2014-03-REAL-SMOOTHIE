@@ -21,15 +21,15 @@ var Pipe = Block.extend({
 	init: function() {
 		this.type = BLOCK.TYPE.PIPE;
 		this.active = false;
+		this.delta = cc.p(0,0);
 		var pipeTouchListener = cc.EventListener.create({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
-			delta: "",
 			swallowTouches: false,
 			onTouchBegan: this.pipeTouchHandler.onTouchBegan,
 			onTouchMoved: this.pipeTouchHandler.onTouchMoved.bind(this),
 			onTouchEnded: this.pipeTouchHandler.onTouchEnded.bind(this),
 		});
-		cc.eventManager.addListener(pipeTouchListener.clone(), this);
+		SMTH.EVENT_MANAGER.addListener(pipeTouchListener.clone(), this);
 		
 		this.reset();
 	},
@@ -59,12 +59,14 @@ var Pipe = Block.extend({
 	rotateRight: function () {
 		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation + 90), cc.callFunc(function(){
 			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
+			SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("rotateEnd"));
 		}) ));
 		
 	},
 	rotateLeft: function () {
 		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation - 90), cc.callFunc(function(){
 			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
+			SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("rotateEnd"));
 		}) ));
 	},
 	
@@ -96,6 +98,7 @@ Pipe.prototype.pipeTouchHandler = {
 	"onTouchMoved": function (touch, event) {         
 		var target = event.getCurrentTarget();
 		this.delta = touch.getDelta();
+		cc.log(touch.getDelta());
 	},
 	"onTouchEnded": function (touch, event) {         
 		var target = event.getCurrentTarget();
@@ -103,13 +106,14 @@ Pipe.prototype.pipeTouchHandler = {
 		target.setOpacity(255);
 		if(this.HP <= 0 && this.isRotten === false) {
 			return;
+		} else if (target.rotation % 90 != 0) {
+			return;
 		} else {
 			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.ROTATING;
-			if ((this.delta === undefined || this.delta.x >= 0) && target.rotation%90==0) {
-				SMTH.CONTAINER.TURN++;
+			SMTH.CONTAINER.TURN++;
+			if (this.delta.x >= 0){
 				target.rotateRight();
-			} else if ((this.delta === undefined || this.delta.x < 0) && target.rotation%90==0)  {
-				SMTH.CONTAINER.TURN++;
+			} else if (this.delta.x < 0)  {
 				target.rotateLeft();
 			}
 		}

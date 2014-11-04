@@ -1,5 +1,5 @@
 
-var GameManger = cc.Class.extend({
+var RouteController = cc.Class.extend({
 	pipes : null,
 	routes: null,
 	_level: null,
@@ -25,6 +25,9 @@ var GameManger = cc.Class.extend({
 		this.colorRoute();
 		// 공격에 해당하는 라우트에 hurt 메시지를 보냄
 		this.killRoute();
+		// hurt된 파이프에 효과를 적용
+		this.effectManager.doSomething(this.routes);
+		
 	},
 	initRoute: function() {
 		// visitFlag 초기화
