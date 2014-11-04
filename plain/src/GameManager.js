@@ -10,6 +10,7 @@ var GameManger = cc.Class.extend({
 
 	init:function () {
 		this.pipes = SMTH.CONTAINER.PIPES;
+		SMTH.CONTAINER.TURN = 0;
 		this.routes = [];
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 	},

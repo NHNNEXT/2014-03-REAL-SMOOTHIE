@@ -13,8 +13,8 @@
 			         [IR,IR,IR,IR],
 			         [IU,IU,IU,IU],
 			         [F,F,F,F]
-			         ].reverse()
-	
+			         ].reverse(),
+			"MAXTURN" : 5
 		},
 		"LEVEL0": {
 			"MAP" : [
@@ -24,7 +24,8 @@
 			       [P,P,P,P],
 			       [P,P,P,P],
 			       [F,F,F,F]
-			       ].reverse()
+			       ].reverse(),
+			"MAXTURN" : 30
 		}
 	}
 	

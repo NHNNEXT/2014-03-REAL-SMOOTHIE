@@ -32,29 +32,51 @@ var BoardLayer = cc.Layer.extend ({
 			this._gameManager.updateRoute();
 			this._corpseCollector();
 			this._fillBoard();
+			this._checkIsGameCleared();
+			this._checkIsGameOver();
+			cc.log(SMTH.CONTAINER.TURN);
 		}
 	},
-	
-	_checkIsGameCleared :function () {
-		var locShip = this._ship;
-		if (MW.LIFE > 0 && !locShip.active) {
-			locShip.born();
-		} else if (MW.LIFE <= 0 && !locShip.active) {
-			this._state = STATE_GAMEOVER;
-			// XXX: needed for JS bindings.
-			this._ship = null;
+	_checkIsGameOver :function () {
+		//TODO: 종료조건에 따라서 수정될수 있도록 구현(by config)
+		// 턴이 다되면 게임 종
+		if(SMTH.CONTAINER.TURN >= this._level.MAXTURN) {
+			this.unscheduleUpdate();
 			this.runAction(cc.sequence(
 					cc.delayTime(0.2),
-					cc.callFunc(this.onGameOver, this)
+					cc.callFunc(this._onGameOver, this)
 			));
 		}
+
+	},
+	_onGameOver:function () {
+		cc.log("game over");
+		this.parent.addChild(new GameOverLayer());
+	},
+
+	
+	_checkIsGameCleared :function () {
+		//TODO: 종료조건에 따라서 수정될수 있도록 구현(by config)
+		// 적이 없으면 클리어되는 조건으로 구현
+		
+		var count = 0;
+		for(var i=0; i<SMTH.CONTAINER.PIPES.length ; i++){
+			if(BLOCK.TYPE.ENEMY === SMTH.CONTAINER.PIPES[i].type) {
+				count++;
+			}
+		}
+		if(count === 0) {
+			this.unscheduleUpdate();
+			this.runAction(cc.sequence(
+					cc.delayTime(0.2),
+					cc.callFunc(this._onGameClear, this)
+					));
+		}
+
 	},
 	_onGameClear:function () {
-		cc.audioEngine.stopMusic();
-		cc.audioEngine.stopAllEffects();
-		var scene = new cc.Scene();
-		scene.addChild(new GameOver());
-		cc.director.runScene(new cc.TransitionFade(1.2, scene));
+		cc.log("game clear");
+		this.parent.addChild(new GameClearLayer());
 	},
 
 

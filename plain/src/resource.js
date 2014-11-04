@@ -9,7 +9,9 @@ var res = {
 		Pipe_3way : "res/type-3way.png",
 		Pipe_4way : "res/type-4way.png",
 		sally : "res/sally.png",
-		cony : "res/cony.png"
+		cony : "res/cony.png",
+		button_n: "res/animationbuttonnormal.png",
+		button_p: "res/animationbuttonpressed.png"
 };
 
 var g_resources = [];

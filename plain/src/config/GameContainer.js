@@ -2,6 +2,7 @@ var SMTH = SMTH || {};
 
 SMTH.CONTAINER = {
 	PIPES: [],
+	TURN: null
 };
 
 SMTH.STATUS = {
