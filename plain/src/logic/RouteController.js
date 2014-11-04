@@ -1,6 +1,6 @@
 
 var RouteController = cc.Class.extend({
-	pipes : null,
+	blocks : null,
 	routes: null,
 	_level: null,
 	ctor:function () {
@@ -9,63 +9,39 @@ var RouteController = cc.Class.extend({
 	},
 
 	init:function () {
-		this.pipes = SMTH.CONTAINER.PIPES;
+		this.blocks = SMTH.CONTAINER.PIPES;
 		SMTH.CONTAINER.TURN = 0;
 		this.routes = [];
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 	},
 	updateRoute: function() {
+		// 파이프 맵 정보를 새로 받아옴
+		this.blocks = SMTH.CONTAINER.PIPES;
 		// 보드 상의 모든 파이프의 연결 정보를 초기화 
 		this.initRoute();
 		// 파이프의 ConnectedWith 정보 추가
-		this.checkIsConnected();
+		this.checkIsConnected();		
 		// 라우트를 생성
 		this.makeRoutes();
 		// 라우트를 식별하기 위한 채색작업 수행
-		this.colorRoute();
+		SMTH.EFFECT_MANAGER.colorRoute(this.routes);
 		// 공격에 해당하는 라우트에 hurt 메시지를 보냄
-		this.killRoute();
-		// hurt된 파이프에 효과를 적용
-		this.effectManager.doSomething(this.routes);
-		
+		this.hurtRoute();
 	},
+	
 	initRoute: function() {
-		// visitFlag 초기화
-		for(var i in this.pipes) {
-			if(this.pipes[i].HP <= 0) {
+		this.blocks = SMTH.CONTAINER.PIPES;
+		for(var i in this.blocks) {
+			var block = this.blocks[i];
+			if(block.HP <= 0) {
 				continue;
 			}
-			this.pipes[i].visitFlag = false;
-			this.pipes[i].connectedWith = [];
-			this.pipes[i].setColor(cc.color(255, 255, 255));
+			block.connectedWith = [];
+			block.setColor(cc.color(255, 255, 255));
 		}
 		this.routes = [];
+		this.checkedFriends = [];
 		
-	},
-	colorRoute : function() {
-		for (var i in this.routes) {
-			var route = this.routes[i];
-			route.colorPipes();
-		}
-	},
-	killRoute : function() {
-		for (var i in this.routes) {
-			var route = this.routes[i];
-			if (route.numberOfEnemies > 0) {
-				route.hurt();
-			}
-		}
-	},
-	makeRoutes: function() {
-		for (var i = 0; i < this._level.row; i++) {
-			var row = this._level.MAP[i];
-			for (var j = 0; j < this._level.col ; j++) {
-				if (row[j] == BLOCK.TYPE.FRIEND) {
-					var route = new Route(this._getPipe(j, i));
-					this.routes.push(route);
-				}
-			}
-		}
 	},
 	
 	checkIsConnected : function() {
@@ -103,6 +79,31 @@ var RouteController = cc.Class.extend({
 		
 	_getPipe: function(col, row) {
 		return SMTH.CONTAINER.PIPES[row*this._level.col+col];
-	}
+	},
+	
 
+	makeRoutes: function() {
+		var checkedFriends = [];
+		for (var i = 0; i < this._level.row; i++) {
+			var row = this._level.MAP[i];
+			for (var j = 0; j < this._level.col ; j++) {
+				var block = this._getPipe(j, i);
+				if (block.type == BLOCK.TYPE.FRIEND && checkedFriends.indexOf(block) < 0) {
+					var route = new Route(block);
+					cc.log("route length: " + route.blocks.length);
+					checkedFriends.concat(route.friends);
+					this.routes.push(route);
+				}
+			}
+		}
+	},
+	
+	hurtRoute : function() {
+		for (var i in this.routes) {
+			var route = this.routes[i];
+			if (route.numberOfEnemies > 0) {
+				route.hurt();
+			}
+		}
+	}
 });

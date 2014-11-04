@@ -9,13 +9,16 @@ var HelloWorldScene = cc.Scene.extend({
 		} else {
 			SMTH.STATUS.CURRENT_LEVEL = SMTH.LEVEL.TUTORIAL0;
 		}
+		SMTH.EFFECT_MANAGER = new EffectManager();
+		SMTH.EVENT_MANAGER = new EventManager();
+
 		this.addChild(new BackgroundLayer());
 		this.addChild(new BoardLayer());
 		this.addChild(new StatusLayer());
 		
 		var currentScene = cc.director.getRunningScene();
 		var boardLayer = currentScene.getChildByTag(3);
-		boardLayer.update();
+		
 		
 //		Ajax.getInstance().POST({
 //			url: "http://httpbin.org/post",

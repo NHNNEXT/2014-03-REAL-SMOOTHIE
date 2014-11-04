@@ -37,16 +37,11 @@ var Pipe = Block.extend({
 		this.HP = PIPE_TYPE.HP;
 		this.active = true;
 		this.visible = true;
+		this.opacity = 255;
 		this.isRotten = false;
 		this.scale = 1;
 		this.connectedWith = [];
-	},
-	setPositionByRowCol: function(row, column) {
-		this.row = row;
-		this.column = column;
-
-		var position = this._coordinateToPosition(this.row, this.column);
-		this.setPosition(position);
+		this.setColor(cc.color(255,255,255));
 	},
 	update:function (dt) {
 		/*
@@ -123,7 +118,6 @@ Pipe.prototype.pipeTouchHandler = {
 
 Pipe._create = function(type) {
 	var pipe = new Pipe(type);
-	pipe.reset();
 	PIPE_CONTAINER[type].push(pipe);
 	return pipe;
 };
