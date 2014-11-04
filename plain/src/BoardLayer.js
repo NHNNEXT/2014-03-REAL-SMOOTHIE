@@ -34,7 +34,6 @@ var BoardLayer = cc.Layer.extend ({
 			this._fillBoard();
 			this._checkIsGameCleared();
 			this._checkIsGameOver();
-			cc.log(SMTH.CONTAINER.TURN);
 		}
 	},
 	_checkIsGameOver :function () {
