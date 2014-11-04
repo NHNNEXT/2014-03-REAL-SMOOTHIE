@@ -30,6 +30,32 @@ var BoardLayer = cc.Layer.extend ({
 		}
 	},
 	
+	_checkIsGameCleared :function () {
+		//TODO: 게임 종료 규칙을 외부에서 가져다 쓸수 있도록 추후변경 필
+		//적이 있는지 확인 적이 없으면 게임 클리어
+		
+		
+//		var locShip = this._ship;
+//		if (MW.LIFE > 0 && !locShip.active) {
+//			locShip.born();
+//		} else if (MW.LIFE <= 0 && !locShip.active) {
+//			this._state = STATE_GAMEOVER;
+//			// XXX: needed for JS bindings.
+//			this._ship = null;
+//			this.runAction(cc.sequence(
+//					cc.delayTime(0.2),
+//					cc.callFunc(this.onGameOver, this)
+//			));
+//		}
+	},
+	
+	_onGameClear:function () {
+//		cc.audioEngine.stopMusic();
+//		cc.audioEngine.stopAllEffects();
+//		var scene = new cc.Scene();
+//		scene.addChild(new GameOver());
+//		cc.director.runScene(new cc.TransitionFade(1.2, scene));
+	},
 	
 	_createBlock : function(type, r, c) {
 		if(Pipe.isPipe(type)) {
