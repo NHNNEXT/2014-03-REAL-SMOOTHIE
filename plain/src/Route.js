@@ -15,9 +15,9 @@ var Route = cc.Class.extend({
 	},
 	
 	searchRoute : function(block) {
-		if(this.blocks.indexOf(block) >= 0) return;
-		
+		if (this.blocks.indexOf(block) >= 0) return;
 		this.blocks.push(block);
+		if (block.isEnemy()) return;
 		
 		for(var p in block.connectedWith) {
 			this.searchRoute(block.connectedWith[p]);
@@ -29,6 +29,16 @@ var Route = cc.Class.extend({
 			var block = this.blocks[i];
 			if (block.type == BLOCK.TYPE.ENEMY) {
 				this.numberOfEnemies += 1;
+			}
+		}
+	},
+	
+	colorPipes: function() {
+		var color = (this.numberOfEnemies > 0) ? cc.color(255,0,0) : cc.color(0,0,255);
+		for (var i in this.blocks) {
+			var block = this.blocks[i];
+			if (block.type != BLOCK.TYPE.FRIEND) {
+				block.setColor(color);
 			}
 		}
 	},

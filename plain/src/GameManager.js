@@ -16,12 +16,10 @@ var GameManger = cc.Class.extend({
 	updateRoute: function() {
 		// 보드 상의 모든 파이프의 연결 정보를 초기화 
 		this.initRoute();
-		// 파이프 연결 상태 체크 
+		// 파이프의 ConnectedWith 정보 추가
 		this.checkIsConnected();
-		// 연결 상태 정보로 라우트를 만들기 위한 정보 구축  
-		this.checkRoute();
 		// 라우트를 생성
-		this._getRoutes();
+		this.makeRoutes();
 		// 라우트를 식별하기 위한 채색작업 수행
 		this.colorRoute();
 		// 공격에 해당하는 라우트에 hurt 메시지를 보냄
@@ -41,19 +39,9 @@ var GameManger = cc.Class.extend({
 		
 	},
 	colorRoute : function() {
-		for(var i in this.pipes) {
-			if(this.pipes[i].visitFlag && this.pipes[i].type != BLOCK.TYPE.FRIEND) {
-				if(this.pipes[i].HP <= 0) {
-					continue;
-				}
-				this.pipes[i].setColor(cc.color(0, 0, 255));
-			}
-		};
 		for (var i in this.routes) {
 			var route = this.routes[i];
-			if (route.numberOfEnemies > 0) {
-				route.colorRed();
-			}
+			route.colorPipes();
 		}
 	},
 	killRoute : function() {
@@ -64,33 +52,15 @@ var GameManger = cc.Class.extend({
 			}
 		}
 	},
-	_getRoutes: function() {
+	makeRoutes: function() {
 		for (var i = 0; i < this._level.row; i++) {
 			var row = this._level.MAP[i];
 			for (var j = 0; j < this._level.col ; j++) {
 				if (row[j] == BLOCK.TYPE.FRIEND) {
 					var route = new Route(this._getPipe(j, i));
 					this.routes.push(route);
-				} 
+				}
 			}
-		}
-	},
-	
-	checkRoute : function() {
-		for(var i=0 ; i < this._level.col ; i++) {
-			if(this.pipes[i].type==BLOCK.TYPE.FRIEND) {
-				this.checkRouteFrom(this.pipes[i]);
-			}
-		}
-	},
-
-	checkRouteFrom : function(pipe) {
-		if(pipe.visitFlag) return;
-		
-		pipe.visitFlag = true;
-		
-		for(p in pipe.connectedWith) {
-			this.checkRouteFrom(pipe.connectedWith[p]);
 		}
 	},
 	

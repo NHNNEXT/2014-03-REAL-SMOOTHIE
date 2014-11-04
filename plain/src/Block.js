@@ -2,7 +2,7 @@
 
 var Block = cc.Sprite.extend({
 	HP: null, // HP가 0이 되면 사라져야할 녀석
-	type: null,
+	type: null, // BLOCK.TYPE.PIPE || BLOCK.TYPE.FRIEND || BLOCK.TYPE.ENEMY
 	row: null,
 	column: null,
 	active: null,
@@ -10,9 +10,12 @@ var Block = cc.Sprite.extend({
 	visitFlag: false,
 	ctor:function (resourceName) {
 		this._super(resourceName);
+		// 여기에 init()이 있으면 init()이 두 번 호출됨.
 	},
 	_coordinateToPosition: function(row, column) {
-		return cc.p(column*BLOCK.SIZE.WIDTH + BLOCK.SIZE.WIDTH/2 , row*BLOCK.SIZE.HEIGHT + BLOCK.SIZE.HEIGHT/2);
+		var width = BLOCK.SIZE.WIDTH;
+		var height = BLOCK.SIZE.HEIGHT;
+		return cc.p(column*width + width/2 , row*height + height/2);
 	},
 	hurt: function() { // 파이프와 적이 파괴되는 경우를 생각해서 만든거임
 		this.HP--;
@@ -21,26 +24,24 @@ var Block = cc.Sprite.extend({
 		}
 	},
 	destroy: function () {
-//		this.setOpacity(0);	
-//		this.isRotten = true;
 //		if (this.fading == true) {
 //			return;
 //		}
 //		this.fading = true;
-//		
-//		cc.log(this.isRotten);
+
 		this.runAction(cc.sequence(cc.callFunc(function(){
-			cc.log("시작!");
-		}),
-		cc.scaleTo(1, 0), 
-		cc.callFunc(function(){
-			cc.log("끝!!");
-			this.active = false;
-			this.isRotten = true;
-			this.visible = false;
-			this.retain();
-//			this.setOpacity(0);
-		}.bind(this)) ));
+				cc.log("시작!");
+			}),
+			// 왜지? 왜 집에서 다시 하니까 fadeOut이 잘 되지?
+			cc.fadeOut(1), 
+			cc.callFunc(function(){
+				cc.log("끝!!");
+				this.active = false;
+				this.isRotten = true;
+				this.visible = false;
+				this.retain();
+			}.bind(this))
+		));
 	},
 	isPipe : function() {
 		return false;

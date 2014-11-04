@@ -20,73 +20,51 @@ var Pipe = Block.extend({
 	},
 	init: function() {
 		this.type = BLOCK.TYPE.PIPE;
-		this.HP = PIPE_TYPE.HP;
 		this.active = false;
-		
-		this.connectedWith = [];
-
 		var pipeTouchListener = cc.EventListener.create({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
 			delta: "",
 			swallowTouches: false,
 			onTouchBegan: this.pipeTouchHandler.onTouchBegan,
-			onTouchMoved: this.pipeTouchHandler.onTouchMoved,
+			onTouchMoved: this.pipeTouchHandler.onTouchMoved.bind(this),
 			onTouchEnded: this.pipeTouchHandler.onTouchEnded.bind(this),
 		});
-		cc.eventManager.addListener(pipeTouchListener.clone(), this);		
+		cc.eventManager.addListener(pipeTouchListener.clone(), this);
+		
+		this.reset();
 	},
-	setPosition: function(initialPipeRotation, row, column) {
-		this.rotation = initialPipeRotation;
+	reset: function() {
+		this.HP = PIPE_TYPE.HP;
+		this.active = true;
+		this.visible = true;
+		this.isRotten = false;
+		this.scale = 1;
+		this.connectedWith = [];
+	},
+	setPositionByRowCol: function(row, column) {
 		this.row = row;
 		this.column = column;
 
 		var position = this._coordinateToPosition(this.row, this.column);
-		this.x = position.x;
-		this.y = position.y;
-	},
-	_coordinateToPosition: function(row, column) {
-		return cc.p(column*BLOCK.SIZE.WIDTH + BLOCK.SIZE.WIDTH/2 , row*BLOCK.SIZE.HEIGHT + BLOCK.SIZE.HEIGHT/2);
+		this.setPosition(position);
 	},
 	update:function (dt) {
-		// Keys are only enabled on the browser
 		/*
-		if (!cc.sys.isNative) {
-			if ((MW.KEYS[cc.KEY.w] || MW.KEYS[cc.KEY.up]) && this.y <= winSize.height) {
-				this.y += dt * this.speed;
-			}
-			if ((MW.KEYS[cc.KEY.s] || MW.KEYS[cc.KEY.down]) && this.y >= 0) {
-				this.y -= dt * this.speed;
-			}
-			if ((MW.KEYS[cc.KEY.a] || MW.KEYS[cc.KEY.left]) && this.x >= 0) {
-				this.x -= dt * this.speed;
-			}
-			if ((MW.KEYS[cc.KEY.d] || MW.KEYS[cc.KEY.right]) && this.x <= winSize.width) {
-				this.x += dt * this.speed;
-			}
-		}
-
 		if (this.HP <= 0) {
 			this.active = false;
 			this.destroy();
-		}
-		this._timeTick += dt;
-		if (this._timeTick > 0.1) {
-			this._timeTick = 0;
-			if (this._hurtColorLife > 0) {
-				this._hurtColorLife--;
-			}
 		}
 		*/
 	},
 	rotateRight: function () {
 		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation + 90), cc.callFunc(function(){
-			SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_IDEAL;
+			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
 		}) ));
 		
 	},
 	rotateLeft: function () {
 		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation - 90), cc.callFunc(function(){
-			SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_IDEAL;
+			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
 		}) ));
 	},
 	
@@ -126,7 +104,7 @@ Pipe.prototype.pipeTouchHandler = {
 		if(this.HP <= 0 && this.isRotten === false) {
 			return;
 		} else {
-			SMTH.CONTAINER.PLAY_STATE = SMTH.PLAY_STATE.PLAY_STATE_ROTATING;
+			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.ROTATING;
 			if ((this.delta === undefined || this.delta.x >= 0) && target.rotation%90==0) {
 				target.rotateRight();
 			} else if ((this.delta === undefined || this.delta.x < 0) && target.rotation%90==0)  {
@@ -139,12 +117,8 @@ Pipe.prototype.pipeTouchHandler = {
 
 Pipe._create = function(type) {
 	var pipe = new Pipe(type);
-	pipe.active = true;
-	pipe.visible = true;
-	pipe.HP = 1;
-	pipe.isRotten = false;
+	pipe.reset();
 	PIPE_CONTAINER[type].push(pipe);
-	
 	return pipe;
 };
 
@@ -153,11 +127,7 @@ Pipe.getOrCreate = function(type) {
 	for (var i = 0; i < pipeList.length; i++) {
 		var pipe = pipeList[i];
 		if (pipe.active == false) {
-			pipe.active = true;
-			pipe.visible = true;
-			pipe.HP = 1;
-			pipe.isRotten = false;
-			pipe.scale = 1;
+			pipe.reset();
 			return pipe;
 		}
 	}
@@ -176,13 +146,10 @@ Pipe.getPipe = function(type) {
 		type += angle;
 	}
 	// PIPE
-	var pipeShape = type - type % 1000;
-	var pipe = Pipe.getOrCreate(pipeShape);
+	var shape = type - type % 1000;
 	var angle = type % 1000;
+	var pipe = Pipe.getOrCreate(shape);
 	pipe.rotation = angle;
 	
 	return pipe;
 };
-//Pipe.isPipe = function(type) {
-//	return type < 5000;
-//}
