@@ -106,16 +106,7 @@ var BoardLayer = cc.Layer.extend ({
 			return enemy;
 		}
 	},
-//	_createMap : function(row, col) { 
-//	//캐릭터(아군,적) 배치 -> 장애물 -> 파이프
-//	var map = this._level.MAP;
-//	for (var r = 0; r < row; r++) {
-//	for (var c = 0; c < col; c++) {
-//	var block = this._createBlock(map[r][c], r, c);
-//	this.addChild(block);
-//	}
-//	}
-//	},
+
 	_createMap : function(row, col) { 
 		var map = this._level.MAP;
 		var levelLoader = new LevelLoader(this._level);

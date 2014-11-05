@@ -11,7 +11,8 @@ var res = {
 		sally : "res/sally.png",
 		cony : "res/cony.png",
 		button_n: "res/animationbuttonnormal.png",
-		button_p: "res/animationbuttonpressed.png"
+		button_p: "res/animationbuttonpressed.png",
+		menu_png: "res/menu.png"
 };
 
 var g_resources = [];
