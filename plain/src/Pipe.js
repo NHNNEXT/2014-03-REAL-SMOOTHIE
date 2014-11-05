@@ -106,10 +106,10 @@ Pipe.prototype.pipeTouchHandler = {
 		} else {
 			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.ROTATING;
 			if ((this.delta === undefined || this.delta.x >= 0) && target.rotation%90==0) {
-				SMTH.CONTAINER.TURN++;
+				if(SMTH.CONTAINER.TURN < SMTH.STATUS.CURRENT_LEVEL.MAXTURN) SMTH.CONTAINER.TURN++;
 				target.rotateRight();
 			} else if ((this.delta === undefined || this.delta.x < 0) && target.rotation%90==0)  {
-				SMTH.CONTAINER.TURN++;
+				if(SMTH.CONTAINER.TURN < SMTH.STATUS.CURRENT_LEVEL.MAXTURN) SMTH.CONTAINER.TURN++;
 				target.rotateLeft();
 			}
 		}

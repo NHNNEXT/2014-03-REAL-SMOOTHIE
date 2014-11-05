@@ -60,8 +60,6 @@ var StatusLayer = cc.Layer.extend({
 		this.scheduleUpdate();
 	}, 
 	update: function() {
-		if(SMTH.CONTAINER.TURN <= SMTH.STATUS.CURRENT_LEVEL.MAXTURN){
-			this.turnLabel.setString(SMTH.CONTAINER.TURN + "/" + SMTH.STATUS.CURRENT_LEVEL.MAXTURN);
-		}
+		this.turnLabel.setString(SMTH.CONTAINER.TURN + "/" + SMTH.STATUS.CURRENT_LEVEL.MAXTURN);
 	}
 });
