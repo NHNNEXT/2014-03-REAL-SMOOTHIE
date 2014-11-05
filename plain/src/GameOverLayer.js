@@ -43,6 +43,7 @@ var GameOverLayer = cc.LayerColor.extend({
 		this.addChild(menu, 1, 2);
 		menu.x = winsize.width / 2;
 		menu.y = winsize.height / 2;
+
 	},
 
 	test: function() {
