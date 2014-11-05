@@ -26,6 +26,7 @@
         "src/logic/Ajax.js",
         "src/logic/Route.js",
         "src/logic/RouteController.js",
+        "src/logic/Judge.js",
         "src/manager/EventManager.js",
         "src/manager/EffectManager.js",
         "src/sprites/Block.js",

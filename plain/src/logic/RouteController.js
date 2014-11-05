@@ -3,6 +3,7 @@ var RouteController = cc.Class.extend({
 	blocks : null,
 	routes: null,
 	_level: null,
+	attacked: null,
 	ctor:function () {
 		//this._super();
 		this.init();
@@ -12,6 +13,7 @@ var RouteController = cc.Class.extend({
 		this.blocks = SMTH.CONTAINER.PIPES;
 		SMTH.CONTAINER.TURN = 0;
 		this.routes = [];
+		this.attacked = false;
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 	},
 	updateRoute: function() {
@@ -39,6 +41,7 @@ var RouteController = cc.Class.extend({
 			block.connectedWith = [];
 			block.setColor(cc.color(255, 255, 255));
 		}
+		this.attacked = false;
 		this.routes = [];
 		this.checkedFriends = [];
 		
@@ -102,6 +105,7 @@ var RouteController = cc.Class.extend({
 		for (var i in this.routes) {
 			var route = this.routes[i];
 			if (route.numberOfEnemies > 0) {
+				this.attacked = true;
 				route.hurt();
 			}
 		}

@@ -34,13 +34,13 @@ var EffectManager = cc.Class.extend({
 		newBlock.setPositionByRowCol(row, col);
 		SMTH.CONTAINER.PIPES[row * curLevel.col + col] = newBlock;
 		boardLayer.addChild(newBlock);
-		
+		SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("pipeAdded"));
 	},
 	popupGameOver: function() {
-		
+		cc.director.getRunningScene().addChild(new GameOverLayer());
 	},
 	popupGameClear: function() {
-//		this.parent.addChild(new GameClearLayer());
+		cc.director.getRunningScene().addChild(new GameClearLayer());
 	}
 });
 

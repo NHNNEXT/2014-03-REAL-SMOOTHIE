@@ -39,6 +39,9 @@ var Block = cc.Sprite.extend({
 					this.retain();
 				}
 				SMTH.EFFECT_MANAGER.replaceBlock(this);
+				if (this.isEnemy()) {
+					SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("enemyDied"));
+				}
 			}.bind(this))
 		));
 	},

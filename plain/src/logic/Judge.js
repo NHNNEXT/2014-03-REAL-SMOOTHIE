@@ -1,18 +1,17 @@
 var Judge = cc.Class.extend({
 	ctor: function() {
-		
+		this._level = SMTH.STATUS.CURRENT_LEVEL;
+	},
+	
+	reset: function() {
+		this._level = SMTH.STATUS.CURRENT_LEVEL;
 	},
 	
 	_checkIsGameOver :function () {
 		//TODO: 종료조건에 따라서 수정될수 있도록 구현(by config)
 		// 턴이 다되면 게임 종
 		if(SMTH.CONTAINER.TURN >= this._level.MAXTURN) {
-			// 인터랙션 중단
-			this.unscheduleUpdate();
-			this.runAction(cc.sequence(
-					cc.delayTime(0.2),
-					cc.callFunc(this._onGameOver, this)
-			));
+			this._onGameOver();
 		}
 
 	},
@@ -34,12 +33,7 @@ var Judge = cc.Class.extend({
 			}
 		}
 		if(count === 0) {
-			// 인터랙션 중단 
-			this.unscheduleUpdate();
-			this.runAction(cc.sequence(
-					cc.delayTime(0.2),
-					cc.callFunc(this._onGameClear, this)
-			));
+			this._onGameClear();
 		}
 
 	},

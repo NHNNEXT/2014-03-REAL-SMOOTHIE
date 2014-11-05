@@ -10,6 +10,7 @@ var BoardLayer = cc.Layer.extend ({
 
 	init: function() {
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
+		SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("startNewLevel"));
 
 		//SMTH.CONTAINER안에 pipe를 초기화
 		SMTH.CONTAINER.PIPES =[];
@@ -36,35 +37,5 @@ var BoardLayer = cc.Layer.extend ({
 				this.addChild(block); // 화면에 배치 
 			}
 		}
-	},
-	_corpseCollector : function() {
-		var row = this._level.row;
-		var col = this._level.col;
-		for (var r = 0; r < row; r++) {
-			for (var c = 0; c < col; c++) {
-				var block = SMTH.CONTAINER.PIPES[r*col+c];
-				if(block.HP <= 0 && block.isRotten) {
-					SMTH.CONTAINER.PIPES[r*col+c] = null;
-					this.removeChild(block);
-					// block 객체가 정말 사라진건지 확인 필요 
-				}	
-			}
-		}		
-	}, 
-	_fillBoard : function() {
-		var row = this._level.row;
-		var col = this._level.col;
-		for (var r = 0; r < row; r++) {
-			for (var c = 0; c < col; c++) {
-				var block = SMTH.CONTAINER.PIPES[r*col+c];
-				if(block === null) {
-					var randomNewPipe = Pipe.getPipe(BLOCK.TYPE.PIPE.RAND.P);
-					randomNewPipe.setPositionByRowCol(r, c);
-					SMTH.CONTAINER.PIPES[r*col+c] = randomNewPipe;
-					this.addChild(randomNewPipe);
-					// block 객체가 정말 사라진건지 확인 필요 
-				}	
-			}
-		}		
-	}	
+	}
 });

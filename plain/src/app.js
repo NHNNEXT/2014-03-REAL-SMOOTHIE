@@ -16,23 +16,8 @@ var HelloWorldScene = cc.Scene.extend({
 		this.addChild(new BoardLayer());
 		this.addChild(new StatusLayer());
 		
-		var currentScene = cc.director.getRunningScene();
-		var boardLayer = currentScene.getChildByTag(3);
-		
-		
-//		Ajax.getInstance().POST({
-//			url: "http://httpbin.org/post",
-//			data: "name=sally",
-//			callback: function(response) {
-//				cc.log(response);
-//			}
-//		});
-//		Ajax.getInstance().POST({
-//			url: "http://httpbin.org/post",
-//			data: "name=sally",
-//			callback: function(response) {
-//				cc.log(response);
-//			}
-//		});
+		// for initial route check
+		SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("rotateEnd"));
+
 	}
 });
