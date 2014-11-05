@@ -39,7 +39,7 @@ var BoardLayer = cc.Layer.extend ({
 	_checkIsGameOver :function () {
 		//TODO: 종료조건에 따라서 수정될수 있도록 구현(by config)
 		// 턴이 다되면 게임 종
-		if(SMTH.CONTAINER.TURN >= this._level.MAXTURN) {
+		if(SMTH.CONTAINER.TURN > this._level.MAXTURN) {
 			this.unscheduleUpdate();
 			this.runAction(cc.sequence(
 					cc.delayTime(0.2),
