@@ -24,7 +24,17 @@ var GameOverLayer = cc.LayerColor.extend({
 //		button.addTouchEventListener(this.touchEvent, this);
 //		this.addChild(button);
 		
-		this.overLabel = new cc.LabelTTF("GAME OVER", "Arial", 38);
+		this.gameoverImage = new cc.Sprite(res.sadSally_png);
+		this.addChild(this.gameoverImage);
+		this.gameoverImage.x = winsize.width/ 4.6;	
+		this.gameoverImage.y = winsize.height / 2 + 205;
+		
+		this.overLabel = new cc.LabelTTF();
+		this.overLabel.setString("GAME OVER");
+		this.overLabel.setFontName("LINEBold");
+		this.overLabel.setFontSize(80);
+		this.overLabel.setColor( cc.color(230, 234, 210));
+		
 		// position the label on the center of the screen
 		this.overLabel.setColor(cc.color(255, 255, 255));
 		this.overLabel.x = winsize.width / 2;
@@ -32,9 +42,9 @@ var GameOverLayer = cc.LayerColor.extend({
 		// add the label as a child to this layer
 		this.addChild(this.overLabel);
 		
-		var playAgainNormal = new cc.Sprite(res.menu_png, cc.rect(378, 0, 126, 33));
-		var playAgainSelected = new cc.Sprite(res.menu_png, cc.rect(378, 33, 126, 33));
-		var playAgainDisabled = new cc.Sprite(res.menu_png, cc.rect(378, 33 * 2, 126, 33));
+		var playAgainNormal = new cc.Sprite(res.replayNormal_png);
+		var playAgainSelected = new cc.Sprite(res.replaySelected_png);
+		var playAgainDisabled = new cc.Sprite(res.replayNormal_png);
 		var playAgain = new cc.MenuItemSprite(playAgainNormal, playAgainSelected, playAgainDisabled, function(){
 			this.touchEvent();
 		}.bind(this) );

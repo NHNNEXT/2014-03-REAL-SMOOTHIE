@@ -34,7 +34,10 @@ var Route = cc.Class.extend({
 	},
 	
 	colorPipes: function() {
-		var color = (this.numberOfEnemies > 0) ? cc.color(255,0,0) : cc.color(0,0,255);
+		var attackColor = cc.color(253,116,0);
+		var flowColor = cc.color(245,235,56);
+		
+		var color = (this.numberOfEnemies > 0) ? attackColor : flowColor;
 		for (var i in this.blocks) {
 			var block = this.blocks[i];
 			if (block.type != BLOCK.TYPE.FRIEND) {

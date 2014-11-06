@@ -5,6 +5,7 @@ var GameLayer = cc.Layer.extend({
 	},
 	init:function (levelConfig) {
 		this.addChild(new BoardLayer());
+		this.addChild(new StatusLayer());
 	}
 
 });

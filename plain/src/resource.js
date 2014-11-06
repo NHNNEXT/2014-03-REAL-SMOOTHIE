@@ -12,7 +12,14 @@ var res = {
 		cony : "res/cony.png",
 		button_n: "res/animationbuttonnormal.png",
 		button_p: "res/animationbuttonpressed.png",
-		menu_png: "res/menu.png"
+		replayNormal_png: "res/replayNormal.png",
+		replaySelected_png: "res/replaySelected.png",
+		sadSally_png: "res/sadSally.png",
+		LINEBold_ttf: {
+   	     type:"font",
+   		 name:"LINEBold",
+   		 srcs:["res/fonts/LINEBold.ttf"]
+   		}
 };
 
 var g_resources = [];

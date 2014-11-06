@@ -10,9 +10,7 @@ var HelloWorldScene = cc.Scene.extend({
 			SMTH.STATUS.CURRENT_LEVEL = SMTH.LEVEL.TUTORIAL0;
 		}
 		this.addChild(new BackgroundLayer());
-		this.addChild(new GameLayer());
-		this.addChild(new StatusLayer());
-		
+		this.addChild(new GameLayer());		
 		
 //		Ajax.getInstance().POST({
 //			url: "http://httpbin.org/post",
