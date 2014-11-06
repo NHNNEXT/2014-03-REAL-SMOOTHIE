@@ -7,6 +7,7 @@
 	
 	var LEVEL = {
 		"TUTORIAL0": {
+			"ID": 0,
 			"MAP" : [
 			         [E,E,E,E],
 			         [IU,IU,IU,IU],
@@ -14,9 +15,10 @@
 			         [IU,IU,IU,IU],
 			         [F,F,F,F]
 			         ].reverse(),
-			"MAXTURN" : 5
+			"MAXTURN" : 15
 		},
 		"LEVEL0": {
+			"ID": 1,
 			"MAP" : [
 			       [E,E,E,E],
 			       [P,P,P,P],

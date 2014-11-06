@@ -69,7 +69,7 @@ var Pipe = Block.extend({
 
 
 Pipe.prototype.pipeTouchHandler = {
-	"onTouchBegan": function (touch, event) { 
+	"onTouchBegan": function (touch, event) {
 		var target = event.getCurrentTarget();
 		var locationInNode = target.convertToNodeSpace(touch.getLocation());    
 		var s = target.getContentSize();
@@ -95,8 +95,10 @@ Pipe.prototype.pipeTouchHandler = {
 			return;
 		} else if (target.rotation % 90 != 0) {
 			return;
+		} else if (SMTH.CONTAINER.TURN >= SMTH.STATUS.CURRENT_LEVEL.MAXTURN) {
+			// turn이 꽉 찬 상태에서의 입력은 받지 않는다.
+			return;
 		} else {
-			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.ROTATING;
 			SMTH.CONTAINER.TURN++;
 			if (this.delta.x >= 0){
 				target.rotateRight();
