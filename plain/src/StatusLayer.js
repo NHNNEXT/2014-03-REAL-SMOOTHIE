@@ -14,8 +14,8 @@ var StatusLayer = cc.Layer.extend({
 					cc.director.runScene(new HelloWorldScene());
 				}, this);
 		closeItem.attr({
-			x: size.width - 20,
-			y: 20,
+			x: size.width - 70,
+			y: 50,
 			anchorX: 0.5,
 			anchorY: 0.5
 		});
