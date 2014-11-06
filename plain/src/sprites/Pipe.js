@@ -1,10 +1,4 @@
 
-var PIPE_CONTAINER = {}
-PIPE_CONTAINER[PIPE_TYPE.RAND.L] = [];
-PIPE_CONTAINER[PIPE_TYPE.RAND.I] = [];
-PIPE_CONTAINER[PIPE_TYPE.RAND.X] = [];
-PIPE_CONTAINER[PIPE_TYPE.RAND.T] = [];
-
 var PIPE = {};
 PIPE.RESOURCE_MAPPER = {};
 PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.L] = res.Pipe_2way_curve;
@@ -18,12 +12,13 @@ var Pipe = Block.extend({
 		this.pipeType = initialPipeType;
 		this.init();
 	},
+	
 	init: function() {
 		this.type = BLOCK.TYPE.PIPE;
 		this.active = false;
+		this.delta = cc.p(0,0);
 		var pipeTouchListener = cc.EventListener.create({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
-			delta: "",
 			swallowTouches: false,
 			onTouchBegan: this.pipeTouchHandler.onTouchBegan,
 			onTouchMoved: this.pipeTouchHandler.onTouchMoved.bind(this),
@@ -33,39 +28,33 @@ var Pipe = Block.extend({
 		
 		this.reset();
 	},
+	
 	reset: function() {
 		this.HP = PIPE_TYPE.HP;
 		this.active = true;
 		this.visible = true;
+		this.opacity = 255;
 		this.isRotten = false;
 		this.scale = 1;
 		this.connectedWith = [];
+		this.setColor(cc.color(255,255,255));
 	},
-	setPositionByRowCol: function(row, column) {
-		this.row = row;
-		this.column = column;
 
-		var position = this._coordinateToPosition(this.row, this.column);
-		this.setPosition(position);
-	},
-	update:function (dt) {
-		/*
-		if (this.HP <= 0) {
-			this.active = false;
-			this.destroy();
-		}
-		*/
-	},
 	rotateRight: function () {
-		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation + 90), cc.callFunc(function(){
-			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
-		}) ));
-		
+		this.runAction(cc.sequence(
+			cc.rotateTo(0.2, this.rotation + 90),
+			cc.callFunc(function(){
+				SMTH.EVENT_MANAGER.notice("rotateEnd");
+			})
+		));
 	},
 	rotateLeft: function () {
-		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation - 90), cc.callFunc(function(){
-			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
-		}) ));
+		this.runAction(cc.sequence(
+			cc.rotateTo(0.2, this.rotation - 90),
+			cc.callFunc(function(){
+				SMTH.EVENT_MANAGER.notice("rotateEnd");
+			})
+		));
 	},
 	
 	isOpened : function(dir) {
@@ -80,7 +69,7 @@ var Pipe = Block.extend({
 
 
 Pipe.prototype.pipeTouchHandler = {
-	"onTouchBegan": function (touch, event) { 
+	"onTouchBegan": function (touch, event) {
 		var target = event.getCurrentTarget();
 		var locationInNode = target.convertToNodeSpace(touch.getLocation());    
 		var s = target.getContentSize();
@@ -96,6 +85,7 @@ Pipe.prototype.pipeTouchHandler = {
 	"onTouchMoved": function (touch, event) {         
 		var target = event.getCurrentTarget();
 		this.delta = touch.getDelta();
+		cc.log(touch.getDelta());
 	},
 	"onTouchEnded": function (touch, event) {         
 		var target = event.getCurrentTarget();
@@ -103,39 +93,22 @@ Pipe.prototype.pipeTouchHandler = {
 		target.setOpacity(255);
 		if(this.HP <= 0 && this.isRotten === false) {
 			return;
+		} else if (target.rotation % 90 != 0) {
+			return;
+		} else if (SMTH.CONTAINER.TURN >= SMTH.STATUS.CURRENT_LEVEL.MAXTURN) {
+			// turn이 꽉 찬 상태에서의 입력은 받지 않는다.
+			return;
 		} else {
-			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.ROTATING;
-			if ((this.delta === undefined || this.delta.x >= 0) && target.rotation%90==0) {
-				if(SMTH.CONTAINER.TURN <= SMTH.STATUS.CURRENT_LEVEL.MAXTURN) SMTH.CONTAINER.TURN++;
+			SMTH.CONTAINER.TURN++;
+			if (this.delta.x >= 0){
 				target.rotateRight();
-			} else if ((this.delta === undefined || this.delta.x < 0) && target.rotation%90==0)  {
-				if(SMTH.CONTAINER.TURN <= SMTH.STATUS.CURRENT_LEVEL.MAXTURN) SMTH.CONTAINER.TURN++;
+			} else if (this.delta.x < 0)  {
 				target.rotateLeft();
 			}
 		}
 		
 	}
 };
-
-Pipe._create = function(type) {
-	var pipe = new Pipe(type);
-	pipe.reset();
-	PIPE_CONTAINER[type].push(pipe);
-	return pipe;
-};
-
-Pipe.getOrCreate = function(type) {
-	var pipeList = PIPE_CONTAINER[type];
-	for (var i = 0; i < pipeList.length; i++) {
-		var pipe = pipeList[i];
-		if (pipe.active == false) {
-			pipe.reset();
-			return pipe;
-		}
-	}
-	var pipe = Pipe._create(type);
-	return pipe;
-}
 
 Pipe.getPipe = function(type) {
 	// ALL RANDOM then choose pipe type
@@ -150,7 +123,7 @@ Pipe.getPipe = function(type) {
 	// PIPE
 	var shape = type - type % 1000;
 	var angle = type % 1000;
-	var pipe = Pipe.getOrCreate(shape);
+	var pipe = new Pipe(shape);
 	pipe.rotation = angle;
 	
 	return pipe;

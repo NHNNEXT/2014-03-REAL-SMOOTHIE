@@ -9,24 +9,15 @@ var HelloWorldScene = cc.Scene.extend({
 		} else {
 			SMTH.STATUS.CURRENT_LEVEL = SMTH.LEVEL.TUTORIAL0;
 		}
+		SMTH.EFFECT_MANAGER = new EffectManager();
+		SMTH.EVENT_MANAGER = new EventManager();
+
 		this.addChild(new BackgroundLayer());
-		this.addChild(new GameLayer());
+		this.addChild(new BoardLayer());
 		this.addChild(new StatusLayer());
 		
-		
-//		Ajax.getInstance().POST({
-//			url: "http://httpbin.org/post",
-//			data: "name=sally",
-//			callback: function(response) {
-//				cc.log(response);
-//			}
-//		});
-//		Ajax.getInstance().POST({
-//			url: "http://httpbin.org/post",
-//			data: "name=sally",
-//			callback: function(response) {
-//				cc.log(response);
-//			}
-//		});
+		// for initial route check
+		SMTH.EVENT_MANAGER.notice("rotateEnd");
+
 	}
 });
