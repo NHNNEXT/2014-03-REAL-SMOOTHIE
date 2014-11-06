@@ -17,7 +17,7 @@ var HelloWorldScene = cc.Scene.extend({
 		this.addChild(new StatusLayer());
 		
 		// for initial route check
-		SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("rotateEnd"));
+		SMTH.EVENT_MANAGER.notice("rotateEnd");
 
 	}
 });

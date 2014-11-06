@@ -5,37 +5,38 @@ var EventManager = cc.Class.extend({
 		this.init();
 	},
 	init: function() {
-		cc.eventManager.addCustomListener("pipeAdded", function(e) {
+		this.handle("pipeAdded", function(e) {
 			this.routeController.updateRoute();
 		}.bind(this));
 		
-		cc.eventManager.addCustomListener("rotateEnd", function(e) {
+		this.handle("rotateEnd", function(e) {
 			// update
 			this.routeController.updateRoute();
+			// if route is complete, skip.
+			// if route doesnt complete, check gameover
 			if (!this.routeController.attacked) {
 				this.judge._checkIsGameOver();
 			}
-			// if route is complete, skip.
-			// if route doesnt complete, check gameover
 		}.bind(this));
 		
-		cc.eventManager.addCustomListener("pipeHidden", function(e) {
+		this.handle("pipeHidden", function(e) {
 			// replace pipe
 		}.bind(this));
 		
-		cc.eventManager.addCustomListener("enemyDied", function(e) {
+		this.handle("enemyDied", function(e) {
 			this.judge._checkIsGameCleared();
 			this.judge._checkIsGameOver();
 		}.bind(this));
 		
-		cc.eventManager.addCustomListener("startNewLevel", function(e) {
+		this.handle("startNewLevel", function(e) {
 			this.judge.reset();
 		}.bind(this));
 	},
-	addListener: function(listener, nodeOrPriority) {
-		cc.eventManager.addListener(listener, nodeOrPriority)
+	
+	handle: function(eventName, handler) {
+		cc.eventManager.addCustomListener(eventName, handler);
 	},
-	dispatchEvent: function(event) {
-		cc.eventManager.dispatchEvent(event);
+	notice: function(eventName) {
+		cc.eventManager.dispatchEvent(new cc.EventCustom(eventName));
 	}
 })

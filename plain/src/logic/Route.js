@@ -1,15 +1,16 @@
 var Route = cc.Class.extend({
 	ctor:function (friend) {
-		this.friends = [friend];
+		this.start = friend;
 		this.init();
 	},
 
 	init:function () {
 		this.blocks = [];
+		this.friends = [];
 		this.destroied = 0;
 		this.numberOfEnemies = 0;
 		
-		this.searchRoute(this.friends[0]);
+		this.searchRoute(this.start);
 		this.pickFriends();
 		this.countEnemy();
 	},
@@ -38,16 +39,6 @@ var Route = cc.Class.extend({
 			var block = this.blocks[i];
 			if (block.type == BLOCK.TYPE.ENEMY) {
 				this.numberOfEnemies += 1;
-			}
-		}
-	},
-	
-	colorPipes: function() {
-		var color = (this.numberOfEnemies > 0) ? cc.color(255,0,0) : cc.color(0,0,255);
-		for (var i in this.blocks) {
-			var block = this.blocks[i];
-			if (block.type != BLOCK.TYPE.FRIEND) {
-				block.setColor(color);
 			}
 		}
 	},

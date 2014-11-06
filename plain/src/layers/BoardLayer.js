@@ -10,13 +10,10 @@ var BoardLayer = cc.Layer.extend ({
 
 	init: function() {
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
-		SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("startNewLevel"));
+		SMTH.EVENT_MANAGER.notice("startNewLevel");
 
 		//SMTH.CONTAINER안에 pipe를 초기화
 		SMTH.CONTAINER.PIPES =[];
-		for(var key in PIPE_CONTAINER){
-			PIPE_CONTAINER[key] = [];
-		}
 
 		var row = this._level.row;
 		var col = this._level.col;

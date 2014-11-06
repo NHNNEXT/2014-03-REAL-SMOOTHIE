@@ -1,10 +1,4 @@
 
-var PIPE_CONTAINER = {}
-PIPE_CONTAINER[PIPE_TYPE.RAND.L] = [];
-PIPE_CONTAINER[PIPE_TYPE.RAND.I] = [];
-PIPE_CONTAINER[PIPE_TYPE.RAND.X] = [];
-PIPE_CONTAINER[PIPE_TYPE.RAND.T] = [];
-
 var PIPE = {};
 PIPE.RESOURCE_MAPPER = {};
 PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.L] = res.Pipe_2way_curve;
@@ -18,6 +12,7 @@ var Pipe = Block.extend({
 		this.pipeType = initialPipeType;
 		this.init();
 	},
+	
 	init: function() {
 		this.type = BLOCK.TYPE.PIPE;
 		this.active = false;
@@ -29,10 +24,11 @@ var Pipe = Block.extend({
 			onTouchMoved: this.pipeTouchHandler.onTouchMoved.bind(this),
 			onTouchEnded: this.pipeTouchHandler.onTouchEnded.bind(this),
 		});
-		SMTH.EVENT_MANAGER.addListener(pipeTouchListener.clone(), this);
+		cc.eventManager.addListener(pipeTouchListener.clone(), this);
 		
 		this.reset();
 	},
+	
 	reset: function() {
 		this.HP = PIPE_TYPE.HP;
 		this.active = true;
@@ -43,26 +39,22 @@ var Pipe = Block.extend({
 		this.connectedWith = [];
 		this.setColor(cc.color(255,255,255));
 	},
-	update:function (dt) {
-		/*
-		if (this.HP <= 0) {
-			this.active = false;
-			this.destroy();
-		}
-		*/
-	},
+
 	rotateRight: function () {
-		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation + 90), cc.callFunc(function(){
-			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
-			SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("rotateEnd"));
-		}) ));
-		
+		this.runAction(cc.sequence(
+			cc.rotateTo(0.2, this.rotation + 90),
+			cc.callFunc(function(){
+				SMTH.EVENT_MANAGER.notice("rotateEnd");
+			})
+		));
 	},
 	rotateLeft: function () {
-		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation - 90), cc.callFunc(function(){
-			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
-			SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("rotateEnd"));
-		}) ));
+		this.runAction(cc.sequence(
+			cc.rotateTo(0.2, this.rotation - 90),
+			cc.callFunc(function(){
+				SMTH.EVENT_MANAGER.notice("rotateEnd");
+			})
+		));
 	},
 	
 	isOpened : function(dir) {
@@ -116,25 +108,6 @@ Pipe.prototype.pipeTouchHandler = {
 	}
 };
 
-Pipe._create = function(type) {
-	var pipe = new Pipe(type);
-	PIPE_CONTAINER[type].push(pipe);
-	return pipe;
-};
-
-Pipe.getOrCreate = function(type) {
-	var pipeList = PIPE_CONTAINER[type];
-	for (var i = 0; i < pipeList.length; i++) {
-		var pipe = pipeList[i];
-		if (pipe.active == false) {
-			pipe.reset();
-			return pipe;
-		}
-	}
-	var pipe = Pipe._create(type);
-	return pipe;
-}
-
 Pipe.getPipe = function(type) {
 	// ALL RANDOM then choose pipe type
 	if (type == 0) {
@@ -148,7 +121,7 @@ Pipe.getPipe = function(type) {
 	// PIPE
 	var shape = type - type % 1000;
 	var angle = type % 1000;
-	var pipe = Pipe.getOrCreate(shape);
+	var pipe = new Pipe(shape);
 	pipe.rotation = angle;
 	
 	return pipe;

@@ -3,28 +3,44 @@ var EffectManager = cc.Class.extend({
 		
 	},
 	colorRoute: function(routes) {
-		cc.log("coloring");
 		for (var i in routes) {
 			var route = routes[i];
-			route.colorPipes();
+			var color = (route.numberOfEnemies > 0) ? cc.color(255,0,0) : cc.color(0,0,255);
+			for (var i in route.blocks) {
+				var block = route.blocks[i];
+				if (block.type != BLOCK.TYPE.FRIEND) {
+					block.runAction(cc.spawn(cc.tintTo(0.5, color.r, color.g, color.b)));
+				}
+			}
 		}
 	},
+	
 	hideRoute: function(route) {
 		route.destroied = 0;
 		for (var i in route.blocks) {
 			var block = route.blocks[i];
 			if (block.HP <= 0) {
-				block.destroy();
+				block.runAction(cc.sequence(
+					cc.fadeOut(1), 
+					cc.callFunc(function(block) {
+						block.active = false;
+						block.isRotten = true;
+						block.visible = false;
+						this.replaceBlock(block);
+						if (block.isEnemy()) {
+							SMTH.EVENT_MANAGER.notice("enemyDied");
+						}
+					}.bind(this, block))
+				));
 			}
 		}
 	},
+	
 	replaceBlock: function(block) {
 		var boardLayer = block.parent;
-		cc.log(block.parent)
 		var row = block.row;
 		var col = block.column;
 		var curLevel = SMTH.STATUS.CURRENT_LEVEL;
-		SMTH.CONTAINER.PIPES[row * curLevel.col + col] = null;
 		block.parent.removeChild(block);
 		
 		// 새로 채워지는 블록은 무조건 파이프
@@ -34,7 +50,9 @@ var EffectManager = cc.Class.extend({
 		newBlock.setPositionByRowCol(row, col);
 		SMTH.CONTAINER.PIPES[row * curLevel.col + col] = newBlock;
 		boardLayer.addChild(newBlock);
-		SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("pipeAdded"));
+		newBlock.opacity = 0;
+		newBlock.runAction(cc.spawn(cc.fadeIn(0.2)));
+		SMTH.EVENT_MANAGER.notice("pipeAdded");
 	},
 	popupGameOver: function() {
 		cc.director.getRunningScene().addChild(new GameOverLayer());

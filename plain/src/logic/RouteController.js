@@ -93,7 +93,6 @@ var RouteController = cc.Class.extend({
 				var block = this._getPipe(j, i);
 				if (block.type == BLOCK.TYPE.FRIEND && checkedFriends.indexOf(block) < 0) {
 					var route = new Route(block);
-					cc.log("route length: " + route.blocks.length);
 					checkedFriends.concat(route.friends);
 					this.routes.push(route);
 				}

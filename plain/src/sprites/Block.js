@@ -27,24 +27,7 @@ var Block = cc.Sprite.extend({
 	hurt: function(attack) { // 파이프와 적이 파괴되는 경우를 생각해서 만든거임
 		this.HP -= attack;
 	},
-	destroy: function () {
-		this.runAction(cc.sequence(
-			// 왜지? 왜 집에서 다시 하니까 fadeOut이 잘 되지?
-			cc.fadeOut(1), 
-			cc.callFunc(function(){
-				this.active = false;
-				this.isRotten = true;
-				this.visible = false;
-				if (this.isPipe()) {
-					this.retain();
-				}
-				SMTH.EFFECT_MANAGER.replaceBlock(this);
-				if (this.isEnemy()) {
-					SMTH.EVENT_MANAGER.dispatchEvent(new cc.EventCustom("enemyDied"));
-				}
-			}.bind(this))
-		));
-	},
+
 	isPipe : function() {
 		return false;
 	},

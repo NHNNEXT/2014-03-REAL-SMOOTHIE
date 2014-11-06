@@ -22,7 +22,7 @@ var LevelLoader = cc.Class.extend({
 				if (pipeType < 5000) {
 					var pipeShape = pipeType - pipeType % 1000;
 					var angle = pipeType % 1000;
-					var pipe = Pipe.getOrCreate(pipeShape);
+					var pipe = new Pipe(pipeShape);
 					pipe.rotation = angle;
 					SMTH.CONTAINER.PIPES.push(pipe);
 				}
