@@ -65,7 +65,7 @@ var Route = cc.Class.extend({
 				block.hurt();
 			}
 		}
-		
+        cc.audioEngine.playEffect(res.attack_mp3);
 	}
 
 });

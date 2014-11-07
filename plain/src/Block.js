@@ -30,12 +30,12 @@ var Block = cc.Sprite.extend({
 //		this.fading = true;
 
 		this.runAction(cc.sequence(cc.callFunc(function(){
-				cc.log("시작!");
+				//cc.log("시작!");
 			}),
 			// 왜지? 왜 집에서 다시 하니까 fadeOut이 잘 되지?
 			cc.fadeOut(1), 
 			cc.callFunc(function(){
-				cc.log("끝!!");
+				//cc.log("끝!!");
 				this.active = false;
 				this.isRotten = true;
 				this.visible = false;

@@ -8,6 +8,7 @@
 	var LEVEL = {
 		"TUTORIAL0": {
 			"ID": 0,
+            "TYPE": "PRESET",
 			"MAP" : [
 			         [E,E,E,E],
 			         [IU,IU,IU,IU],
@@ -15,21 +16,23 @@
 			         [IU,IU,IU,IU],
 			         [F,F,F,F]
 			         ].reverse(),
-			"MAXTURN" : 15
+			"MAXTURN" : 20
 		},
 		"LEVEL0": {
-			"ID": 1,
+            "ID": 1,
+            "TYPE": "RANDOM",
 			"MAP" : [
-			       [E,E,E,E],
-			       [P,P,P,P],
-			       [P,P,P,P],
-			       [P,P,P,P],
-			       [P,P,P,P],
-			       [F,F,F,F]
+			       [E,E,E,E,E,E],
+                     [P,P,P,P,P,P],
+                     [P,P,P,P,P,P],
+                     [P,P,P,P,P,P],
+                     [P,P,P,P,P,P],
+                     [P,P,P,P,P,P],
+			       [F,F,F,F,F,F]
 			       ].reverse(),
-			"MAXTURN" : 30
-		}
-	}
+			"MAXTURN" : 40
+        }
+	};
 	
 	for (var key in LEVEL) {
 		var level = LEVEL[key];

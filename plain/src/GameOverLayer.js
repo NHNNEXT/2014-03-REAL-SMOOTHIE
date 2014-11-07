@@ -13,16 +13,7 @@ var GameOverLayer = cc.LayerColor.extend({
 			onTouchBegan: this.test
 		});
 		cc.eventManager.addListener(GameClearTouchListener.clone(), this);
-//		this.setTouchEnabled(true);
-//		this.setColor(cc.color(255, 255, 255));
-		// Create the button
-//		var button = new ccui.Button();
-//		button.setTouchEnabled(true);
-//		button.loadTextures(res.button_n, res.button_p, "");
-//		button.x = winsize.width / 2; 
-//		button.y = winsize.height / 2;
-//		button.addTouchEventListener(this.touchEvent, this);
-//		this.addChild(button);
+
 		
 		this.gameoverImage = new cc.Sprite(res.sadSally_png);
 		this.addChild(this.gameoverImage);
@@ -31,8 +22,9 @@ var GameOverLayer = cc.LayerColor.extend({
 		
 		this.overLabel = new cc.LabelTTF();
 		this.overLabel.setString("GAME OVER");
-		this.overLabel.setFontName("LINEBold");
-		this.overLabel.setFontSize(80);
+		//this.overLabel.setFontName("LINE Bold");
+		this.overLabel.setFontName("res/fonts/LINEBold.ttf");
+        this.overLabel.setFontSize(80);
 		this.overLabel.setColor( cc.color(230, 234, 210));
 		
 		// position the label on the center of the screen
@@ -53,6 +45,8 @@ var GameOverLayer = cc.LayerColor.extend({
 		this.addChild(menu, 1, 2);
 		menu.x = winsize.width / 2;
 		menu.y = winsize.height / 2;
+        
+        cc.audioEngine.playEffect(res.gameover_mp3);
 
 	},
 
@@ -62,7 +56,8 @@ var GameOverLayer = cc.LayerColor.extend({
 	},
 
 	touchEvent: function(touch, event) {
-		this.parent.removeChild(this);		
+		cc.audioEngine.playEffect(res.button_mp3);
+        this.parent.removeChild(this);
 		cc.director.runScene(new HelloWorldScene());
 	}
 

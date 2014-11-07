@@ -57,13 +57,17 @@ var Pipe = Block.extend({
 		*/
 	},
 	rotateRight: function () {
+        cc.audioEngine.playEffect(res.rotateRight_mp3);
+
 		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation + 90), cc.callFunc(function(){
 			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
 		}) ));
 		
 	},
 	rotateLeft: function () {
-		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation - 90), cc.callFunc(function(){
+		cc.audioEngine.playEffect(res.rotateLeft_mp3);
+                        
+        this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation - 90), cc.callFunc(function(){
 			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
 		}) ));
 	},
@@ -121,6 +125,10 @@ Pipe._create = function(type) {
 	var pipe = new Pipe(type);
 	pipe.reset();
 	PIPE_CONTAINER[type].push(pipe);
+    
+    pipe.setScaleX(BLOCK.SIZE.WIDTH/140);
+    pipe.setScaleY(BLOCK.SIZE.HEIGHT/140);
+
 	return pipe;
 };
 

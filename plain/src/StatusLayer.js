@@ -10,6 +10,7 @@ var StatusLayer = cc.Layer.extend({
 				res.CloseNormal_png,
 				res.CloseSelected_png,
 				function () {
+                    cc.audioEngine.playEffect(res.button_mp3);
 					cc.log("Menu is clicked!");
 					cc.director.runScene(new HelloWorldScene());
 				}, this);
@@ -26,23 +27,26 @@ var StatusLayer = cc.Layer.extend({
 		this.addChild(menu, 1);
 
 		this.stageLabel = new cc.LabelTTF();
-		this.stageLabel.setFontName("LINEBold");
-		this.stageLabel.setFontSize(50);
+	
+//        this.stageLabel.setFontName("LINE Bold");
+        this.stageLabel.setFontName("res/fonts/LINEBold.ttf");
+        this.stageLabel.setFontSize(50);
 		this.stageLabel.setColor( cc.color(190, 219, 57));
 
-		if(SMTH.STATUS.CURRENT_LEVEL.ID === 0 ) {			
-			this.stageLabel.setString("PRESET 3X4 STAGE");
-		} else if(SMTH.STATUS.CURRENT_LEVEL.ID === 1) {
-			this.stageLabel.setString("RANDOM 4X4 STAGE");
-		}
+        var levelDescription = SMTH.STATUS.CURRENT_LEVEL.TYPE + " " + SMTH.STATUS.CURRENT_LEVEL.MAP[0].length + "X" + SMTH.STATUS.CURRENT_LEVEL.MAP.length + "STAGE";
+                                  
+        this.stageLabel.setString(levelDescription);
+                                  
 		this.stageLabel.x = size.width / 2;
 		this.stageLabel.y = size.height / 2 + 500;
 		
 		this.turnLabel = new cc.LabelTTF();
 		this.turnLabel.setString(SMTH.CONTAINER.TURN + " / " + SMTH.STATUS.CURRENT_LEVEL.MAXTURN);
 		this.turnLabel.setFontSize(38);
-		this.turnLabel.setFontName("LINEBold");
-		this.turnLabel.setColor(cc.color(255, 255, 255));
+		//this.turnLabel.setFontName("LINE Bold");
+        this.turnLabel.setFontName("res/fonts/LINEBold.ttf");                          
+
+        this.turnLabel.setColor(cc.color(255, 255, 255));
 		
 		this.turnLabel.x = size.width / 2;
 		this.turnLabel.y = size.height / 2 + 450;

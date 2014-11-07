@@ -17,15 +17,30 @@ var BoardLayer = cc.Layer.extend ({
 		for(var key in PIPE_CONTAINER){
 			PIPE_CONTAINER[key] = [];
 		}
-
+                                  
+        // 캐쉬를 위한 파이프 컨테이너도 추기화
+                                  PIPE_CONTAINER = {}
+                                  PIPE_CONTAINER[PIPE_TYPE.RAND.L] = [];
+                                  PIPE_CONTAINER[PIPE_TYPE.RAND.I] = [];
+                                  PIPE_CONTAINER[PIPE_TYPE.RAND.X] = [];
+                                  PIPE_CONTAINER[PIPE_TYPE.RAND.T] = [];
+                                  
 		var row = this._level.row;
 		var col = this._level.col;
 		var winSize = cc.director.getWinSize()
-
+        // set BlockSize By block count
+        BLOCK.SIZE.WIDTH = winSize.width / this._level.MAP[0].length;
+        BLOCK.SIZE.HEIGHT = BLOCK.SIZE.WIDTH;
+                                  
 		this._createMap(row, col);
 		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
 		this._gameManager = new GameManger();
 		this.scheduleUpdate();
+                                  
+        cc.audioEngine.setMusicVolume(0.7);
+        cc.audioEngine.playMusic(res.GamePlayBGM_mp3, true);
+                                  
+            
 	},
 	update: function(dt) {
 		if(SMTH.STATUS.PLAY_STATE === SMTH.CONST.PLAY_STATE.IDEAL) {
@@ -78,8 +93,9 @@ var BoardLayer = cc.Layer.extend ({
 		this.parent.addChild(new GameClearLayer());
 	},
 
-
+    // 현재 이 함수는 사용하지 않으며 LevelLoader가 역할을 대신하고 있다.
 	_createBlock : function(type, r, c) {
+                                  cc.log("_createBlock!!!!!");
 		if(Pipe.isPipe(type)) {
 			var type = Math.floor(Math.random() * 4);
 			var angle = Math.floor(Math.random() * 4) * 90;
@@ -140,6 +156,8 @@ var BoardLayer = cc.Layer.extend ({
 				var block = SMTH.CONTAINER.PIPES[r*col+c];
 				if(block === null) {
 					var randomNewPipe = Pipe.getPipe(BLOCK.TYPE.PIPE.RAND.P);
+                                  randomNewPipe.setScaleX(BLOCK.SIZE.WIDTH/140);
+                                  randomNewPipe.setScaleY(BLOCK.SIZE.HEIGHT/140);
 					randomNewPipe.setPositionByRowCol(r, c);
 					SMTH.CONTAINER.PIPES[r*col+c] = randomNewPipe;
 					this.addChild(randomNewPipe);

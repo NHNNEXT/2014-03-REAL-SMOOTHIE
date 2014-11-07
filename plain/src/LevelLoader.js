@@ -34,6 +34,8 @@ var LevelLoader = cc.Class.extend({
 					var pos = friend._coordinateToPosition(r, c);
 					friend.x = pos.x;
 					friend.y = pos.y;
+                                  friend.setScaleX(BLOCK.SIZE.WIDTH/140);
+                                  friend.setScaleY(BLOCK.SIZE.HEIGHT/140);
 				}
 				// ENEMY
 				else if (pipeType < 7000) {
@@ -41,8 +43,11 @@ var LevelLoader = cc.Class.extend({
 					SMTH.CONTAINER.PIPES.push(enemy);
 					var pos = enemy._coordinateToPosition(r, c);
 					enemy.x = pos.x;
-					enemy.y = pos.y;
+                                  enemy.y = pos.y;
+                                  enemy.setScaleX(BLOCK.SIZE.WIDTH/140);
+                                  enemy.setScaleY(BLOCK.SIZE.HEIGHT/140);
 				}
+                                 
 			}
 		}
 	}

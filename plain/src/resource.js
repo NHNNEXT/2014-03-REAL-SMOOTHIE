@@ -14,12 +14,16 @@ var res = {
 		button_p: "res/animationbuttonpressed.png",
 		replayNormal_png: "res/replayNormal.png",
 		replaySelected_png: "res/replaySelected.png",
-		sadSally_png: "res/sadSally.png",
+sadSally_png: "res/sadSally.png",
+happySally_png: "res/happySally.png",
 		LINEBold_ttf: {
    	     type:"font",
    		 name:"LINEBold",
    		 srcs:["res/fonts/LINEBold.ttf"]
-   		}
+   		},
+    rotateRight_mp3 : "res/sound/rotateRight.mp3",
+    rotateLeft_mp3 : "res/sound/rotateLeft.mp3",GamePlayBGM_mp3 : "res/sound/GamePlayBGM.mp3",
+    attack_mp3 : "res/sound/attack.mp3",gameclear_mp3 : "res/sound/gameclear.mp3",gameover_mp3 : "res/sound/gameover.mp3",button_mp3 : "res/sound/button.mp3"
 };
 
 var g_resources = [];
