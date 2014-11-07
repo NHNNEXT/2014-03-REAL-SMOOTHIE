@@ -28,7 +28,7 @@
                      [P,P,P,P,P,P],
                      [P,P,P,P,P,P],
                      [P,P,P,P,P,P],
-			       [F,F,F,F,F,F]
+			       [E,F,F,F,F,E]
 			       ].reverse(),
 			"MAXTURN" : 40
         }

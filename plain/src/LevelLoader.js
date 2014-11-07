@@ -29,7 +29,7 @@ var LevelLoader = cc.Class.extend({
 				}
 				// FRIEND
 				else if (pipeType < 6000) {
-					var friend = new Friend(0)
+                    var friend = new Friend(0);
 					SMTH.CONTAINER.PIPES.push(friend);
 					var pos = friend._coordinateToPosition(r, c);
 					friend.x = pos.x;
@@ -39,13 +39,13 @@ var LevelLoader = cc.Class.extend({
 				}
 				// ENEMY
 				else if (pipeType < 7000) {
-					var enemy = new Enemy(0)
+                    var enemy = new Enemy(0);
 					SMTH.CONTAINER.PIPES.push(enemy);
 					var pos = enemy._coordinateToPosition(r, c);
 					enemy.x = pos.x;
-                                  enemy.y = pos.y;
-                                  enemy.setScaleX(BLOCK.SIZE.WIDTH/140);
-                                  enemy.setScaleY(BLOCK.SIZE.HEIGHT/140);
+                    enemy.y = pos.y;
+                    enemy.setScaleX(BLOCK.SIZE.WIDTH/140);
+                    enemy.setScaleY(BLOCK.SIZE.HEIGHT/140);
 				}
                                  
 			}

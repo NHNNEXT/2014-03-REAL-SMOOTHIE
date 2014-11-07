@@ -22,7 +22,7 @@ var GameClearLayer = cc.LayerColor.extend({
         this.gameclearImage.y = winsize.height / 2 +260;
                                           
 		this.clearLabel = new cc.LabelTTF();
-        this.clearLabel.setFontName("res/fonts/LINEBold.ttf");
+        this.clearLabel.setFontName(res.LINEBold_ttf);
         this.clearLabel.setFontSize(50);
         this.clearLabel.setColor( cc.color(20, 20, 20));
         this.clearLabel.setString("GAME CLEAR!");

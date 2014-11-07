@@ -22,8 +22,7 @@ var GameOverLayer = cc.LayerColor.extend({
 		
 		this.overLabel = new cc.LabelTTF();
 		this.overLabel.setString("GAME OVER");
-		//this.overLabel.setFontName("LINE Bold");
-		this.overLabel.setFontName("res/fonts/LINEBold.ttf");
+		this.overLabel.setFontName(res.LINEBold_ttf);
         this.overLabel.setFontSize(80);
 		this.overLabel.setColor( cc.color(230, 234, 210));
 		
