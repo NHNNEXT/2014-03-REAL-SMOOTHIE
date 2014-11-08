@@ -36,47 +36,39 @@ var BoardLayer = cc.Layer.extend ({
 			this._routeController.updateRoute();
 			this._corpseCollector();
 			this._fillBoard();
-			this._checkIsGameCleared();
 			this._checkIsGameOver();
 		}
 	},
 	_checkIsGameOver :function () {
 		//TODO: 종료조건에 따라서 수정될수 있도록 구현(by config)
 		// 턴이 다되면 게임 종
-		if(SMTH.CONTAINER.TURN > this._level.MAXTURN) {
-			this.unscheduleUpdate();
-			this.runAction(cc.sequence(
-					cc.delayTime(0.2),
-					cc.callFunc(this._onGameOver, this)
-			));
-		}
-
-	},
-	_onGameOver:function () {
-		cc.log("game over");
-		this.parent.addChild(new GameOverLayer());
-	},
-
-	
-	_checkIsGameCleared :function () {
-		//TODO: 종료조건에 따라서 수정될수 있도록 구현(by config)
-		// 적이 없으면 클리어되는 조건으로 구현
-		
 		var count = 0;
 		for(var i=0; i<SMTH.CONTAINER.PIPES.length ; i++){
 			if(BLOCK.TYPE.ENEMY === SMTH.CONTAINER.PIPES[i].type) {
 				count++;
 			}
 		}
-		if(count === 0) {
+		if(count != 0) {
+			if(SMTH.CONTAINER.TURN > this._level.MAXTURN) {
+				this.unscheduleUpdate();
+				this.runAction(cc.sequence(
+						cc.delayTime(0.2),
+						cc.callFunc(this._onGameOver, this)
+				));
+			}
+		} else {
 			this.unscheduleUpdate();
 			this.runAction(cc.sequence(
 					cc.delayTime(0.2),
 					cc.callFunc(this._onGameClear, this)
-					));
+			));
 		}
-
 	},
+	_onGameOver:function () {
+		cc.log("game over");
+		this.parent.addChild(new GameOverLayer());
+	},
+
 	_onGameClear:function () {
 		cc.log("game clear");
 		this.parent.addChild(new GameClearLayer());
