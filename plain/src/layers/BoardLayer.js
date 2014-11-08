@@ -49,7 +49,7 @@ var BoardLayer = cc.Layer.extend ({
 			}
 		}
 		if(count != 0) {
-			if(SMTH.CONTAINER.TURN > this._level.MAXTURN) {
+			if(SMTH.CONTAINER.TURN >= this._level.MAXTURN) {
 				this.unscheduleUpdate();
 				this.runAction(cc.sequence(
 						cc.delayTime(0.2),
