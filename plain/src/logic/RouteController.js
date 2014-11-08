@@ -1,5 +1,5 @@
 
-var GameManger = cc.Class.extend({
+var RouteController = cc.Class.extend({
 	pipes : null,
 	routes: null,
 	_level: null,

@@ -1,6 +1,6 @@
 
 var BoardLayer = cc.Layer.extend ({
-	_gameManager : null,
+	_routeController : null,
 	_level: null,
 
 	ctor:function () {
@@ -34,7 +34,7 @@ var BoardLayer = cc.Layer.extend ({
                                   
 		this._createMap(row, col);
 		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
-		this._gameManager = new GameManger();
+		this._routeController = new RouteController();
 		this.scheduleUpdate();
                                   
         cc.audioEngine.setMusicVolume(0.7);
@@ -44,7 +44,7 @@ var BoardLayer = cc.Layer.extend ({
 	},
 	update: function(dt) {
 		if(SMTH.STATUS.PLAY_STATE === SMTH.CONST.PLAY_STATE.IDEAL) {
-			this._gameManager.updateRoute();
+			this._routeController.updateRoute();
 			this._corpseCollector();
 			this._fillBoard();
 			this._checkIsGameCleared();
