@@ -1,16 +1,13 @@
 
 var RouteController = cc.Class.extend({
-	pipes : null,
-	routes: null,
-	_level: null,
 	ctor:function () {
 		//this._super();
 		this.init();
 	},
 
 	init:function () {
-		this.pipes = SMTH.CONTAINER.PIPES;
 		SMTH.CONTAINER.TURN = 0;
+		this.pipes = [];
 		this.routes = [];
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 	},
@@ -27,7 +24,7 @@ var RouteController = cc.Class.extend({
 		this.killRoute();
 	},
 	initRoute: function() {
-		// visitFlag 초기화
+		this.pipes = SMTH.CONTAINER.PIPES;
 		for(var i in this.pipes) {
 			if(this.pipes[i].HP <= 0) {
 				continue;

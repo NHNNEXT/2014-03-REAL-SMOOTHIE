@@ -55,6 +55,7 @@ var Pipe = Block.extend({
 
 		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation + 90), cc.callFunc(function(){
 			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
+			SMTH.EVENT_MANAGER.notice("pipeRotateEnd");
 		}) ));
 		
 	},
@@ -63,6 +64,7 @@ var Pipe = Block.extend({
                         
         this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation - 90), cc.callFunc(function(){
 			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
+			SMTH.EVENT_MANAGER.notice("pipeRotateEnd");
 		}) ));
 	},
 	

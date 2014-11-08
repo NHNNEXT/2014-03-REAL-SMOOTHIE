@@ -26,6 +26,7 @@
         "src/logic/Route.js",
         "src/logic/RouteController.js",
         "src/logic/LevelLoader.js",
+        "src/logic/Judge.js",
         "src/sprites/Block.js",
         "src/sprites/Enemy.js",
         "src/sprites/Pipe.js",
