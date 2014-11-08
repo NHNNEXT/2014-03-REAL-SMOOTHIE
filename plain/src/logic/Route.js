@@ -1,14 +1,14 @@
 var Route = cc.Class.extend({
-	blocks : null,
-	friend : null,
-	numberOfEnemies: 0,
-	attackFlag: false,
+	
 	ctor:function (friend) {
 		this.friend = friend;
 		this.init();
 	},
 
 	init:function () {
+		this.blocks = null;
+		this.numberOfEnemies = 0;
+		this.attackFlag = false;
 		this.blocks = [];
 		this.searchRoute(this.friend);
 		this.countEnemy();

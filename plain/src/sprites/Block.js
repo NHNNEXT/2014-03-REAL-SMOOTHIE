@@ -1,14 +1,13 @@
 
-
 var Block = cc.Sprite.extend({
-	HP: null, // HP가 0이 되면 사라져야할 녀석
-	type: null, // BLOCK.TYPE.PIPE || BLOCK.TYPE.FRIEND || BLOCK.TYPE.ENEMY
-	row: null,
-	column: null,
-	active: null,
-	connectedWith: null,
-	visitFlag: false,
 	ctor:function (resourceName) {
+		this.HP = null, // HP가 0이 되면 사라져야할 녀석
+		this.type = null, // BLOCK.TYPE.PIPE || BLOCK.TYPE.FRIEND || BLOCK.TYPE.ENEMY
+		this.row = null,
+		this.column = null,
+		this.active = null,
+		this.connectedWith = null,
+		this.visitFlag = false,
 		this._super(resourceName);
 		// 여기에 init()이 있으면 init()이 두 번 호출됨.
 	},

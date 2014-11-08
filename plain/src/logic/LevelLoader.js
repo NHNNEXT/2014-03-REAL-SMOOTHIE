@@ -1,5 +1,4 @@
 var LevelLoader = cc.Class.extend({
-	_level: null,
 	ctor: function(level) {
 		this._level = level;
 		this.init();

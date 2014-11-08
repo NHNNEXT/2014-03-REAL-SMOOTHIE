@@ -1,7 +1,5 @@
 
 var BoardLayer = cc.Layer.extend ({
-	_routeController : null,
-	_level: null,
 
 	ctor:function () {
 		this._super();
@@ -9,6 +7,7 @@ var BoardLayer = cc.Layer.extend ({
 	},
 
 	init: function() {
+		this._routeController = null;
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
 
