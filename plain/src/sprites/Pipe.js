@@ -1,10 +1,4 @@
 
-var PIPE_CONTAINER = {}
-PIPE_CONTAINER[PIPE_TYPE.RAND.L] = [];
-PIPE_CONTAINER[PIPE_TYPE.RAND.I] = [];
-PIPE_CONTAINER[PIPE_TYPE.RAND.X] = [];
-PIPE_CONTAINER[PIPE_TYPE.RAND.T] = [];
-
 var PIPE = {};
 PIPE.RESOURCE_MAPPER = {};
 PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.L] = res.Pipe_2way_curve;
@@ -14,40 +8,40 @@ PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.T] = res.Pipe_3way;
 
 var Pipe = Block.extend({
 	ctor:function (initialPipeType) {
-		this._super(PIPE.RESOURCE_MAPPER[initialPipeType]);
-		this.pipeType = initialPipeType;
+		
+		// 파이프 타입만 정해준 경우 랜덤하게 회전
+		if (initialPipeType % 1000 == 0) {
+			this.pipeType = Pipe.getRandomPipeType(initialPipeType);
+		} else {
+			this.pipeType = initialPipeType;
+		}
+		
+		var angle = this.pipeType % 1000;
+		this.shape = this.pipeType - angle;
+		
+		this._super(PIPE.RESOURCE_MAPPER[this.shape]);
+		this.rotation = angle;
+
 		this.init();
 	},
 	init: function() {
+		// PIPE만의 고유한 변수 및 값 설정
 		this.type = BLOCK.TYPE.PIPE;
-		this.active = false;
+		this.delta = cc.p(0,0);
+		this.HP = PIPE_TYPE.HP;
+		this.isRotten = false;
+		
 		var pipeTouchListener = cc.EventListener.create({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
-			delta: "",
 			swallowTouches: false,
 			onTouchBegan: this.pipeTouchHandler.onTouchBegan,
 			onTouchMoved: this.pipeTouchHandler.onTouchMoved.bind(this),
 			onTouchEnded: this.pipeTouchHandler.onTouchEnded.bind(this),
 		});
 		cc.eventManager.addListener(pipeTouchListener.clone(), this);
-		
-		this.reset();
 	},
-	reset: function() {
-		this.HP = PIPE_TYPE.HP;
-		this.active = true;
-		this.visible = true;
-		this.isRotten = false;
-		this.scale = 1;
-		this.connectedWith = [];
-	},
-	setPositionByRowCol: function(row, column) {
-		this.row = row;
-		this.column = column;
-
-		var position = this._coordinateToPosition(this.row, this.column);
-		this.setPosition(position);
-	},
+	
+	
 	update:function (dt) {
 		/*
 		if (this.HP <= 0) {
@@ -73,7 +67,7 @@ var Pipe = Block.extend({
 	},
 	
 	isOpened : function(dir) {
-		var pipeInfo = PIPE_TYPE.INFO[this.pipeType];
+		var pipeInfo = PIPE_TYPE.INFO[this.shape];
 		return pipeInfo[(360+dir-this.rotation) % 360]
 	}, 
 	
@@ -106,14 +100,20 @@ Pipe.prototype.pipeTouchHandler = {
 		cc.log("sprite onTouchesEnded.. ");
 		target.setOpacity(255);
 		if(this.HP <= 0 && this.isRotten === false) {
+			// 사라질 파이프는 입력 무시
+			return;
+		} else if (target.rotation % 90 != 0) {
+			// 회전 중 입력 무시
+			return;
+		} else if (SMTH.CONTAINER.TURN >= SMTH.STATUS.CURRENT_LEVEL.MAXTURN) {
+			// 턴 초과시 입력 무시
 			return;
 		} else {
 			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.ROTATING;
-			if ((this.delta === undefined || this.delta.x >= 0) && target.rotation%90==0) {
-				if(SMTH.CONTAINER.TURN <= SMTH.STATUS.CURRENT_LEVEL.MAXTURN) SMTH.CONTAINER.TURN++;
+			SMTH.CONTAINER.TURN++;
+			if (this.delta.x >= 0) {
 				target.rotateRight();
-			} else if ((this.delta === undefined || this.delta.x < 0) && target.rotation%90==0)  {
-				if(SMTH.CONTAINER.TURN <= SMTH.STATUS.CURRENT_LEVEL.MAXTURN) SMTH.CONTAINER.TURN++;
+			} else if (this.delta.x < 0)  {
 				target.rotateLeft();
 			}
 		}
@@ -121,45 +121,15 @@ Pipe.prototype.pipeTouchHandler = {
 	}
 };
 
-Pipe._create = function(type) {
-	var pipe = new Pipe(type);
-	pipe.reset();
-	PIPE_CONTAINER[type].push(pipe);
-    
-    pipe.setScaleX(BLOCK.SIZE.WIDTH/140);
-    pipe.setScaleY(BLOCK.SIZE.HEIGHT/140);
-
-	return pipe;
-};
-
-Pipe.getOrCreate = function(type) {
-	var pipeList = PIPE_CONTAINER[type];
-	for (var i = 0; i < pipeList.length; i++) {
-		var pipe = pipeList[i];
-		if (pipe.active == false) {
-			pipe.reset();
-			return pipe;
-		}
-	}
-	var pipe = Pipe._create(type);
-	return pipe;
-}
-
-Pipe.getPipe = function(type) {
+Pipe.getRandomPipeType = function(initialPipeType) {
+	var pipeType = initialPipeType;
+	
 	// ALL RANDOM then choose pipe type
-	if (type == 0) {
-		type = 1000 + Math.floor(Math.random() * 4) * 1000;
+	if (initialPipeType == 0) {
+		pipeType = 1000 + Math.floor(Math.random() * 4) * 1000;
 	}
 	// Random Rotate
-	if (type % 1000 == 0) {
-		var angle = 90 + Math.floor(Math.random() * 4) * 90;
-		type += angle;
-	}
-	// PIPE
-	var shape = type - type % 1000;
-	var angle = type % 1000;
-	var pipe = Pipe.getOrCreate(shape);
-	pipe.rotation = angle;
+	var angle = 90 + Math.floor(Math.random() * 4) * 90;
 	
-	return pipe;
-};
+	return pipeType + angle;
+}

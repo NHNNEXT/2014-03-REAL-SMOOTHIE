@@ -1,21 +1,33 @@
 
 var Block = cc.Sprite.extend({
 	ctor:function (resourceName) {
-		this.HP = null, // HP가 0이 되면 사라져야할 녀석
-		this.type = null, // BLOCK.TYPE.PIPE || BLOCK.TYPE.FRIEND || BLOCK.TYPE.ENEMY
-		this.row = null,
-		this.column = null,
-		this.active = null,
-		this.connectedWith = null,
-		this.visitFlag = false,
 		this._super(resourceName);
+		// Block 공통 변수 설정
+		this.HP = null; // HP가 0이 되면 사라져야할 녀석
+		this.type = null; // BLOCK.TYPE.PIPE || BLOCK.TYPE.FRIEND || BLOCK.TYPE.ENEMY
+		this.row = null;
+		this.col = null;
+		this.connectedWith = [];
+		this.visitFlag = false;
+		
+		this.setScaleX(BLOCK.SIZE.WIDTH/140);
+		this.setScaleY(BLOCK.SIZE.HEIGHT/140);
 		// 여기에 init()이 있으면 init()이 두 번 호출됨.
 	},
-	_coordinateToPosition: function(row, column) {
+	
+	setPositionByRowCol: function(row, col) {
+		this.row = row;
+		this.col = col;
+
+		var position = this._coordinateToPosition(this.row, this.col);
+		this.setPosition(position);
+	},
+	_coordinateToPosition: function(row, col) {
 		var width = BLOCK.SIZE.WIDTH;
 		var height = BLOCK.SIZE.HEIGHT;
-		return cc.p(column*width + width/2 , row*height + height/2);
+		return cc.p(col*width + width/2 , row*height + height/2);
 	},
+	
 	hurt: function() { // 파이프와 적이 파괴되는 경우를 생각해서 만든거임
 		this.HP--;
 		if(this.HP <= 0) {
@@ -28,13 +40,9 @@ var Block = cc.Sprite.extend({
 //		}
 //		this.fading = true;
 
-		this.runAction(cc.sequence(cc.callFunc(function(){
-				//cc.log("시작!");
-			}),
-			// 왜지? 왜 집에서 다시 하니까 fadeOut이 잘 되지?
+		this.runAction(cc.sequence(
 			cc.fadeOut(1), 
 			cc.callFunc(function(){
-				//cc.log("끝!!");
 				this.active = false;
 				this.isRotten = true;
 				this.visible = false;

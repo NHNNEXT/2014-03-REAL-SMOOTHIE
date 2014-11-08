@@ -19,32 +19,21 @@ var LevelLoader = cc.Class.extend({
 				}
 				// PIPE
 				if (pipeType < 5000) {
-					var pipeShape = pipeType - pipeType % 1000;
-					var angle = pipeType % 1000;
-					var pipe = Pipe.getOrCreate(pipeShape);
-					pipe.rotation = angle;
-					SMTH.CONTAINER.PIPES.push(pipe);
+					var pipe = new Pipe(pipeType);
 					pipe.setPositionByRowCol(r, c);
+					SMTH.CONTAINER.PIPES.push(pipe);
 				}
 				// FRIEND
 				else if (pipeType < 6000) {
                     var friend = new Friend(0);
+                    friend.setPositionByRowCol(r, c);
 					SMTH.CONTAINER.PIPES.push(friend);
-					var pos = friend._coordinateToPosition(r, c);
-					friend.x = pos.x;
-					friend.y = pos.y;
-                                  friend.setScaleX(BLOCK.SIZE.WIDTH/140);
-                                  friend.setScaleY(BLOCK.SIZE.HEIGHT/140);
 				}
 				// ENEMY
 				else if (pipeType < 7000) {
                     var enemy = new Enemy(0);
+					enemy.setPositionByRowCol(r, c);
 					SMTH.CONTAINER.PIPES.push(enemy);
-					var pos = enemy._coordinateToPosition(r, c);
-					enemy.x = pos.x;
-                    enemy.y = pos.y;
-                    enemy.setScaleX(BLOCK.SIZE.WIDTH/140);
-                    enemy.setScaleY(BLOCK.SIZE.HEIGHT/140);
 				}
                                  
 			}
