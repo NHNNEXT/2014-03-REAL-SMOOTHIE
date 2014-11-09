@@ -8,6 +8,9 @@ var Route = cc.Class.extend({
 	init:function () {
 		this.blocks = null;
 		this.numberOfEnemies = 0;
+		this.numberOfFriends = 0;
+		this.blockDeadCnt = 0;
+		this.attackFinCount = 0;
 		this.attackFlag = false;
 		this.blocks = [];
 		this.searchRoute(this.friend);
@@ -29,6 +32,9 @@ var Route = cc.Class.extend({
 			var block = this.blocks[i];
 			if (block.type == BLOCK.TYPE.ENEMY) {
 				this.numberOfEnemies += 1;
+			}
+			if (block.type == BLOCK.TYPE.FRIEND) {
+				this.numberOfFriends += 1;
 			}
 		}
 	},
@@ -58,14 +64,29 @@ var Route = cc.Class.extend({
 	hurt: function() {
 		for (var i in this.blocks) {
 			var block = this.blocks[i];
-			if (block.isPipe()) {
-				block.hurt();
-			} else if(block.isEnemy()) {
-				cc.log("tew?");
-				block.hurt();
+			if (block.isFriend()) {
+				// don't hurt
+			} else {
+				block.hurt(function() {
+					this.increaseAtkCnt();
+				}.bind(this));
 			}
 		}
         cc.audioEngine.playEffect(res.attack_mp3);
+	},
+	
+	increaseAtkCnt: function() {
+		this.attackFinCount++;
+		var attackableBlockCount = this.blocks.length - this.numberOfFriends;
+		if (this.attackFinCount >= attackableBlockCount) {
+			SMTH.EVENT_MANAGER.notice("routeUsed", this);
+		}
+	},
+	decreaseDeadCnt: function() {
+		this.blockDeadCnt--;
+		if (this.blockDeadCnt <= 0) {
+			SMTH.EVENT_MANAGER.notice("routeDied", this);
+		}
 	}
 
 });

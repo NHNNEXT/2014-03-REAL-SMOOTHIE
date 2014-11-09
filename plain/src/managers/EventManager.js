@@ -11,8 +11,10 @@ var EventManager = cc.Class.extend({
 		}.bind(this));
 		
 		this.handle("gameStart", function(e){
-			// 게임 시작 시 채색만.
-			this.routeController.updateRoute(false);
+			this.currentScene = cc.director.getRunningScene();
+			this.routeController = new RouteController();
+			// 게임 시작 시 연결된 파이프 공격 ㅇㅇ.
+			this.routeController.updateRoute(true);
 		}.bind(this));
 		
 		this.handle("pipeRotateEnd", function(e) {
@@ -20,6 +22,7 @@ var EventManager = cc.Class.extend({
 		}.bind(this));
 		
 		this.handle("attack", function(e) {
+			cc.log("attack");
 			var routes = e.getUserData();
 			for (var i in routes) {
 				var route = routes[i];
@@ -29,21 +32,33 @@ var EventManager = cc.Class.extend({
 			}
 		}.bind(this));
 		
-		this.handle("blockDied", function(e) {
-			var block = e.getUserData();
-			block.runAction(cc.sequence(
-					cc.fadeOut(0.5), 
-					cc.callFunc(function(block){
-						block.isRotten = true;
-						block.visible = false;
-						var board = block.parent;
-						// 시체콜렉터와 맵채움이 대신 각자 알아서 환생하는 방식
-						board.replaceBlock(block);
-					}.bind(this, block))
-			));
+		this.handle("routeUsed", function(e) {
+			var route = e.getUserData();
+			for (var i in route.blocks) {
+				var block = route.blocks[i];
+				// 아군은 교체하지 않음 
+				if (block.isFriend()) continue;
+				// HP가 남아있어도 교체하지 않음.
+				if (block.HP > 0) continue;
+				
+				// 다른 녀석들은 교체할 녀석들.
+				// 죽은 카운트를 증가시키는 대신
+				route.blockDeadCnt++;
+				block.runAction(cc.sequence(
+						cc.fadeOut(0.5), 
+						cc.callFunc(function(block, route){
+							block.isRotten = true;
+							block.visible = false;
+							var board = block.parent;
+							board.replaceBlock(block);
+							// 되살아날 때 죽음 카운트를 줄인다.
+							route.decreaseDeadCnt();
+						}.bind(this, block, route))
+				));
+			}
 		}.bind(this));
 		
-		this.handle("blockReplaced", function(e) {
+		this.handle("routeDied", function(e) {
 			this.routeController.updateRoute(true);
 		}.bind(this));
 		
@@ -52,7 +67,6 @@ var EventManager = cc.Class.extend({
 			this.routeController.updateRoute(false);
 			
 			// 이미 종료 판단이 내려진 경우
-			cc.log(SMTH.STATUS.GAME_STATE);
 			if (SMTH.STATUS.GAME_STATE != GAME_STATE.NOT_END) {
 				return;
 			}
@@ -73,6 +87,9 @@ var EventManager = cc.Class.extend({
 	},
 	handle: function(eventName, handlerFunction) {
 		cc.eventManager.addCustomListener(eventName, handlerFunction);
+	},
+	fire: function() {
+		cc.eventManager.removeAllListeners();
 	}
 	
 });

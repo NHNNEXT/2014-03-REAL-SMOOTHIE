@@ -34,6 +34,9 @@ var HelloWorldScene = cc.Scene.extend({
 		SMTH.START_LEVEL_INDEX++;
 		SMTH.START_LEVEL_INDEX = SMTH.START_LEVEL_INDEX % levelArr.length;
 		
+		if (SMTH.EVENT_MANAGER != null) {
+			SMTH.EVENT_MANAGER.fire();
+		}
 		SMTH.EVENT_MANAGER = new EventManager();
 	}
 });

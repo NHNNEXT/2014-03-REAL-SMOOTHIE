@@ -28,12 +28,10 @@ var Block = cc.Sprite.extend({
 		return cc.p(col*width + width/2 , row*height + height/2);
 	},
 	
-	hurt: function() { // 파이프와 적이 파괴되는 경우를 생각해서 만든거임
+	hurt: function(callback) { // 파이프와 적이 파괴되는 경우를 생각해서 만든거임
 		this.HP--;
-		if(this.HP <= 0) {
-//			this.destroy();
-			SMTH.EVENT_MANAGER.notice("blockDied", this);
-		}
+		// 라우트가 자신의 파이프가 모두 공격을 완료했다는걸 파악하게 됨.
+		callback();
 	},
 
 	isPipe : function() {

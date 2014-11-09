@@ -7,7 +7,6 @@ var BoardLayer = cc.Layer.extend ({
 	},
 
 	init: function() {
-		this._routeController = null;
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
 		SMTH.STATUS.GAME_STATE = SMTH.CONST.GAME_STATE.NOT_END;
@@ -24,8 +23,6 @@ var BoardLayer = cc.Layer.extend ({
                                   
 		this._createMap(row, col);
 		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
-//		this._routeController = new RouteController();
-//		this.scheduleUpdate();
                                   
         cc.audioEngine.setMusicVolume(0.7);
         cc.audioEngine.playMusic(res.GamePlayBGM_mp3, true);
@@ -55,6 +52,5 @@ var BoardLayer = cc.Layer.extend ({
 		randomNewPipe.setPositionByRowCol(row, col);
 		this.addChild(randomNewPipe);
 		SMTH.CONTAINER.PIPES[row*levelCol+col] = randomNewPipe;
-		SMTH.EVENT_MANAGER.notice("blockReplaced");
 	}
 });

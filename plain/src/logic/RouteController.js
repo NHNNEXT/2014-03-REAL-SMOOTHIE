@@ -37,6 +37,7 @@ var RouteController = cc.Class.extend({
 		
 		// 공격이 가능하다면 공격
 		if (this.canAttack) {
+			
 			SMTH.EVENT_MANAGER.notice("attack", this.routes);
 		} else {
 			// 공격이 불가능해졌을 때 턴 종료 선언
