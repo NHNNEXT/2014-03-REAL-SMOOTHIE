@@ -28,7 +28,6 @@ var BoardLayer = cc.Layer.extend ({
         cc.audioEngine.playMusic(res.GamePlayBGM_mp3, true);
                                   
         SMTH.EVENT_MANAGER.notice("gameStart");
-            
 	},
 
 	_createMap : function(row, col) { 
