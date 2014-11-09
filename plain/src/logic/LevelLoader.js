@@ -4,9 +4,9 @@ var LevelLoader = cc.Class.extend({
 		this.init();
 	},
 	init: function() {
-		for (r in this._level.MAP) {
+		for (var r in this._level.MAP) {
 			var row = this._level.MAP[r];
-			for (c in row) {
+			for (var c in row) {
 				var pipeType = row[c];
 				// ALL RANDOM then choose pipe type
 				if (pipeType == 0) {

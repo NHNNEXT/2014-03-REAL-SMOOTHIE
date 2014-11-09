@@ -1,25 +1,7 @@
 var Judge = cc.Class.extend({
 	ctor: function() {
 		
-	},
-	
-	_onGameOver:function () {
-		cc.log("game over");
-		this.parent.addChild(new GameOverLayer());
-	},
-
-//		if(count === 0) {
-//			this.unscheduleUpdate();
-//			this.runAction(cc.sequence(
-//					cc.delayTime(0.2),
-//					cc.callFunc(this._onGameClear, this)
-//			));
-//		}
-
-	_onGameClear:function () {
-		cc.log("game clear");
-		this.parent.addChild(new GameClearLayer());
-	},
+	}
 });
 
 

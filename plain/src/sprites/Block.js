@@ -5,8 +5,8 @@ var Block = cc.Sprite.extend({
 		// Block 공통 변수 설정
 		this.HP = null; // HP가 0이 되면 사라져야할 녀석
 		this.type = null; // BLOCK.TYPE.PIPE || BLOCK.TYPE.FRIEND || BLOCK.TYPE.ENEMY
-		this.row = null;
-		this.col = null;
+		this.row = -1;
+		this.col = -1;
 		this.connectedWith = [];
 		this.visitFlag = false;
 		
@@ -31,25 +31,11 @@ var Block = cc.Sprite.extend({
 	hurt: function() { // 파이프와 적이 파괴되는 경우를 생각해서 만든거임
 		this.HP--;
 		if(this.HP <= 0) {
-			this.destroy();
+//			this.destroy();
+			SMTH.EVENT_MANAGER.notice("blockDied", this);
 		}
 	},
-	destroy: function () {
-//		if (this.fading == true) {
-//			return;
-//		}
-//		this.fading = true;
 
-		this.runAction(cc.sequence(
-			cc.fadeOut(1), 
-			cc.callFunc(function(){
-				this.active = false;
-				this.isRotten = true;
-				this.visible = false;
-				this.retain();
-			}.bind(this))
-		));
-	},
 	isPipe : function() {
 		return false;
 	},

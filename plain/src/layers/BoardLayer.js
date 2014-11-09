@@ -24,20 +24,12 @@ var BoardLayer = cc.Layer.extend ({
 		this._createMap(row, col);
 		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
 //		this._routeController = new RouteController();
-		this.scheduleUpdate();
+//		this.scheduleUpdate();
                                   
         cc.audioEngine.setMusicVolume(0.7);
         cc.audioEngine.playMusic(res.GamePlayBGM_mp3, true);
                                   
             
-	},
-	update: function(dt) {
-		if(SMTH.STATUS.PLAY_STATE === SMTH.CONST.PLAY_STATE.IDEAL) {
-//			this._routeController.updateRoute();
-			this._corpseCollector();
-			this._fillBoard();
-			SMTH.EVENT_MANAGER.notice("turnEnd");
-		}
 	},
 
 	_createMap : function(row, col) { 
@@ -50,35 +42,17 @@ var BoardLayer = cc.Layer.extend ({
 			}
 		}
 	},
-	_corpseCollector : function() {
-		var row = this._level.row;
-		var col = this._level.col;
-		for (var r = 0; r < row; r++) {
-			for (var c = 0; c < col; c++) {
-				var block = SMTH.CONTAINER.PIPES[r*col+c];
-				if(block.HP <= 0 && block.isRotten) {
-					cc.log("r:" + r + ", c: " + c);
-					SMTH.CONTAINER.PIPES[r*col+c] = null;
-					this.removeChild(block);
-					// block 객체가 정말 사라진건지 확인 필요 
-				}	
-			}
-		}		
-	}, 
-	_fillBoard : function() {
-		var row = this._level.row;
-		var col = this._level.col;
-		for (var r = 0; r < row; r++) {
-			for (var c = 0; c < col; c++) {
-				var block = SMTH.CONTAINER.PIPES[r*col+c];
-				if(block === null) {
-					var randomNewPipe = new Pipe(BLOCK.TYPE.PIPE.RAND.P);
-					randomNewPipe.setPositionByRowCol(r, c);
-					SMTH.CONTAINER.PIPES[r*col+c] = randomNewPipe;
-					this.addChild(randomNewPipe);
-					// block 객체가 정말 사라진건지 확인 필요 
-				}	
-			}
-		}		
-	}	
+	replaceBlock: function(block) {
+		var row = Number(block.row);
+		var col = Number(block.col);
+		var levelCol = this._level.col;
+		
+		this.removeChild(block);
+		
+		var randomNewPipe = new Pipe(BLOCK.TYPE.PIPE.RAND.P);
+		randomNewPipe.setPositionByRowCol(row, col);
+		this.addChild(randomNewPipe);
+		SMTH.CONTAINER.PIPES[row*levelCol+col] = randomNewPipe;
+		SMTH.EVENT_MANAGER.notice("blockReplaced");
+	}
 });

@@ -10,8 +10,9 @@ var RouteController = cc.Class.extend({
 		this.pipes = [];
 		this.routes = [];
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
+		this.canAttack = false;
 	},
-	updateRoute: function() {
+	updateRoute: function(withAttack) {
 		// 보드 상의 모든 파이프의 연결 정보를 초기화 
 		this.initRoute();
 		// 파이프의 ConnectedWith 정보 추가
@@ -20,10 +21,30 @@ var RouteController = cc.Class.extend({
 		this.makeRoutes();
 		// 라우트를 식별하기 위한 채색작업 수행
 		this.colorRoute();
-		// 공격에 해당하는 라우트에 hurt 메시지를 보냄
-		this.killRoute();
+		
+		// 공격 필요없이 채색작업만 필요한 경우 withAttack을 false로 넘겨줌
+		if (withAttack == false) {
+			return;
+		}
+		// 공격할 수 있는지 판단
+		this.checkRoute();
+		
+		/* 
+		 * 아래 과정은 공격이 불가능해질때까지 반복됨.
+		 * 공격 후 파이프 재생성, 다시 라우트 생성, 공격 할 수 있다면 다시
+		 * 공격 후 파이프 재생성 ...
+		 */
+		
+		// 공격이 가능하다면 공격
+		if (this.canAttack) {
+			SMTH.EVENT_MANAGER.notice("attack", this.routes);
+		} else {
+			// 공격이 불가능해졌을 때 턴 종료 선언
+			SMTH.EVENT_MANAGER.notice("turnEnd");
+		}
 	},
 	initRoute: function() {
+		this.canAttack = false;
 		this.pipes = SMTH.CONTAINER.PIPES;
 		for(var i in this.pipes) {
 			if(this.pipes[i].HP <= 0) {
@@ -42,14 +63,15 @@ var RouteController = cc.Class.extend({
 			route.colorPipes();
 		}
 	},
-	killRoute : function() {
+	checkRoute : function() {
 		for (var i in this.routes) {
 			var route = this.routes[i];
 			if (route.numberOfEnemies > 0) {
-				route.hurt();
+				this.canAttack = true;
 			}
 		}
 	},
+
 	makeRoutes: function() {
 		for (var i = 0; i < this._level.row; i++) {
 			var row = this._level.MAP[i];
