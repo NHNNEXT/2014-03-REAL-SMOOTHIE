@@ -7,6 +7,7 @@ SMTH.CONTAINER = {
 
 SMTH.STATUS = {
 	"PLAY_STATE": null,
+	"GAME_STATE": null,
 	"CURRENT_LEVEL": null
 }
 
@@ -15,7 +16,7 @@ SMTH.CONST = {};
 SMTH.CONST.GAME_STATE = {
 	"GAME_OVER": 0,
 	"GAME_CLEAR": 1,
-	"GAME_NOT_END": 2
+	"NOT_END": 2
 };
 
 SMTH.CONST.PLAY_STATE = {

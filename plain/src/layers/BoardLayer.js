@@ -10,6 +10,7 @@ var BoardLayer = cc.Layer.extend ({
 		this._routeController = null;
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
+		SMTH.STATUS.GAME_STATE = SMTH.CONST.GAME_STATE.NOT_END;
 
 		//SMTH.CONTAINER안에 pipe를 초기화
 		SMTH.CONTAINER.PIPES =[];
@@ -29,6 +30,7 @@ var BoardLayer = cc.Layer.extend ({
         cc.audioEngine.setMusicVolume(0.7);
         cc.audioEngine.playMusic(res.GamePlayBGM_mp3, true);
                                   
+        SMTH.EVENT_MANAGER.notice("gameStart");
             
 	},
 

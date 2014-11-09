@@ -10,6 +10,11 @@ var EventManager = cc.Class.extend({
 			
 		}.bind(this));
 		
+		this.handle("gameStart", function(e){
+			// 게임 시작 시 채색만.
+			this.routeController.updateRoute(false);
+		}.bind(this));
+		
 		this.handle("pipeRotateEnd", function(e) {
 			this.routeController.updateRoute(true);
 		}.bind(this));
@@ -32,6 +37,7 @@ var EventManager = cc.Class.extend({
 						block.isRotten = true;
 						block.visible = false;
 						var board = block.parent;
+						// 시체콜렉터와 맵채움이 대신 각자 알아서 환생하는 방식
 						board.replaceBlock(block);
 					}.bind(this, block))
 			));
@@ -42,19 +48,23 @@ var EventManager = cc.Class.extend({
 		}.bind(this));
 		
 		this.handle("turnEnd", function(e) {
-			cc.log("turnEnd!!!")
+			var GAME_STATE = SMTH.CONST.GAME_STATE;
 			this.routeController.updateRoute(false);
 			
-			var GAME_STATE = SMTH.CONST.GAME_STATE;
+			// 이미 종료 판단이 내려진 경우
+			cc.log(SMTH.STATUS.GAME_STATE);
+			if (SMTH.STATUS.GAME_STATE != GAME_STATE.NOT_END) {
+				return;
+			}
+			
 			var status = Judge.checkGameEnd();
+			SMTH.STATUS.GAME_STATE = status;
 			if (status == GAME_STATE.GAME_OVER) {
 				this.currentScene.addChild(new GameOverLayer());
 				cc.log("OVER");
 			} else if (status == GAME_STATE.GAME_CLEAR) {
 				this.currentScene.addChild(new GameClearLayer());
 				cc.log("CLEAR");
-			} else {
-				return;
 			}
 		}.bind(this));
 	},
