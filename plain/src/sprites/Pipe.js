@@ -54,7 +54,6 @@ var Pipe = Block.extend({
         cc.audioEngine.playEffect(res.rotateRight_mp3);
 
 		this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation + 90), cc.callFunc(function(){
-			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
 			SMTH.EVENT_MANAGER.notice("pipeRotateEnd");
 		}) ));
 		
@@ -63,7 +62,6 @@ var Pipe = Block.extend({
 		cc.audioEngine.playEffect(res.rotateLeft_mp3);
                         
         this.runAction(cc.sequence(cc.rotateTo(0.2, this.rotation - 90), cc.callFunc(function(){
-			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.IDEAL;
 			SMTH.EVENT_MANAGER.notice("pipeRotateEnd");
 		}) ));
 	},
@@ -111,7 +109,6 @@ Pipe.prototype.pipeTouchHandler = {
 			// 턴 초과시 입력 무시
 			return;
 		} else {
-			SMTH.STATUS.PLAY_STATE = SMTH.CONST.PLAY_STATE.ROTATING;
 			SMTH.CONTAINER.TURN++;
 			if (this.delta.x >= 0) {
 				target.rotateRight();

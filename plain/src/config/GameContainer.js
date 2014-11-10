@@ -6,7 +6,6 @@ SMTH.CONTAINER = {
 };
 
 SMTH.STATUS = {
-	"PLAY_STATE": null,
 	"GAME_STATE": null,
 	"CURRENT_LEVEL": null
 }
@@ -17,12 +16,6 @@ SMTH.CONST.GAME_STATE = {
 	"GAME_OVER": 0,
 	"GAME_CLEAR": 1,
 	"NOT_END": 2
-};
-
-SMTH.CONST.PLAY_STATE = {
-	"IDEAL": 0,
-	"ROTATING": 1,
-	"KILLING": 2
 };
 
 SMTH.START_LEVEL_INDEX = 0;
