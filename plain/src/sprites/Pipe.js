@@ -34,7 +34,7 @@ var Pipe = Block.extend({
 		var pipeTouchListener = cc.EventListener.create({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
 			swallowTouches: false,
-			onTouchBegan: this.pipeTouchHandler.onTouchBegan,
+			onTouchBegan: this.pipeTouchHandler.onTouchBegan.bind(this),
 			onTouchMoved: this.pipeTouchHandler.onTouchMoved.bind(this),
 			onTouchEnded: this.pipeTouchHandler.onTouchEnded.bind(this),
 		});
@@ -79,12 +79,22 @@ var Pipe = Block.extend({
 
 Pipe.prototype.pipeTouchHandler = {
 	"onTouchBegan": function (touch, event) { 
+		// 모든 터치이벤트리스너를 돌며 이 파이프를 선택한 것인지 계산한다.
 		var target = event.getCurrentTarget();
 		var locationInNode = target.convertToNodeSpace(touch.getLocation());    
 		var s = target.getContentSize();
 		var rect = cc.rect(0, 0, s.width, s.height);
-
-		if (cc.rectContainsPoint(rect, locationInNode)) {       
+		// 선택한 파이프를 찾았다면-
+		if (cc.rectContainsPoint(rect, locationInNode)) {
+			this.deltaX = 0;
+			
+			this.guidePipe = new Pipe(this.pipeType);
+			this.guidePipe.setPosition(cc.p(70,70));
+			// 파이프가 돌아가면 좌표계도 같이 돌아간다. 0도로 해놓으면 항상 같은 모양이 나온다.
+			this.guidePipe.setRotation(0);
+			this.guidePipe.opacity = 30;
+			this.addChild(this.guidePipe);
+			
 			cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
 			target.opacity = 180;
 			return true;
@@ -93,12 +103,19 @@ Pipe.prototype.pipeTouchHandler = {
 	},
 	"onTouchMoved": function (touch, event) {         
 		var target = event.getCurrentTarget();
-		this.delta = touch.getDelta();
+		this.deltaX += touch.getDelta().x;
+		
+		var angle = Math.sqrt(Math.sqrt(Math.abs(this.deltaX) / cc.director.getWinSize().width)) * 120;
+		if (this.deltaX < 0) angle = -angle;
+		this.guidePipe.setRotation(angle);
 	},
 	"onTouchEnded": function (touch, event) {         
 		var target = event.getCurrentTarget();
 		cc.log("sprite onTouchesEnded.. ");
 		target.setOpacity(255);
+		
+		this.removeChild(this.guidePipe);
+		
 		if(this.HP <= 0 && this.isRotten === false) {
 			// 사라질 파이프는 입력 무시
 			return;
@@ -110,9 +127,9 @@ Pipe.prototype.pipeTouchHandler = {
 			return;
 		} else {
 			SMTH.CONTAINER.TURN++;
-			if (this.delta.x >= 0) {
+			if (this.deltaX >= 0) {
 				target.rotateRight();
-			} else if (this.delta.x < 0)  {
+			} else if (this.deltaX < 0)  {
 				target.rotateLeft();
 			}
 		}
