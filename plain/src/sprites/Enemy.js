@@ -1,6 +1,5 @@
 var Enemy = Block.extend({
 	ctor:function (type) {
-        cc.log("토끼!!!!!!!!!!!!!!!!!!!! :"+ type);
         this._super(EnemyType[type].resouceName);
 		this.init();
 	},
@@ -21,6 +20,12 @@ var Enemy = Block.extend({
 		this.addChild(this.hpLabel);
 		
 		this.scheduleUpdate();
+		
+		var actionTo = cc.scaleBy(1.5, 1.04);
+        var actionToBack = actionTo.reverse();
+		var rep = new cc.RepeatForever(cc.sequence(actionTo, actionToBack), 5);
+		this.runAction(rep);
+
 	},
 	isOpened : function(dir) {
 		return true;

@@ -95,7 +95,7 @@ Pipe.prototype.pipeTouchHandler = {
 			this.guidePipe.opacity = 30;
 			this.addChild(this.guidePipe);
 			
-			cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
+			//cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
 			target.opacity = 180;
 			return true;
 		}
@@ -111,7 +111,7 @@ Pipe.prototype.pipeTouchHandler = {
 	},
 	"onTouchEnded": function (touch, event) {         
 		var target = event.getCurrentTarget();
-		cc.log("sprite onTouchesEnded.. ");
+		//cc.log("sprite onTouchesEnded.. ");
 		target.setOpacity(255);
 		
 		this.removeChild(this.guidePipe);

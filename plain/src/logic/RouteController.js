@@ -37,7 +37,6 @@ var RouteController = cc.Class.extend({
 		
 		// 공격이 가능하다면 공격
 		if (this.canAttack) {
-			
 			SMTH.EVENT_MANAGER.notice("attack", this.routes);
 		} else {
 			// 공격이 불가능해졌을 때 턴 종료 선언
@@ -74,13 +73,22 @@ var RouteController = cc.Class.extend({
 	},
 
 	makeRoutes: function() {
-		for (var i = 0; i < this._level.row; i++) {
-			var row = this._level.MAP[i];
-			for (var j = 0; j < this._level.col ; j++) {
-				if (row[j] == BLOCK.TYPE.FRIEND) {
-					var route = new Route(this._getPipe(j, i));
-					this.routes.push(route);
+		var friends = [];
+		for (var i = 0; i < SMTH.CONTAINER.PIPES.length ;i++) {
+			var block = SMTH.CONTAINER.PIPES[i];
+			if (block.isFriend()) {
+				var friend = block;
+				if (friends.indexOf(friend) >= 0) {
+					continue;
 				}
+				var route = new Route(friend);
+				for(var j in route.blocks) {
+					if(route.blocks[j].isFriend()){
+						friends.push(route.blocks[j])
+					};
+				}
+				this.routes.push(route);
+				route.tag = i;						
 			}
 		}
 	},

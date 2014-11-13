@@ -11,7 +11,6 @@ var StatusLayer = cc.Layer.extend({
 				res.CloseSelected_png,
 				function () {
                     cc.audioEngine.playEffect(res.button_mp3);
-					cc.log("Menu is clicked!");
 					cc.director.runScene(new HelloWorldScene());
 				}, this);
 		closeItem.attr({
@@ -40,7 +39,7 @@ var StatusLayer = cc.Layer.extend({
 		this.stageLabel.y = size.height / 2 + 500;
 		
 		this.turnLabel = new cc.LabelTTF();
-		this.turnLabel.setString(SMTH.CONTAINER.TURN + " / " + SMTH.STATUS.CURRENT_LEVEL.MAXTURN);
+		this.turnLabel.setString("Remaining " + (SMTH.STATUS.CURRENT_LEVEL.MAXTURN - SMTH.CONTAINER.TURN));
 		this.turnLabel.setFontSize(38);
         this.turnLabel.setFontName(res.LINEBold_ttf);                         
 
@@ -57,7 +56,7 @@ var StatusLayer = cc.Layer.extend({
 	}, 
 	update: function() {
 		if(SMTH.CONTAINER.TURN <= SMTH.STATUS.CURRENT_LEVEL.MAXTURN){
-			this.turnLabel.setString(SMTH.CONTAINER.TURN + "/" + SMTH.STATUS.CURRENT_LEVEL.MAXTURN);
+		this.turnLabel.setString("Remaining " + (SMTH.STATUS.CURRENT_LEVEL.MAXTURN - SMTH.CONTAINER.TURN));		
 		}
 	}
 });

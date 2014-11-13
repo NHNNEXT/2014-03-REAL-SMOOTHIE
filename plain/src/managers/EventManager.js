@@ -22,7 +22,6 @@ var EventManager = cc.Class.extend({
 		}.bind(this));
 		
 		this.handle("attack", function(e) {
-			cc.log("attack");
 			var routes = e.getUserData();
 			for (var i in routes) {
 				var route = routes[i];

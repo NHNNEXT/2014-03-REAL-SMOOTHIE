@@ -67,7 +67,7 @@ var Route = cc.Class.extend({
 			if (block.isFriend()) {
 				// don't hurt
 			} else {
-				block.hurt(function() {
+				block.hurt(this.numberOfFriends,function() {
 					this.increaseAtkCnt();
 				}.bind(this));
 			}
@@ -83,7 +83,7 @@ var Route = cc.Class.extend({
 		}
 	},
 	decreaseDeadCnt: function() {
-		this.blockDeadCnt--;
+		this.blockDeadCnt = this.blockDeadCnt - 1;
 		if (this.blockDeadCnt <= 0) {
 			SMTH.EVENT_MANAGER.notice("routeDied", this);
 		}
