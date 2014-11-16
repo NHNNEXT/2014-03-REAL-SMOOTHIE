@@ -11,7 +11,7 @@ var StatusLayer = cc.Layer.extend({
 				res.CloseSelected_png,
 				function () {
                     cc.audioEngine.playEffect(res.button_mp3);
-					cc.director.runScene(new HelloWorldScene());
+					cc.director.runScene(new PlayScene());
 				}, this);
 		closeItem.attr({
 			x: size.width - 70,

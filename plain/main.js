@@ -68,7 +68,7 @@ cc.game.onStart = function(){
                            res.LINEBold_ttf = res.LINEBold_ttf.srcs[0];
                            }
   
-     cc.director.runScene(new HelloWorldScene());
+     cc.director.runScene(new PlayScene());
 	}, this);
 };
 cc.game.run();

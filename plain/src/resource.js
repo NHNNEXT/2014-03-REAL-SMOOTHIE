@@ -14,8 +14,8 @@ var res = {
 		button_p: "res/animationbuttonpressed.png",
 		replayNormal_png: "res/replayNormal.png",
 		replaySelected_png: "res/replaySelected.png",
-sadSally_png: "res/sadSally.png",
-happySally_png: "res/happySally.png",
+		sadSally_png: "res/sadSally.png",
+		happySally_png: "res/happySally.png",
 		LINEBold_ttf: {
    	     type:"font",
    		 name:"LINEBold",

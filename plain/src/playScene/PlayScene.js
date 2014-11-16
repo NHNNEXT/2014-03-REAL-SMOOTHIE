@@ -1,5 +1,5 @@
 
-var HelloWorldScene = cc.Scene.extend({
+var PlayScene = cc.Scene.extend({
 	onEnter:function () {
 		this._super();
 		cc.log("Scene Started!");

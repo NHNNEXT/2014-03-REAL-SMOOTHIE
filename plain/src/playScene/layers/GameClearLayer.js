@@ -35,17 +35,16 @@ var GameClearLayer = cc.LayerColor.extend({
         
         cc.audioEngine.playEffect(res.gameclear_mp3);
 		
-                                          var playAgainNormal = new cc.Sprite(res.replayNormal_png);
-                                          var playAgainSelected = new cc.Sprite(res.replaySelected_png);
-                                          var playAgainDisabled = new cc.Sprite(res.replayNormal_png);
-                                          var playAgain = new cc.MenuItemSprite(playAgainNormal, playAgainSelected, playAgainDisabled, function(){
-                                                                                this.touchEvent();
-                                                                                }.bind(this) );
-                                          
-                                          var menu = new cc.Menu(playAgain);
-                                          this.addChild(menu, 1, 2);
-                                          menu.x = winsize.width / 2;
-                                          menu.y = winsize.height / 2;
+		var playAgainNormal = new cc.Sprite(res.replayNormal_png);
+		var playAgainSelected = new cc.Sprite(res.replaySelected_png);
+		var playAgainDisabled = new cc.Sprite(res.replayNormal_png);
+		var playAgain = new cc.MenuItemSprite(playAgainNormal, playAgainSelected, playAgainDisabled,
+				function(){this.touchEvent();}.bind(this) );
+		
+		var menu = new cc.Menu(playAgain);
+		this.addChild(menu, 1, 2);
+		menu.x = winsize.width / 2;
+		menu.y = winsize.height / 2;
                                           
 	},
 	
@@ -57,7 +56,7 @@ var GameClearLayer = cc.LayerColor.extend({
 	touchEvent: function(touch, event) {
         cc.audioEngine.playEffect(res.button_mp3);
 		this.parent.removeChild(this);
-		cc.director.runScene(new HelloWorldScene());
+		cc.director.runScene(new PlayScene());
 	},
 	
 	sendResult : function() {
