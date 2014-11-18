@@ -32,8 +32,6 @@
         "src/playScene/sprites/Enemy.js",
         "src/playScene/sprites/Pipe.js",
         "src/playScene/sprites/Friend.js",
-        "src/mapScene/MapScene.js",
-        "src/mapScene/layers/MapLayer.js",
         "src/managers/EventManager.js"
     ]
 }
