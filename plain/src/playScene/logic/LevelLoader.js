@@ -34,6 +34,18 @@ var LevelLoader = cc.Class.extend({
                     var enemy = new Enemy(0);
 					enemy.setPositionByRowCol(r, c);
 					SMTH.CONTAINER.PIPES.push(enemy);
+				} 
+				// ISOLATION
+				else if (pipeType < 8000) {
+					var isolation = new Isolation(0);
+					isolation.setPositionByRowCol(r, c);
+					SMTH.CONTAINER.PIPES.push(isolation);
+				}
+				// TREASURE
+				else if (pipeType < 9000) {
+					var treasure = new Treasure(1);
+					treasure.setPositionByRowCol(r, c);
+					SMTH.CONTAINER.PIPES.push(treasure);
 				}
                                  
 			}

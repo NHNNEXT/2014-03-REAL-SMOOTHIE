@@ -44,7 +44,9 @@ var BLOCK = {
 		"TYPE": {
 			"PIPE" : PIPE_TYPE,
 			"FRIEND" : 5000,
-			"ENEMY" : 6000
+			"ENEMY" : 6000,
+			"ISOLATION": 7000,
+			"TREASURE": 8000,
 		},
 		"ROTATION": {
 			UP: 0,

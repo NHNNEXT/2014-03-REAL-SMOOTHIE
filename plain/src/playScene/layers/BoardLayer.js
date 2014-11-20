@@ -45,11 +45,17 @@ var BoardLayer = cc.Layer.extend ({
 		var col = Number(block.col);
 		var levelCol = this._level.col;
 		
-		this.removeChild(block);
+		console.log(block.isEnemy);
 		
-		var randomNewPipe = new Pipe(BLOCK.TYPE.PIPE.RAND.P);
-		randomNewPipe.setPositionByRowCol(row, col);
-		this.addChild(randomNewPipe);
-		SMTH.CONTAINER.PIPES[row*levelCol+col] = randomNewPipe;
+		this.removeChild(block);
+		var replacement;
+		if(block.isEnemy()) {
+			replacement = new Treasure(1);
+		} else {
+			replacement = new Pipe(BLOCK.TYPE.PIPE.RAND.P);
+		}
+		replacement.setPositionByRowCol(row, col);
+		this.addChild(replacement);
+		SMTH.CONTAINER.PIPES[row*levelCol+col] = replacement;
 	}
 });

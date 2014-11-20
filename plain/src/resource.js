@@ -16,6 +16,8 @@ var res = {
 		replaySelected_png: "res/replaySelected.png",
 		sadSally_png: "res/sadSally.png",
 		happySally_png: "res/happySally.png",
+		isolation_png: "res/isolation.png",
+		treasure_png: "res/treasure.png",
 		LINEBold_ttf: {
    	     type:"font",
    		 name:"LINEBold",

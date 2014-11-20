@@ -7,6 +7,8 @@
 	var LL = BLOCK.TYPE.PIPE.L.L;
 	var F = BLOCK.TYPE.FRIEND;
 	var E = BLOCK.TYPE.ENEMY;
+	var I = BLOCK.TYPE.ISOLATION;
+	var T = BLOCK.TYPE.TREASURE;
 	
 	var LEVEL = {
 		"MAP": {
@@ -34,7 +36,7 @@
 			"MAP" : [
 					[E,E,E,E,E,E],
 					[P,P,P,P,P,P],
-					[P,P,P,P,P,P],
+					[P,T,P,P,I,P],
 					[P,P,P,P,P,P],
 					[P,P,P,P,P,P],
 					[P,P,P,P,P,P],
