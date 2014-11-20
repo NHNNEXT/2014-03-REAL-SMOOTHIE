@@ -41,7 +41,23 @@
 					[P,F,F,F,F,P]
 					].reverse(),
 			"MAXTURN" : 40
-        }
+		},
+		"9X9TEST": {
+			"ID": 2,
+			"TYPE": "RANDOM",
+			"MAP" : [
+			         [E,E,E,E,E,E,E,E,E],
+			         [P,P,P,P,P,P,P,P,P],
+			         [P,P,P,P,P,P,P,P,P],
+			         [P,P,P,P,P,P,P,P,P],
+			         [P,P,P,P,P,P,P,P,P],
+			         [P,P,P,P,P,P,P,P,P],
+			         [P,P,P,P,P,P,P,P,P],
+			         [P,P,P,P,P,P,P,P,P],
+			         [P,P,F,F,F,F,F,P,P]
+			         ].reverse(),
+			         "MAXTURN" : 40
+		}
 	};
 	
 	for (var key in LEVEL) {
