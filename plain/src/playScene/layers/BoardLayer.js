@@ -18,7 +18,7 @@ var BoardLayer = cc.Layer.extend ({
 		var winSize = cc.director.getWinSize()
         // set BlockSize By block count
 //        BLOCK.SIZE.WIDTH = winSize.width / this._level.MAP[0].length; 
-		BLOCK.SIZE.WIDTH = 68;
+		BLOCK.SIZE.WIDTH = 86;
         BLOCK.SIZE.HEIGHT = BLOCK.SIZE.WIDTH;
                                   
 		this._createMap(row, col);

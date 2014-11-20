@@ -48,15 +48,13 @@
 			"ID": 2,
 			"TYPE": "RANDOM",
 			"MAP" : [
-			         [E,E,E,E,E,E,E,E,E],
-			         [P,P,P,P,P,P,P,P,P],
-			         [P,P,P,P,P,P,P,P,P],
-			         [P,P,P,P,P,P,P,P,P],
-			         [P,P,P,P,P,P,P,P,P],
-			         [P,P,P,P,P,P,P,P,P],
-			         [P,P,P,P,P,P,P,P,P],
-			         [P,P,P,P,P,P,P,P,P],
-			         [P,P,F,F,F,F,F,P,P]
+			         [E,E,E,E,E,E,E],
+			         [P,P,P,P,P,P,P],
+			         [P,P,P,P,P,P,P],
+			         [P,P,P,P,P,P,P],
+			         [P,P,P,P,P,P,P],
+			         [P,P,P,P,P,P,P],
+			         [P,F,F,F,F,F,P]
 			         ].reverse(),
 			         "MAXTURN" : 40
 		}
