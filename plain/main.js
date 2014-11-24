@@ -58,17 +58,13 @@ cc.game.onStart = function(){
 
     //load resources
 	cc.LoaderScene.preload(g_resources, function () {
-	
-                           
-
-                           // 실행 기기체크. navigator 객체의 유무로 브라우저인지 네이티브인지 체크해서 폰트 주소 변경.
-                           if( cc.view._viewName === "Cocos2dHTML5" ) {
-                           res.LINEBold_ttf = res.LINEBold_ttf.name
-                           } else {
-                           res.LINEBold_ttf = res.LINEBold_ttf.srcs[0];
-                           }
-  
-     cc.director.runScene(new PlayScene());
+		// 실행 기기체크. navigator 객체의 유무로 브라우저인지 네이티브인지 체크해서 폰트 주소 변경.
+		if( cc.view._viewName === "Cocos2dHTML5" ) {
+			res.LINEBold_ttf = res.LINEBold_ttf.name
+		} else {
+			res.LINEBold_ttf = res.LINEBold_ttf.srcs[0];
+		}
+	    cc.director.runScene(new PlayScene());
 	}, this);
 };
 cc.game.run();
