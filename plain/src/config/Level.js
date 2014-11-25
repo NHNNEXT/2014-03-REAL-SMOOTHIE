@@ -2,9 +2,13 @@
 	var P  = BLOCK.TYPE.PIPE.RAND.P;
 	var IU = BLOCK.TYPE.PIPE.I.U;
 	var IR = BLOCK.TYPE.PIPE.I.R;
+	var LU = BLOCK.TYPE.PIPE.L.U;
 	var LD = BLOCK.TYPE.PIPE.L.D;
 	var LR = BLOCK.TYPE.PIPE.L.R;
 	var LL = BLOCK.TYPE.PIPE.L.L;
+	var TD = BLOCK.TYPE.PIPE.T.D;
+	var TR = BLOCK.TYPE.PIPE.T.R;
+	var TL = BLOCK.TYPE.PIPE.T.L;
 	var F  = BLOCK.TYPE.FRIEND;
 	var E  = BLOCK.TYPE.ENEMY;
 	var I  = BLOCK.TYPE.ISOLATION;
@@ -39,8 +43,95 @@
                     ].reverse(),
             "MAXTURN" : 10
 		},
+		"STAGE2": {
+			"ID": 1,
+			"TYPE": "PRESET",
+			"TREASURE" : 0,
+			"EMEMYLIST" : [
+			{"id":0,"hp":1},
+			{"id":0,"hp":1}
+			],
+			"RANDOMRATIO" : {
+			   "PIPE":[1,1,1,1], // L - I - X - T
+			   "ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
+			},
+			"MAP" : [
+			        [E ,I ,I ,E ],
+			        [LU,LL,P ,IU],
+			        [P ,IU,P ,IU],
+			        [P ,IU,LU,LL],
+			        [I ,F ,F , I]
+			        ].reverse(),
+	        "MAXTURN" : 10
+		},
+		"STAGE3": {
+			"ID": 2,
+			"TYPE": "PRESET",
+			"TREASURE" : 0,
+			"EMEMYLIST" : [
+			{"id":0,"hp":1},
+			{"id":0,"hp":1},
+			{"id":0,"hp":1},
+			{"id":0,"hp":1}
+			],
+			"RANDOMRATIO" : {
+			   "PIPE":[1,1,1,1], // L - I - X - T
+			   "ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
+			},
+			"MAP" : [
+			        [E ,E ,E ,E ],
+			        [LU,TD,TD,LL],
+			        [P ,IU,IU,P ],
+			        [P ,IU,IU,P ],
+			        [I ,F ,F , I]
+			        ].reverse(),
+	        "MAXTURN" : 10
+		},
+		"STAGE4": {
+			"ID": 3,
+			"TYPE": "PRESET",
+			"TREASURE" : 0,
+			"EMEMYLIST" : [
+			{"id":0,"hp":2},
+			{"id":0,"hp":2},
+			],
+			"RANDOMRATIO" : {
+				"PIPE":[1,1,1,1], // L - I - X - T
+				"ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
+			},
+			"MAP" : [
+					[E ,I ,E ],
+					[IU,P ,IU],
+					[IR,P ,IR],
+					[IU,P ,IU],
+					[F ,I ,F ]
+					].reverse(),
+			"MAXTURN" : 10
+		},
+		"STAGE5": {
+			"ID": 4,
+			"TYPE": "PRESET",
+			"TREASURE" : 0,
+			"EMEMYLIST" : [
+			{"id":0,"hp":2},
+			{"id":0,"hp":2},
+			{"id":0,"hp":2},
+			],
+			"RANDOMRATIO" : {
+			   "PIPE":[1,1,1,1], // L - I - X - T
+			   "ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
+			},
+			"MAP" : [
+			        [E ,E ,E ],
+			        [IU,IU,P ],
+			        [IR,IR,P ],
+			        [TL,TR,P ],
+			        [F ,F ,I ]
+			        ].reverse(),
+	        "MAXTURN" : 10
+		},
 		"LEVEL0": {
-            "ID": 1,
+            "ID": 5,
             "TYPE": "RANDOM",
             "EMEMYLIST" : [
             {"id":0,"hp":5,},
@@ -67,7 +158,7 @@
 			"MAXTURN" : 40
 		},
 		"9X9TEST": {
-			"ID": 2,
+			"ID": 6,
 			"TYPE": "RANDOM",
 			"EMEMYLIST" : [
 			{"id":0,"hp":5,},
