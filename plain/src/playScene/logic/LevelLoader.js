@@ -10,17 +10,13 @@ var LevelLoader = cc.Class.extend({
 			var row = this._level.MAP[r];
 			for (var c in row) {
 				var pipeType = row[c];
-				// ALL RANDOM then choose pipe type
-				if (pipeType == 0) {
-					pipeType = 1000 + Math.floor(Math.random() * 4) * 1000;
-				}
-				// Random Rotate
-				if (pipeType % 1000 == 0) {
-					var angle = 90 + Math.floor(Math.random() * 4) * 90;
-					pipeType += angle;
-				}
 				// PIPE
 				if (pipeType < 5000) {
+					// Random Rotate
+					cc.log("levelLoader: " + r+"/"+c+" "+pipeType);
+					if (pipeType % 1000 == 360) {
+						pipeType = Pipe.getRandomPipeType(pipeType);
+					}
 					var pipe = new Pipe(pipeType);
 					pipe.setPositionByRowCol(r, c);
 					SMTH.CONTAINER.PIPES.push(pipe);

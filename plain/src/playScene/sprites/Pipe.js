@@ -1,15 +1,17 @@
 
 var PIPE = {};
 PIPE.RESOURCE_MAPPER = {};
-PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.L] = res.Pipe_2way_curve;
-PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.I] = res.Pipe_2way_line;
-PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.X] = res.Pipe_4way;
-PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.T] = res.Pipe_3way;
+PIPE.RESOURCE_MAPPER[PIPE_TYPE.L.U] = res.Pipe_2way_curve;
+PIPE.RESOURCE_MAPPER[PIPE_TYPE.I.U] = res.Pipe_2way_line;
+PIPE.RESOURCE_MAPPER[PIPE_TYPE.X.U] = res.Pipe_4way;
+PIPE.RESOURCE_MAPPER[PIPE_TYPE.T.U] = res.Pipe_3way;
 
 var Pipe = Block.extend({
 	ctor:function (initialPipeType) {
+		cc.log(initialPipeType);
 		// 파이프 타입만 정해준 경우 랜덤하게 회전
-		if (initialPipeType % 1000 == 0) {
+		if (initialPipeType % 1000 == 360) {
+			cc.log("random");
 			this.pipeType = Pipe.getRandomPipeType(initialPipeType);
 		} else {
 			this.pipeType = initialPipeType;
@@ -17,7 +19,6 @@ var Pipe = Block.extend({
 		
 		var angle = this.pipeType % 1000;
 		this.shape = this.pipeType - angle;
-		
 		this._super(PIPE.RESOURCE_MAPPER[this.shape]);
 		this.rotation = angle;
 
@@ -66,6 +67,7 @@ var Pipe = Block.extend({
 	},
 	
 	isOpened : function(dir) {
+		cc.log(this.shape);
 		var pipeInfo = PIPE_TYPE.INFO[this.shape];
 		return pipeInfo[(360+dir-this.rotation) % 360]
 	}, 
@@ -150,7 +152,7 @@ Pipe.getRandomPipeType = function(initialPipeType) {
 	rotateRatio.reduce(function(a,b,i) { return accRotateRatio[i] = a+b; },0);
 
 	// ALL RANDOM then choose pipe type
-	if (initialPipeType == 0) {
+	if (initialPipeType == 360) {
 		var randValue = Math.random();
 		
 		if(randValue < accPipeRatio[0] / accPipeRatio[accPipeRatio.length-1]) pipeType = 1000;
@@ -160,7 +162,7 @@ Pipe.getRandomPipeType = function(initialPipeType) {
 //		pipeType = 1000 + Math.floor(Math.random() * 4) * 1000;
 	}
 	// Random Rotate
-	if(randValue < accRotateRatio[0] / accRotateRatio[accRotateRatio.length-1]) angle = 360;
+	if(randValue < accRotateRatio[0] / accRotateRatio[accRotateRatio.length-1]) angle = 0;
 	else if(randValue < accRotateRatio[1] / accRotateRatio[accRotateRatio.length-1]) angle = 90;
 	else if(randValue < accRotateRatio[2] / accRotateRatio[accRotateRatio.length-1]) angle = 180;
 	else if(randValue < accRotateRatio[3] / accRotateRatio[accRotateRatio.length-1]) angle = 270;
