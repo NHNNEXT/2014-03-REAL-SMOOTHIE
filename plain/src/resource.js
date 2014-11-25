@@ -18,6 +18,8 @@ var res = {
 		happySally_png: "res/happySally.png",
 		isolation_png: "res/isolation.png",
 		treasure_png: "res/treasure.png",
+		hpfull_png: "res/hp_full_140.png",
+		hpempty_png: "res/hp_empty_140.png",
 		LINEBold_ttf: {
    	     type:"font",
    		 name:"LINEBold",
