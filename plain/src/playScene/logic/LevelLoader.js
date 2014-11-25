@@ -4,6 +4,8 @@ var LevelLoader = cc.Class.extend({
 		this.init();
 	},
 	init: function() {
+		var enemies =  this._level.EMEMYLIST.slice(0);
+		
 		for (var r in this._level.MAP) {
 			var row = this._level.MAP[r];
 			for (var c in row) {
@@ -31,7 +33,9 @@ var LevelLoader = cc.Class.extend({
 				}
 				// ENEMY
 				else if (pipeType < 7000) {
-                    var enemy = new Enemy(0);
+					var enemyInfo =  enemies.shift();
+					var enemy = new Enemy(enemyInfo.id);
+					enemy.setHP(enemyInfo.hp);
 					enemy.setPositionByRowCol(r, c);
 					SMTH.CONTAINER.PIPES.push(enemy);
 				} 

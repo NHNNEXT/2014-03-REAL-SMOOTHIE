@@ -61,8 +61,8 @@ var BLOCK = {
 			LEFT: 270		
 		},
 		"SIZE": {
-			WIDTH: 140,
-			HEIGHT: 140
+			WIDTH: 86,
+			HEIGHT: 86
 		}
 };
 

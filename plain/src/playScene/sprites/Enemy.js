@@ -27,6 +27,9 @@ var Enemy = Block.extend({
 		this.runAction(rep);
 
 	},
+	setHP : function(hp) {
+		this.HP = hp;
+	},
 	isOpened : function(dir) {
 		return true;
 	},
