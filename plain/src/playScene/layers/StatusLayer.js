@@ -20,6 +20,25 @@ var StatusLayer = cc.Layer.extend({
 			anchorY: 0.5
 		});
 
+		var mixer = new cc.MenuItemImage(
+				res.mixer_png,
+				res.mixer_png,
+				function () {
+					cc.log("Mix!")
+				}, this);
+		mixer.attr({
+			x: size.width / 2,
+			y: 100,
+			scale: 0.1,
+			anchorX: 0.5,
+			anchorY: 0.5
+		});
+		
+		var mixMenu = cc.Menu(mixer);
+		mixMenu.x = 0;
+		mixMenu.y = 0;
+		this.addChild(mixMenu, 2);
+		
 		var menu = new cc.Menu(closeItem);
 		menu.x = 0;
 		menu.y = 0;
