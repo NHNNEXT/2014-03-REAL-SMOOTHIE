@@ -8,10 +8,8 @@ PIPE.RESOURCE_MAPPER[PIPE_TYPE.T.U] = res.Pipe_3way;
 
 var Pipe = Block.extend({
 	ctor:function (initialPipeType) {
-		cc.log(initialPipeType);
 		// 파이프 타입만 정해준 경우 랜덤하게 회전
 		if (initialPipeType % 1000 == 360) {
-			cc.log("random");
 			this.pipeType = Pipe.getRandomPipeType(initialPipeType);
 		} else {
 			this.pipeType = initialPipeType;
@@ -67,7 +65,6 @@ var Pipe = Block.extend({
 	},
 	
 	isOpened : function(dir) {
-		cc.log(this.shape);
 		var pipeInfo = PIPE_TYPE.INFO[this.shape];
 		return pipeInfo[(360+dir-this.rotation) % 360]
 	}, 
@@ -127,7 +124,7 @@ Pipe.prototype.pipeTouchHandler = {
 		} else if (SMTH.CONTAINER.TURN >= SMTH.STATUS.CURRENT_LEVEL.MAXTURN) {
 			// 턴 초과시 입력 무시
 			return;
-		} else {
+		} else if(!this.fixed) {
 			SMTH.CONTAINER.TURN++;
 			if (this.deltaX >= 0) {
 				target.rotateRight();

@@ -36,7 +36,7 @@ var Block = cc.Sprite.extend({
 	},
 	
 	hurt: function(damage, callback) { // 파이프와 적이 파괴되는 경우를 생각해서 만든거임
-		this.HP = this.HP - damage;
+		if(!this.fixed) this.HP = this.HP - damage;
 		// 라우트가 자신의 파이프가 모두 공격을 완료했다는걸 파악하게 됨.
 		callback();
 	},

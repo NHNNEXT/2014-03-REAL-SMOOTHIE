@@ -13,7 +13,6 @@ var LevelLoader = cc.Class.extend({
 				// PIPE
 				if (pipeType < 5000) {
 					// Random Rotate
-					cc.log("levelLoader: " + r+"/"+c+" "+pipeType);
 					if (pipeType % 1000 == 360) {
 						pipeType = Pipe.getRandomPipeType(pipeType);
 					}
