@@ -20,6 +20,7 @@ var res = {
 		treasure_png: "res/treasure.png",
 		hpfull_png: "res/hp_full_140.png",
 		hpempty_png: "res/hp_empty_140.png",
+		mixer_png: "res/mixer.png",
 		LINEBold_ttf: {
    	     type:"font",
    		 name:"LINEBold",

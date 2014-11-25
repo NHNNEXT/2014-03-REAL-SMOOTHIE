@@ -16,10 +16,6 @@ var BoardLayer = cc.Layer.extend ({
 		var row = this._level.row;
 		var col = this._level.col;
 		var winSize = cc.director.getWinSize()
-        // set BlockSize By block count
-//        BLOCK.SIZE.WIDTH = winSize.width / this._level.MAP[0].length; 
-//		BLOCK.SIZE.WIDTH = 86;
-//        BLOCK.SIZE.HEIGHT = BLOCK.SIZE.WIDTH;
                                   
 		this._createMap(row, col);
 		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
