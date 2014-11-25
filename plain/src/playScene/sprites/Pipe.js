@@ -90,9 +90,10 @@ Pipe.prototype.pipeTouchHandler = {
 			
 			this.guidePipe = new Pipe(this.pipeType);
 			this.guidePipe.setPosition(cc.p(70,70));
+			this.guidePipe.setScale(1.0, 1.0);
 			// 파이프가 돌아가면 좌표계도 같이 돌아간다. 0도로 해놓으면 항상 같은 모양이 나온다.
 			this.guidePipe.setRotation(0);
-			this.guidePipe.opacity = 30;
+			this.guidePipe.opacity = 80;
 			this.addChild(this.guidePipe);
 			
 			//cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
