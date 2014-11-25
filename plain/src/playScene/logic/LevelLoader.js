@@ -54,5 +54,5 @@ var LevelLoader = cc.Class.extend({
                                  
 			}
 		}
-	}
+	},
 });

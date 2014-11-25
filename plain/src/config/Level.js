@@ -26,6 +26,10 @@
 			{"id":0,"hp":1},
 			{"id":0,"hp":1}
 			],
+			"RANDOMRATIO" : {
+				"PIPE":[0,1,0,0], // L - I - X - T
+				"ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
+			},
            "MAP" : [
                     [E ,E ],
                     [IU,IR],
@@ -47,6 +51,10 @@
             {"id":0,"hp":5,},
             ],
             "FIXEDPIPE" : [cc.p(2,2), cc.p(4,4)],
+            "RANDOMRATIO" : {
+            	"PIPE":[1,1,1,1],
+            	"ROTATE":[1,1,1,1]
+            },
 			"MAP" : [
 					[E,E,E ,E,E ,E],
 					[P,P,P ,P,P ,P],
@@ -71,6 +79,10 @@
 			{"id":0,"hp":5,},
 			{"id":0,"hp":5,},
 			],
+			"RANDOMRATIO" : {
+				"PIPE":[1,1,1,1],
+				"ROTATE":[1,1,1,1]
+			},
 			"MAP" : [
 			         [E,E,E,E,E,E,E],
 			         [P,P,P,P,P,P,P],
@@ -86,7 +98,6 @@
 	
 	for (var key in LEVEL) {
 		var level = LEVEL[key];
-		cc.log("Level: " + level);
 		level.row = level.MAP.length;
 		level.col = level.MAP[0].length;
 	}

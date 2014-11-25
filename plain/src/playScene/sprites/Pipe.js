@@ -8,7 +8,6 @@ PIPE.RESOURCE_MAPPER[PIPE_TYPE.RAND.T] = res.Pipe_3way;
 
 var Pipe = Block.extend({
 	ctor:function (initialPipeType) {
-		
 		// 파이프 타입만 정해준 경우 랜덤하게 회전
 		if (initialPipeType % 1000 == 0) {
 			this.pipeType = Pipe.getRandomPipeType(initialPipeType);
@@ -141,12 +140,31 @@ Pipe.prototype.pipeTouchHandler = {
 Pipe.getRandomPipeType = function(initialPipeType) {
 	var pipeType = initialPipeType;
 	
+	var pipeRatio = SMTH.STATUS.CURRENT_LEVEL.RANDOMRATIO.PIPE;
+	var rotateRatio = SMTH.STATUS.CURRENT_LEVEL.RANDOMRATIO.ROTATE;
+	
+	var accPipeRatio = [];
+	pipeRatio.reduce(function(a,b,i) { return accPipeRatio[i] = a+b; },0);
+	
+	var accRotateRatio = [];
+	rotateRatio.reduce(function(a,b,i) { return accRotateRatio[i] = a+b; },0);
+
 	// ALL RANDOM then choose pipe type
 	if (initialPipeType == 0) {
-		pipeType = 1000 + Math.floor(Math.random() * 4) * 1000;
+		var randValue = Math.random();
+		
+		if(randValue < accPipeRatio[0] / accPipeRatio[accPipeRatio.length-1]) pipeType = 1000;
+		else if(randValue < accPipeRatio[1] / accPipeRatio[accPipeRatio.length-1]) pipeType = 2000;
+		else if(randValue < accPipeRatio[2] / accPipeRatio[accPipeRatio.length-1]) pipeType = 3000;
+		else if(randValue < accPipeRatio[3] / accPipeRatio[accPipeRatio.length-1]) pipeType = 4000;
+//		pipeType = 1000 + Math.floor(Math.random() * 4) * 1000;
 	}
 	// Random Rotate
-	var angle = 90 + Math.floor(Math.random() * 4) * 90;
+	if(randValue < accRotateRatio[0] / accRotateRatio[accRotateRatio.length-1]) angle = 360;
+	else if(randValue < accRotateRatio[1] / accRotateRatio[accRotateRatio.length-1]) angle = 90;
+	else if(randValue < accRotateRatio[2] / accRotateRatio[accRotateRatio.length-1]) angle = 180;
+	else if(randValue < accRotateRatio[3] / accRotateRatio[accRotateRatio.length-1]) angle = 270;
+//	var angle = 90 + Math.floor(Math.random() * 4) * 90;
 	
 	return pipeType + angle;
 }
