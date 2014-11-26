@@ -5,6 +5,7 @@ var StatusLayer = cc.Layer.extend({
 	},
 	init:function () {
 		var size = cc.director.getWinSize();
+		
 
 		var closeItem = new cc.MenuItemImage(
 				res.CloseNormal_png,
@@ -19,7 +20,7 @@ var StatusLayer = cc.Layer.extend({
 			anchorX: 0.5,
 			anchorY: 0.5
 		});
-
+		
 		var mixer = new cc.MenuItemImage(
 				res.mixer_png,
 				res.mixer_png,
@@ -34,16 +35,14 @@ var StatusLayer = cc.Layer.extend({
 			anchorY: 0.5
 		});
 		
-		var mixMenu = cc.Menu(mixer);
-		mixMenu.x = 0;
-		mixMenu.y = 0;
-		this.addChild(mixMenu, 2);
-		
-		var menu = new cc.Menu(closeItem);
+		var menuItems = [];
+		menuItems.push(closeItem);
+		menuItems.push(mixer);
+		var menu = new cc.Menu(menuItems);
 		menu.x = 0;
 		menu.y = 0;
 		this.addChild(menu, 1);
-
+		
 		this.stageLabel = new cc.LabelTTF();
         
         this.stageLabel.setFontName(res.LINEBold_ttf);
