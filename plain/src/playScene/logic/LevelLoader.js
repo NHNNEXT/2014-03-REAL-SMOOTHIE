@@ -31,6 +31,7 @@ var LevelLoader = cc.Class.extend({
 					var enemyInfo =  enemies.shift();
 					var enemy = new Enemy(enemyInfo.id);
 					enemy.setHP(enemyInfo.hp);
+					enemy.setTreasure(enemyInfo.treasure);
 					enemy.setPositionByRowCol(r, c);
 					SMTH.CONTAINER.PIPES.push(enemy);
 				} 

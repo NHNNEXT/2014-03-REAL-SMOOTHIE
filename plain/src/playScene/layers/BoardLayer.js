@@ -43,7 +43,7 @@ var BoardLayer = cc.Layer.extend ({
 		
 		this.removeChild(block);
 		var replacement;
-		if(block.isEnemy()) {
+		if(block.isEnemy() && block.treasure) {
 			replacement = new Treasure(1);
 		} else {
 			replacement = new Pipe(BLOCK.TYPE.PIPE.RAND.P);

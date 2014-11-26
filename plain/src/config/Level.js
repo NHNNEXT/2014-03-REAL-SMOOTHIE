@@ -27,8 +27,8 @@
 			"TYPE": "PRESET",
 			"TREASURE" : 0,
 			"EMEMYLIST" : [
-			{"id":0,"hp":1},
-			{"id":0,"hp":1}
+			{"id":0,"hp":1,"treasure":false},
+			{"id":0,"hp":1,"treasure":false}
 			],
 			"RANDOMRATIO" : {
 				"PIPE":[0,1,0,0], // L - I - X - T
@@ -48,8 +48,8 @@
 			"TYPE": "PRESET",
 			"TREASURE" : 0,
 			"EMEMYLIST" : [
-			{"id":0,"hp":1},
-			{"id":0,"hp":1}
+			{"id":0,"hp":1,"treasure":false},
+			{"id":0,"hp":1,"treasure":false}
 			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
@@ -69,10 +69,10 @@
 			"TYPE": "PRESET",
 			"TREASURE" : 0,
 			"EMEMYLIST" : [
-			{"id":0,"hp":1},
-			{"id":0,"hp":1},
-			{"id":0,"hp":1},
-			{"id":0,"hp":1}
+			{"id":0,"hp":1,"treasure":false},
+			{"id":0,"hp":1,"treasure":false},
+			{"id":0,"hp":1,"treasure":false},
+			{"id":0,"hp":1,"treasure":false}
 			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
@@ -92,8 +92,8 @@
 			"TYPE": "PRESET",
 			"TREASURE" : 0,
 			"EMEMYLIST" : [
-			{"id":0,"hp":2},
-			{"id":0,"hp":2},
+			{"id":0,"hp":2,"treasure":false},
+			{"id":0,"hp":2,"treasure":false},
 			],
 			"RANDOMRATIO" : {
 				"PIPE":[1,1,1,1], // L - I - X - T
@@ -113,9 +113,9 @@
 			"TYPE": "PRESET",
 			"TREASURE" : 0,
 			"EMEMYLIST" : [
-			{"id":0,"hp":2},
-			{"id":0,"hp":2},
-			{"id":0,"hp":2},
+			{"id":0,"hp":2,"treasure":false},
+			{"id":0,"hp":2,"treasure":false},
+			{"id":0,"hp":2,"treasure":false},
 			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
@@ -134,12 +134,12 @@
             "ID": 5,
             "TYPE": "RANDOM",
             "EMEMYLIST" : [
-            {"id":0,"hp":5,},
-            {"id":0,"hp":5,},
-            {"id":0,"hp":5,},
-            {"id":0,"hp":5,},
-            {"id":0,"hp":5,},
-            {"id":0,"hp":5,},
+            {"id":0,"hp":5},
+            {"id":0,"hp":5},
+            {"id":0,"hp":5},
+            {"id":0,"hp":5},
+            {"id":0,"hp":5},
+            {"id":0,"hp":5},
             ],
             "FIXEDPIPE" : [cc.p(2,2), cc.p(4,4)],
             "RANDOMRATIO" : {
@@ -161,14 +161,14 @@
 			"ID": 6,
 			"TYPE": "RANDOM",
 			"EMEMYLIST" : [
-			{"id":0,"hp":5,},
-			{"id":0,"hp":5,},
-			{"id":0,"hp":5,},
-			{"id":0,"hp":5,},
-			{"id":0,"hp":5,},
-			{"id":0,"hp":5,},
-			{"id":0,"hp":5,},
-			{"id":0,"hp":5,},
+			{"id":0,"hp":5},
+			{"id":0,"hp":5},
+			{"id":0,"hp":5},
+			{"id":0,"hp":5},
+			{"id":0,"hp":5},
+			{"id":0,"hp":5},
+			{"id":0,"hp":5},
+			{"id":0,"hp":5},
 			],
 			"RANDOMRATIO" : {
 				"PIPE":[1,1,1,1],

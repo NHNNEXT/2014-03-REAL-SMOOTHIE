@@ -6,6 +6,7 @@ var Enemy = Block.extend({
 	init: function() {
 		this.type = BLOCK.TYPE.ENEMY;
 		this.HP = EnemyType[0].HP;
+		this.treasure = false;
 		
        	this.hpBar = new HealthBar(-1, 1, 0);
         this.hpBar.x = 70;
@@ -16,6 +17,9 @@ var Enemy = Block.extend({
 		var rep = new cc.RepeatForever(cc.sequence(actionTo, actionToBack), 5);
 		this.runAction(rep);
 
+	},
+	setTreasure: function(treasure) {
+		this.treasure = treasure;
 	},
 	setHP : function(hp) {
 		this.hpBar.setHP(hp);
