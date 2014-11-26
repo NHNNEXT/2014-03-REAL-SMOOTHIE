@@ -5,49 +5,47 @@ var LevelLoader = cc.Class.extend({
 	},
 	init: function() {
 		var enemies =  this._level.EMEMYLIST.slice(0);
+		var fixedPipes = this._level.FIXEDPIPE;
 		
 		for (var r in this._level.MAP) {
 			var row = this._level.MAP[r];
 			for (var c in row) {
 				var pipeType = row[c];
+				var block;
 				// PIPE
 				if (pipeType < 5000) {
 					// Random Rotate
 					if (pipeType % 1000 == 360) {
 						pipeType = Pipe.getRandomPipeType(pipeType);
 					}
-					var pipe = new Pipe(pipeType);
-					pipe.setPositionByRowCol(r, c);
-					SMTH.CONTAINER.PIPES.push(pipe);
+					block = new Pipe(pipeType);
 				}
 				// FRIEND
 				else if (pipeType < 6000) {
-                    var friend = new Friend(0);
-                    friend.setPositionByRowCol(r, c);
-					SMTH.CONTAINER.PIPES.push(friend);
+					block = new Friend(0);
 				}
 				// ENEMY
 				else if (pipeType < 7000) {
 					var enemyInfo =  enemies.shift();
-					var enemy = new Enemy(enemyInfo.id);
-					enemy.setHP(enemyInfo.hp);
-					enemy.setTreasure(enemyInfo.treasure);
-					enemy.setPositionByRowCol(r, c);
-					SMTH.CONTAINER.PIPES.push(enemy);
+					block = new Enemy(enemyInfo.id);
+					block.setHP(enemyInfo.hp);
+					block.setTreasure(enemyInfo.treasure);
 				} 
 				// ISOLATION
 				else if (pipeType < 8000) {
-					var isolation = new Isolation(0);
-					isolation.setPositionByRowCol(r, c);
-					SMTH.CONTAINER.PIPES.push(isolation);
+					block = new Isolation(0);
 				}
 				// TREASURE
 				else if (pipeType < 9000) {
-					var treasure = new Treasure(1);
-					treasure.setPositionByRowCol(r, c);
-					SMTH.CONTAINER.PIPES.push(treasure);
+					block = new Treasure(1);
 				}
-                                 
+				
+				for(var i in fixedPipes) {
+					if(fixedPipes[i].x == r && fixedPipes[i].y == c) block.fixed = true;
+				}
+				
+				block.setPositionByRowCol(r, c);
+				SMTH.CONTAINER.PIPES.push(block);             
 			}
 		}
 	},

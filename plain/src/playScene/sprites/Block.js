@@ -19,13 +19,7 @@ var Block = cc.Sprite.extend({
 	setPositionByRowCol: function(row, col) {
 		this.row = row;
 		this.col = col;
-		
-		var fixedPipes = SMTH.STATUS.CURRENT_LEVEL.FIXEDPIPE;
-		
-		for(var i  in fixedPipes) {
-			if(fixedPipes[i].x == row && fixedPipes[i].y == col) this.fixed = true;
-		}
-		
+				
 		var position = this._coordinateToPosition(this.row, this.col);
 		this.setPosition(position);
 	},

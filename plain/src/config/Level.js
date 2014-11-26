@@ -25,7 +25,6 @@
 		"STAGE1": {
 			"ID": 0,
 			"TYPE": "PRESET",
-			"TREASURE" : 0,
 			"EMEMYLIST" : [
 			{"id":0,"hp":1,"treasure":false},
 			{"id":0,"hp":1,"treasure":false}
@@ -46,7 +45,6 @@
 		"STAGE2": {
 			"ID": 1,
 			"TYPE": "PRESET",
-			"TREASURE" : 0,
 			"EMEMYLIST" : [
 			{"id":0,"hp":1,"treasure":false},
 			{"id":0,"hp":1,"treasure":false}
@@ -67,7 +65,6 @@
 		"STAGE3": {
 			"ID": 2,
 			"TYPE": "PRESET",
-			"TREASURE" : 0,
 			"EMEMYLIST" : [
 			{"id":0,"hp":1,"treasure":false},
 			{"id":0,"hp":1,"treasure":false},
@@ -90,7 +87,6 @@
 		"STAGE4": {
 			"ID": 3,
 			"TYPE": "PRESET",
-			"TREASURE" : 0,
 			"EMEMYLIST" : [
 			{"id":0,"hp":2,"treasure":false},
 			{"id":0,"hp":2,"treasure":false},
@@ -111,7 +107,6 @@
 		"STAGE5": {
 			"ID": 4,
 			"TYPE": "PRESET",
-			"TREASURE" : 0,
 			"EMEMYLIST" : [
 			{"id":0,"hp":2,"treasure":false},
 			{"id":0,"hp":2,"treasure":false},
@@ -130,8 +125,29 @@
 			        ].reverse(),
 	        "MAXTURN" : 10
 		},
+		"STAGE6": {
+			"ID": 5,
+			"TYPE": "PRESET",
+			"EMEMYLIST" : [
+			{"id":0,"hp":2,"treasure":true},
+			{"id":0,"hp":2,"treasure":true},
+			{"id":0,"hp":2,"treasure":true},
+			],
+			"RANDOMRATIO" : {
+			   "PIPE":[1,1,1,1], // L - I - X - T
+			   "ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
+			},
+			"MAP" : [
+			        [E ,E ,E ],
+			        [P ,P ,P ],
+			        [P ,P ,P ],
+			        [P ,P ,P ],
+			        [F ,I ,F ]
+			        ].reverse(),
+	        "MAXTURN" : 15
+		},
 		"LEVEL0": {
-            "ID": 5,
+            "ID": 6,
             "TYPE": "RANDOM",
             "EMEMYLIST" : [
             {"id":0,"hp":5},
@@ -158,7 +174,7 @@
 			"MAXTURN" : 40
 		},
 		"9X9TEST": {
-			"ID": 6,
+			"ID": 7,
 			"TYPE": "RANDOM",
 			"EMEMYLIST" : [
 			{"id":0,"hp":5},
