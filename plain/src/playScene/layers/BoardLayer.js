@@ -45,11 +45,63 @@ var BoardLayer = cc.Layer.extend ({
 		var replacement;
 		if(block.isEnemy() && block.treasure) {
 			replacement = new Treasure(1);
+			replacement.setPositionByRowCol(row, col);
+			this.addChild(replacement);
+			SMTH.CONTAINER.PIPES[row*levelCol+col] = replacement;
 		} else {
-			replacement = new Pipe(BLOCK.TYPE.PIPE.RAND.P);
+//			replacement = new Pipe(BLOCK.TYPE.PIPE.RAND.P);
 		}
-		replacement.setPositionByRowCol(row, col);
-		this.addChild(replacement);
-		SMTH.CONTAINER.PIPES[row*levelCol+col] = replacement;
+	},
+	fallBlock: function(){
+		//this._fallOneStep();
+		this._printBlockSnapshot();
+	},
+	_fallOneStep: function() {
+		// 한칸만 이동하도록 한다.
+		var pipes = SMTH.CONTAINER.PIPES;
+		for(var i in pipes) {
+			if(pipes[i].isRotten) {
+				// 위의 블록이 isRotten(null블록) 이거나 out of board 라면 재귀 종료
+				var block =  this._getBlockWithRowAndColumn(pipes[i].row,pipes[i].col);				
+			}
+		}		
+	},
+	_getBlockWithRowAndColumn: function(row,col) {
+		var pipes = SMTH.CONTAINER.PIPES;
+		var introw = parseInt(row);
+		var intcol = parseInt(col);
+		var index = introw*(this._level.col) + intcol;
+		return pipes[index];
+	},
+	_printBlockSnapshot: function() {
+		var pipes = SMTH.CONTAINER.PIPES;
+		var result ="";
+		var resultArr =[];
+		for(var i in pipes) {
+			var type = pipes[i].type;
+			//cc.log(JSON.stringify(type));
+			if(type === 5000) result+="♥";	
+			else if(type === 6000) result+="♣";
+			else if(type === PIPE_TYPE) {
+				var pipeTypeCode= pipes[i].pipeType;
+				var pipeKind = Math.floor(pipeTypeCode/1000);
+				var pipeDirection = pipeTypeCode%1000;
+				if(pipeKind === 0) result+="P";	
+				if(pipeKind === 1) result+="L";	
+				if(pipeKind === 2) {
+					if(pipeDirection===90 ||pipeDirection===270) result+="ㅡ";
+					else result+="I";
+				}
+				if(pipeKind === 3) result+="X";
+				if(pipeKind === 4) result+="T";	
+			}
+			if(i != 0 && i%this._level.col-1 ===0) {
+				//result+="\n";
+				resultArr.push(result);
+				result="";
+			}
+		}
+		resultArr.reverse();
+		cc.log("\n"+resultArr.join("\n"));
 	}
 });

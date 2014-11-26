@@ -1,6 +1,7 @@
 var SMTH = SMTH || {};
 
 SMTH.CONTAINER = {
+	BOARD: null,
 	PIPES: [],
 	TURN: null
 };

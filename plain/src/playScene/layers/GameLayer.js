@@ -4,7 +4,8 @@ var GameLayer = cc.Layer.extend({
 		this.init();
 	},
 	init:function () {
-		this.addChild(new BoardLayer());
+		SMTH.CONTAINER.BOARD = new BoardLayer();
+		this.addChild(SMTH.CONTAINER.BOARD);
 		this.addChild(new StatusLayer());
 	}
 

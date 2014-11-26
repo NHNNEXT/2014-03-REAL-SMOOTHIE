@@ -48,16 +48,19 @@ var EventManager = cc.Class.extend({
 						cc.callFunc(function(block, route){
 							block.isRotten = true;
 							block.visible = false;
-							var board = block.parent;
+							var board = SMTH.CONTAINER.BOARD;
 							board.replaceBlock(block);
 							// 되살아날 때 죽음 카운트를 줄인다.
 							route.decreaseDeadCnt();
 						}.bind(this, block, route))
 				));
 			}
+
 		}.bind(this));
 		
 		this.handle("routeDied", function(e) {
+			var board = SMTH.CONTAINER.BOARD;
+			board.fallBlock();
 			this.routeController.updateRoute(true);
 		}.bind(this));
 		
