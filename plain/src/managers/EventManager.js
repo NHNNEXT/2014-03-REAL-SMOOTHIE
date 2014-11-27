@@ -55,11 +55,11 @@ var EventManager = cc.Class.extend({
 						}.bind(this, block, route))
 				));
 			}
-
 		}.bind(this));
 		
 		this.handle("routeDied", function(e) {
 			var board = SMTH.CONTAINER.BOARD;
+			board.clearCorpse();
 			board.fallBlock();
 			this.routeController.updateRoute(true);
 		}.bind(this));
