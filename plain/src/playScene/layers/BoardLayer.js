@@ -42,8 +42,6 @@ var BoardLayer = cc.Layer.extend ({
 		var levelCol = this._level.col;
 		
 		this.removeChild(block);
-//		SMTH.CONTAINER.PIPES[row*levelCol+col] = new NullBlock();
-
 		var replacement = new NullBlock();
 		if(block.isEnemy() && block.treasure) {
 			replacement = new Treasure(1);
@@ -55,16 +53,10 @@ var BoardLayer = cc.Layer.extend ({
 		this.addChild(replacement);
 		// 컨테이너 배열의 해당 인덱스에 참조를 저장
 		SMTH.CONTAINER.PIPES[row*levelCol+col] = replacement;
-	},/*
-	clearCorpse: function() { // isRotten 인 블록을 null로 채운다.
-		var pipes = SMTH.CONTAINER.PIPES;
-		for(var i in pipes) {
-			if(pipes[i].isRotten) {
-				pipes[i] = null;			
-			}
-		}		
-	},*/
+	},
 	fallBlock: function(){
+		cc.log("컨테이너길이: "+SMTH.CONTAINER.PIPES.length);
+		this._printBlockSnapshot();
 		while(this._fallOneStep()){
 			this._printBlockSnapshot();
 		};
@@ -90,6 +82,7 @@ var BoardLayer = cc.Layer.extend ({
 			}
 		}
 		
+		// 플래그 초기화
 		for (var r = 0; r < this._level.row; r++) {
 			for (var c = 0; c < this._level.col; c++) {
 				var pipe = this._getBlockWithRowAndColumn(r,c);
@@ -101,13 +94,14 @@ var BoardLayer = cc.Layer.extend ({
 		return blockSwaped;
 	},
 	_fillBlock: function(row, col) {
+		cc.log("_fillBlock: ("+row+", "+col+")");
 		// row가 맨 윗줄을 의미하면 새로운 파이프블록을 랜덤하게 생성해서 반환한다.
 		if(row === this._level.row-1) {
 			var newBlock = new Pipe(Pipe.getRandomPipeType(360));
 			this.addChild(newBlock);
+			cc.log(newBlock.row+", "+newBlock.col);
 			return newBlock;
-		}
-		
+		}	
 		var block = this._getBlockWithRowAndColumn(row, col);
 		// block에 방문 플래그를 단다.
 		block.fillBlockExecuted = true;
@@ -116,15 +110,16 @@ var BoardLayer = cc.Layer.extend ({
 			return block;
 		}
 		
-		var result = this._fillBlock(row+1, col); // result : 내려갈 수 있는 유효한 블록이 반환됨 or 블록이 올 예정이라면 "기다려" 값이옴 or 끝까지 갔는데 확보실패했다면 "기다리지마"
+		var result = this._fillBlock(row+1, col); // result :  내려갈 수 있는 유효한 블록이 반환됨 or 블록이 올 예정이라면 "기다려" 값이옴 or 끝까지 갔는데 확보실패했다면 "기다리지마"
 		if(result instanceof Block) {
 			this._swapBlock(block, result);
+			// 여기서 리턴을 해주면 처음만나는 내려올 수 있는 블록만 내려오게 된다.
 			return 1;
 		} else if (result > 0) {
 			// 기다려
 			return result + 1;
 		}
-		/*
+		/* 여기서 대각선 위의 것을 고려하는 것을 구현한다.
 		this._fillBlock(row+1, col-1);
 		this._fillBlock(row+1, col+1);
 		*/
@@ -136,18 +131,25 @@ var BoardLayer = cc.Layer.extend ({
 		//// 파이프의 row col 을 교환
 		//// 컨테이너에서 r1, c1, r2, c2 에 저장된 참조를 교환
 		var levelCol = this._level.col;
-		if(b2.row === undefined && b2.col === undefined) {
+		
+		if(b2.row === -1 && b2.col === -1) {
+			cc.log("맨 위 같으니 대입만!");
 			b2.row = b1.row;
 			b2.col = b1.col;
-			SMTH.CONTAINER.PIPES[b2.row*levelCol+b2.col] = b2;
+			var b2_raw_index = b2.getContainerIndex();	
+			SMTH.CONTAINER.PIPES[b2_raw_index] = b2;
 		} else {
-			var temp = cc.p(b2.row, b2.col);
+			cc.log("스왑!");
+			var tempRow = b2.row;
+			var tempCol = b2.col;
 			b2.row = b1.row;
 			b2.col = b1.col;
-			b1.row = temp.x;
-			b1.col = temp.y;		
-			SMTH.CONTAINER.PIPES[b1.row*levelCol+b1.col] = b1;
-			SMTH.CONTAINER.PIPES[b2.row*levelCol+b2.col] = b2;
+			b1.row = tempRow;
+			b1.col = tempCol;
+			var b1_raw_index = b1.getContainerIndex(); // 블록의 row col 을 참고하여 컨테이너에서 존재해야될 인덱스를 계산해서 반환. 현재 컨테이너에서의 인덱스가 아닐 수 잇음!
+			var b2_raw_index = b2.getContainerIndex();	
+			SMTH.CONTAINER.PIPES[b2_raw_index] = b2;
+			SMTH.CONTAINER.PIPES[b1_raw_index] = b1;
 		}
 	},
 	_updateBlockPotisionRender: function() { // 모델의(컨테이너) 좌표에 맞게 화면 상의 블록 스프라이트 좌표들을 업데이트하기  
@@ -157,12 +159,6 @@ var BoardLayer = cc.Layer.extend ({
 			// TODO : 추후 애니메이션으로 바꿔야
 			pipe.setPositionByRowCol(pipe.row, pipe.col);
 		}
-	},
-	_isUpsideEmpty: function(index){
-		var pipes = SMTH.CONTAINER.PIPES;
-		var colSize = this._level.col;
-		var rowSize = this._level.row;
-		
 	},
 	_getBlockWithRowAndColumn: function(row,col) {
 		var pipes = SMTH.CONTAINER.PIPES;
@@ -176,32 +172,36 @@ var BoardLayer = cc.Layer.extend ({
 		var result ="";
 		var resultArr =[];
 		for(var i in pipes) {
-			var type = pipes[i].type;
-			//cc.log(JSON.stringify(type));
-			if(type === 0) result+="0";
-			else if(type === 5000) result+="♥";	
-			else if(type === 6000) result+="♣";
-			else if(type === 7000) result+="ㅁ";
-			else if(type === PIPE_TYPE) {
-				var pipeTypeCode= pipes[i].pipeType;
-				var pipeKind = Math.floor(pipeTypeCode/1000);
-				var pipeDirection = pipeTypeCode%1000;
-				if(pipeKind === 0) result+="P";	
-				if(pipeKind === 1) result+="L";	
-				if(pipeKind === 2) {
-					if(pipeDirection===90 ||pipeDirection===270) result+="ㅡ";
-					else result+="I";
-				}
-				if(pipeKind === 3) result+="X";
-				if(pipeKind === 4) result+="T";	
-			}
-			if(i != 0 && i%this._level.col-1 ===0) {
-				//result+="\n";
+			var pipe = pipes[i];
+			result += this._getBlockExpression(pipe);
+			if(result.length === this._level.col) {
 				resultArr.push(result);
 				result="";
 			}
 		}
 		resultArr.reverse();
 		cc.log("\n"+resultArr.join("\n"));
+	},
+	_getBlockExpression: function(block) {
+		var type = block.type;
+		var result="";
+		if(type === 0) result+="0";
+		else if(type === 5000) result+="F";	
+		else if(type === 6000) result+="E";
+		else if(type === 7000) result+="*";
+		else if(type === PIPE_TYPE) {
+			var pipeTypeCode= block.pipeType;
+			var pipeKind = Math.floor(pipeTypeCode/1000);
+			var pipeDirection = pipeTypeCode%1000;
+			if(pipeKind === 0) result+="P";	
+			if(pipeKind === 1) result+="L";	
+			if(pipeKind === 2) {
+				if(pipeDirection===90 ||pipeDirection===270) result+="-";
+				else result+="I";
+			}
+			if(pipeKind === 3) result+="X";
+			if(pipeKind === 4) result+="T";	
+		}
+		return result;
 	}
 });

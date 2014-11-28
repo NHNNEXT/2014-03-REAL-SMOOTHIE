@@ -7,6 +7,8 @@ var LevelLoader = cc.Class.extend({
 		var enemies =  this._level.EMEMYLIST.slice(0);
 		var fixedPipes = this._level.FIXEDPIPE;
 		
+		SMTH.CONTAINER.PIPES = [];
+		
 		for (var r in this._level.MAP) {
 			var row = this._level.MAP[r];
 			for (var c in row) {

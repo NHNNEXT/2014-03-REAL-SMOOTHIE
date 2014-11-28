@@ -15,7 +15,10 @@ var Block = cc.Sprite.extend({
 		this.setScaleY(BLOCK.SIZE.HEIGHT/140);
 		// 여기에 init()이 있으면 init()이 두 번 호출됨.
 	},
-	
+	getContainerIndex: function() {
+		var levelCol = SMTH.CONTAINER.BOARD._level.col;
+		return parseInt(this.row*levelCol)+parseInt(this.col);
+	},
 	setPositionByRowCol: function(row, col) {
 		this.row = row;
 		this.col = col;

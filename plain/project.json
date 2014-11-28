@@ -35,6 +35,7 @@
         "src/playScene/sprites/Friend.js",
         "src/playScene/sprites/Isolation.js",
         "src/playScene/sprites/Treasure.js",
+        "src/playScene/sprites/NullBlock.js",
         "src/playScene/sprites/HealthBar.js",
         "src/managers/EventManager.js"
     ]
