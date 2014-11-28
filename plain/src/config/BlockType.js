@@ -42,6 +42,7 @@ var PIPE_TYPE = {
 
 var BLOCK = {
 		"TYPE": {
+			"NULL" : 0,
 			"PIPE" : PIPE_TYPE,
 			"FRIEND" : 5000,
 			"ENEMY" : 6000,

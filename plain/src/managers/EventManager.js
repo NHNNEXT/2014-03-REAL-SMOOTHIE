@@ -46,7 +46,7 @@ var EventManager = cc.Class.extend({
 				block.runAction(cc.sequence(
 						cc.fadeOut(0.5), 
 						cc.callFunc(function(block, route){
-							block.isRotten = true;
+							//block.isRotten = true;
 							block.visible = false;
 							var board = SMTH.CONTAINER.BOARD;
 							board.replaceBlock(block);
@@ -59,9 +59,9 @@ var EventManager = cc.Class.extend({
 		
 		this.handle("routeDied", function(e) {
 			var board = SMTH.CONTAINER.BOARD;
-			board.clearCorpse();
-			board.fallBlock();
-			this.routeController.updateRoute(true);
+			//board.clearCorpse();
+			board.fallBlock(); // 블록을 내려오게함
+//			this.routeController.updateRoute(true);
 		}.bind(this));
 		
 		this.handle("turnEnd", function(e) {
