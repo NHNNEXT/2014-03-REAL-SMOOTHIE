@@ -69,6 +69,7 @@ var BoardLayer = cc.Layer.extend ({
 			this._printBlockSnapshot();
 		};
 		this._printBlockSnapshot();
+		this._updateBlockPotisionRender();
 	},
 	_fallOneStep: function() {
 		// 한칸만 이동하도록 한다.
@@ -104,7 +105,6 @@ var BoardLayer = cc.Layer.extend ({
 //			애니메이션 큐에 저장해두기
 			pipe.appendAnimation(pipe.moveToProperPosition());
 		}
-		this._updateBlockPotisionRender();
 		return blockSwaped;
 	},
 	_fillBlock: function(row, col) {
@@ -174,14 +174,15 @@ var BoardLayer = cc.Layer.extend ({
 		}
 	},
 	_updateBlockPotisionRender: function() {
-		// 모델의(컨테이너) 좌표에 맞게 화면 상의 블록 스프라이트 좌표들을 업데이트하기  
+		// 모델의(컨테이너) 좌표에 맞게 화면 상의 블록 스프라이트 좌표들을 업데이트하기 
+		
 		var pipes = SMTH.CONTAINER.PIPES;
 		for(var i in pipes) {
 			var pipe = pipes[i];
-			if (pipe.animationQueue.length == 0) {
+			if (pipe.animationQueue.length == 0 || pipe.animationQueue == null) {
 				continue;
 			}
-			pipe.runAction(cc.Sequence(pipe.animationQueue));
+			pipe.runAction(cc.sequence(pipe.animationQueue));
 		}
 	},
 	_getBlockWithRowAndColumn: function(row,col) {
@@ -210,10 +211,10 @@ var BoardLayer = cc.Layer.extend ({
 		var type = block.type;
 		var result="";
 		if(type === 0) result+="0";
-		else if(type === 5000) result+="F";	
-		else if(type === 6000) result+="E";
+		else if(type === BLOCK.TYPE.FRIEND) result+="F";	
+		else if(type === BLOCK.TYPE.ENEMY) result+="E";
 		else if(type === 7000) result+="*";
-		else if(type === PIPE_TYPE) {
+		else if(type === BLOCK.TYPE.PIPE) {
 			var pipeTypeCode= block.pipeType;
 			var pipeKind = Math.floor(pipeTypeCode/1000);
 			var pipeDirection = pipeTypeCode%1000;

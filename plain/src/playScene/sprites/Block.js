@@ -30,17 +30,12 @@ var Block = cc.Sprite.extend({
 	appendAnimation: function(action) {
 		if (action == null) return;
 		this.animationQueue.push(action);
-		cc.log(this.animationQueue.length+" , " +this.animationQueue);
 	},
 	moveToProperPosition: function() {
 		var position = this._coordinateToPosition(this.row, this.col);
-//		cc.log("x/y: "+this.x+","+this.y+" pos: "+position.x+", "+position.y);
 		if (this.x == position.x && this.y == position.y) {
-//			cc.log("r/c: "+this.row+","+this.col);
-			return cc.callFunc(setTimeout(0.2, function(){}));
+			return cc.delayTime(0.2);
 		}
-//		cc.log("x/y: "+position.x+", "+position.y);
-//		cc.log("r/c: "+this.row+","+this.col+" pos: "+position.x+", "+position.y);
 		return cc.moveTo(0.2, position);
 	},
 	_coordinateToPosition: function(row, col) {

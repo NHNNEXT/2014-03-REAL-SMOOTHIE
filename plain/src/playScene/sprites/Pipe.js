@@ -1,10 +1,9 @@
 
-var PIPE = {};
-PIPE.RESOURCE_MAPPER = {};
-PIPE.RESOURCE_MAPPER[PIPE_TYPE.L.U] = res.Pipe_2way_curve;
-PIPE.RESOURCE_MAPPER[PIPE_TYPE.I.U] = res.Pipe_2way_line;
-PIPE.RESOURCE_MAPPER[PIPE_TYPE.X.U] = res.Pipe_4way;
-PIPE.RESOURCE_MAPPER[PIPE_TYPE.T.U] = res.Pipe_3way;
+var PIPE_RESOURCE_MAPPER = {};
+PIPE_RESOURCE_MAPPER[PipeType.L.U] = res.Pipe_2way_curve;
+PIPE_RESOURCE_MAPPER[PipeType.I.U] = res.Pipe_2way_line;
+PIPE_RESOURCE_MAPPER[PipeType.X.U] = res.Pipe_4way;
+PIPE_RESOURCE_MAPPER[PipeType.T.U] = res.Pipe_3way;
 
 var Pipe = Block.extend({
 	ctor:function (initialPipeType) {
@@ -17,7 +16,7 @@ var Pipe = Block.extend({
 		
 		var angle = this.pipeType % 1000;
 		this.shape = this.pipeType - angle;
-		this._super(PIPE.RESOURCE_MAPPER[this.shape]);
+		this._super(PIPE_RESOURCE_MAPPER[this.shape]);
 		this.rotation = angle;
 
 		this.init();
@@ -26,7 +25,7 @@ var Pipe = Block.extend({
 		// PIPE만의 고유한 변수 및 값 설정
 		this.type = BLOCK.TYPE.PIPE;
 		this.delta = cc.p(0,0);
-		this.HP = PIPE_TYPE.HP;
+		this.HP = 1;
 		this.isRotten = false;
 		
 		var pipeTouchListener = cc.EventListener.create({
@@ -65,7 +64,7 @@ var Pipe = Block.extend({
 	},
 	
 	isOpened : function(dir) {
-		var pipeInfo = PIPE_TYPE.INFO[this.shape];
+		var pipeInfo = PipeTypeInfo[this.shape];
 		return pipeInfo[(360+dir-this.rotation) % 360]
 	}, 
 	

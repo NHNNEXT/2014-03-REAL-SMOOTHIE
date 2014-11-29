@@ -5,7 +5,7 @@ var GameClearLayer = cc.LayerColor.extend({
 	},
 
 	init: function() {
-		this.sendResult();
+//		this.sendResult();
 		
 		var winsize = cc.director.getWinSize();
 		this.setContentSize(winsize);

@@ -9,8 +9,8 @@
 	var TD = BLOCK.TYPE.PIPE.T.D;
 	var TR = BLOCK.TYPE.PIPE.T.R;
 	var TL = BLOCK.TYPE.PIPE.T.L;
-	var F  = BLOCK.TYPE.FRIEND;
-	var E  = BLOCK.TYPE.ENEMY;
+	var F  = BLOCK.TYPE.FRIEND.SALLY;
+	var E  = BLOCK.TYPE.ENEMY.CONY;
 	var I  = BLOCK.TYPE.ISOLATION;
 	var T  = BLOCK.TYPE.TREASURE;
 	
@@ -26,8 +26,8 @@
 			"ID": 0,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			{"id":0,"hp":1,"treasure":false},
-			{"id":0,"hp":1,"treasure":false}
+			    {"id":6001,"hp":1,"treasure":false},
+			    {"id":6001,"hp":1,"treasure":false}
 			],
 			"RANDOMRATIO" : {
 				"PIPE":[0,1,0,0], // L - I - X - T
@@ -46,8 +46,8 @@
 			"ID": 1,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			{"id":0,"hp":1,"treasure":false},
-			{"id":0,"hp":1,"treasure":false}
+			    {"id":6001,"hp":1,"treasure":false},
+			    {"id":6001,"hp":1,"treasure":false}
 			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
@@ -66,10 +66,10 @@
 			"ID": 2,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			{"id":0,"hp":1,"treasure":false},
-			{"id":0,"hp":1,"treasure":false},
-			{"id":0,"hp":1,"treasure":false},
-			{"id":0,"hp":1,"treasure":false}
+			    {"id":6001,"hp":1,"treasure":false},
+			    {"id":6001,"hp":1,"treasure":false},
+			    {"id":6001,"hp":1,"treasure":false},
+			    {"id":6001,"hp":1,"treasure":false}
 			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
@@ -88,8 +88,8 @@
 			"ID": 3,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			{"id":0,"hp":2,"treasure":false},
-			{"id":0,"hp":2,"treasure":false},
+			    {"id":6001,"hp":2,"treasure":false},
+			    {"id":6001,"hp":2,"treasure":false}
 			],
 			"RANDOMRATIO" : {
 				"PIPE":[1,1,1,1], // L - I - X - T
@@ -108,9 +108,9 @@
 			"ID": 4,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			{"id":0,"hp":2,"treasure":false},
-			{"id":0,"hp":2,"treasure":false},
-			{"id":0,"hp":2,"treasure":false},
+			    {"id":6001,"hp":2,"treasure":false},
+			    {"id":6001,"hp":2,"treasure":false},
+			    {"id":6001,"hp":2,"treasure":false}
 			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
@@ -129,9 +129,9 @@
 			"ID": 5,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			{"id":0,"hp":2,"treasure":true},
-			{"id":0,"hp":2,"treasure":true},
-			{"id":0,"hp":2,"treasure":true},
+			    {"id":6001,"hp":2,"treasure":true},
+			    {"id":6001,"hp":2,"treasure":true},
+			    {"id":6001,"hp":2,"treasure":true}
 			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
@@ -150,12 +150,12 @@
             "ID": 6,
             "TYPE": "RANDOM",
             "EMEMYLIST" : [
-            {"id":0,"hp":5},
-            {"id":0,"hp":5},
-            {"id":0,"hp":5},
-            {"id":0,"hp":5},
-            {"id":0,"hp":5},
-            {"id":0,"hp":5},
+                {"id":6001,"hp":5,"treasure":true},
+                {"id":6001,"hp":5,"treasure":true},
+                {"id":6001,"hp":5,"treasure":true},
+                {"id":6001,"hp":5,"treasure":true},
+                {"id":6001,"hp":5,"treasure":true},
+                {"id":6001,"hp":5,"treasure":true}
             ],
             "FIXEDPIPE" : [cc.p(2,2), cc.p(4,4)],
             "RANDOMRATIO" : {
@@ -177,14 +177,14 @@
 			"ID": 7,
 			"TYPE": "RANDOM",
 			"EMEMYLIST" : [
-			{"id":0,"hp":5},
-			{"id":0,"hp":5},
-			{"id":0,"hp":5},
-			{"id":0,"hp":5},
-			{"id":0,"hp":5},
-			{"id":0,"hp":5},
-			{"id":0,"hp":5},
-			{"id":0,"hp":5},
+				{"id":6001,"hp":5,"treasure":true},
+				{"id":6001,"hp":5,"treasure":true},
+				{"id":6001,"hp":5,"treasure":true},
+				{"id":6001,"hp":5,"treasure":true},
+				{"id":6001,"hp":5,"treasure":true},
+				{"id":6001,"hp":5,"treasure":true},
+				{"id":6001,"hp":5,"treasure":true},
+				{"id":6001,"hp":5,"treasure":true}
 			],
 			"RANDOMRATIO" : {
 				"PIPE":[1,1,1,1],

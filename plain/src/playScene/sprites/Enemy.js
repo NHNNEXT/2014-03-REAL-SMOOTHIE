@@ -1,11 +1,12 @@
 var Enemy = Block.extend({
 	ctor:function (type) {
-        this._super(EnemyType[type].resouceName);
+		this._super(EnemyTypeInfo[type].resouceName);
+        this.enemyType = type;
 		this.init();
 	},
 	init: function() {
 		this.type = BLOCK.TYPE.ENEMY;
-		this.HP = EnemyType[0].HP;
+		this.HP = EnemyTypeInfo[this.enemyType].HP;
 		this.treasure = false;
 		
        	this.hpBar = new HealthBar(-1, 1, 0);
