@@ -150,6 +150,10 @@ var BoardLayer = cc.Layer.extend ({
 			var b2_raw_index = b2.getContainerIndex();	
 			SMTH.CONTAINER.PIPES[b2_raw_index] = b2;
 			SMTH.CONTAINER.PIPES[b1_raw_index] = b1;
+			
+			// 스왑되어서 올라간 애는 플래그 삭제				
+			delete b1.fillBlockExecuted;
+
 		}
 	},
 	_updateBlockPotisionRender: function() { // 모델의(컨테이너) 좌표에 맞게 화면 상의 블록 스프라이트 좌표들을 업데이트하기  
