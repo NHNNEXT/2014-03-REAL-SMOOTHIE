@@ -56,6 +56,13 @@ var BoardLayer = cc.Layer.extend ({
 	},
 	fallBlock: function(){
 		cc.log("컨테이너길이: "+SMTH.CONTAINER.PIPES.length);
+		
+		// 애니메이션큐 초기화
+		var pipes = SMTH.CONTAINER.PIPES;
+		for(var i in pipes) {
+			var pipe = pipes[i];
+			pipe.animationQueue = [];
+		}
 		this._printBlockSnapshot();
 		// TODO: 한 스텝이 끝나고 애니메이션이 끝날 때까지 다음 스텝을 진행하지 말고 기다려야 함.
 		while(this._fallOneStep()){
@@ -91,6 +98,12 @@ var BoardLayer = cc.Layer.extend ({
 			}
 		}
 		
+		var pipes = SMTH.CONTAINER.PIPES;
+		for(var i in pipes) {
+			var pipe = pipes[i];
+//			애니메이션 큐에 저장해두기
+			pipe.appendAnimation(pipe.moveToProperPosition());
+		}
 		this._updateBlockPotisionRender();
 		return blockSwaped;
 	},
@@ -165,10 +178,10 @@ var BoardLayer = cc.Layer.extend ({
 		var pipes = SMTH.CONTAINER.PIPES;
 		for(var i in pipes) {
 			var pipe = pipes[i];
-			// TODO : 추후 애니메이션으로 바꿔야
-			pipe.setPositionByRowCol(pipe.row, pipe.col);
-//			애니메이션으로 바꾼다면..
-//			pipe.moveToProperPosition();
+			if (pipe.animationQueue.length == 0) {
+				continue;
+			}
+			pipe.runAction(cc.Sequence(pipe.animationQueue));
 		}
 	},
 	_getBlockWithRowAndColumn: function(row,col) {

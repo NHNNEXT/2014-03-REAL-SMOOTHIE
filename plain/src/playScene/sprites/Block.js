@@ -10,6 +10,7 @@ var Block = cc.Sprite.extend({
 		this.connectedWith = [];
 		this.visitFlag = false;
 		this.fixed = false;
+		this.animationQueue = [];
 		
 		this.setScaleX(BLOCK.SIZE.WIDTH/140);
 		this.setScaleY(BLOCK.SIZE.HEIGHT/140);
@@ -26,16 +27,21 @@ var Block = cc.Sprite.extend({
 		var position = this._coordinateToPosition(this.row, this.col);
 		this.setPosition(position);
 	},
+	appendAnimation: function(action) {
+		if (action == null) return;
+		this.animationQueue.push(action);
+		cc.log(this.animationQueue.length+" , " +this.animationQueue);
+	},
 	moveToProperPosition: function() {
 		var position = this._coordinateToPosition(this.row, this.col);
 //		cc.log("x/y: "+this.x+","+this.y+" pos: "+position.x+", "+position.y);
 		if (this.x == position.x && this.y == position.y) {
 //			cc.log("r/c: "+this.row+","+this.col);
-			return;
+			return cc.callFunc(setTimeout(0.2, function(){}));
 		}
 //		cc.log("x/y: "+position.x+", "+position.y);
 //		cc.log("r/c: "+this.row+","+this.col+" pos: "+position.x+", "+position.y);
-		this.runAction(cc.Spawn(cc.moveTo(0.2, position)));
+		return cc.moveTo(0.2, position);
 	},
 	_coordinateToPosition: function(row, col) {
 		var width = BLOCK.SIZE.WIDTH;
