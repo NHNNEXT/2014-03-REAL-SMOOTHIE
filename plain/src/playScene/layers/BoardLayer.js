@@ -57,6 +57,7 @@ var BoardLayer = cc.Layer.extend ({
 	fallBlock: function(){
 		cc.log("컨테이너길이: "+SMTH.CONTAINER.PIPES.length);
 		this._printBlockSnapshot();
+		// TODO: 한 스텝이 끝나고 애니메이션이 끝날 때까지 다음 스텝을 진행하지 말고 기다려야 함.
 		while(this._fallOneStep()){
 			this._printBlockSnapshot();
 		};
@@ -98,6 +99,8 @@ var BoardLayer = cc.Layer.extend ({
 		// row가 맨 윗줄을 의미하면 새로운 파이프블록을 랜덤하게 생성해서 반환한다.
 		if(row === this._level.row-1) {
 			var newBlock = new Pipe(Pipe.getRandomPipeType(360));
+			// 맨 위에서 떨어지도록 초기 위치를 윗쪽으로 설정 
+			newBlock.y = 500;
 			this.addChild(newBlock);
 			cc.log(newBlock.row+", "+newBlock.col);
 			return newBlock;
@@ -126,19 +129,20 @@ var BoardLayer = cc.Layer.extend ({
 		return 0;
 	},
 	_swapBlock: function(b1, b2) {
-		// 두번째 블록이 보드 위에 있는 게 아니라 새로 생성된 블록이라면 r1, c1 에 넣고 원래있던 블록을 소멸시킨다.
-		// 모델을 바꾸고
-		//// 파이프의 row col 을 교환
-		//// 컨테이너에서 r1, c1, r2, c2 에 저장된 참조를 교환
 		var levelCol = this._level.col;
 		
+		// 두번째 블록이 새로 생성된 블록이라면 row, col == -1.
+		// 이 때, r1, c1 에 넣고 원래있던 블록을 소멸시킨다.
 		if(b2.row === -1 && b2.col === -1) {
 			cc.log("맨 위 같으니 대입만!");
 			b2.row = b1.row;
 			b2.col = b1.col;
 			var b2_raw_index = b2.getContainerIndex();	
 			SMTH.CONTAINER.PIPES[b2_raw_index] = b2;
+			this.removeChild(b1);
 		} else {
+			// 모델(데이터)만 우선 바꾼다
+			//// 파이프의 row col 을 교환
 			cc.log("스왑!");
 			var tempRow = b2.row;
 			var tempCol = b2.col;
@@ -146,6 +150,7 @@ var BoardLayer = cc.Layer.extend ({
 			b2.col = b1.col;
 			b1.row = tempRow;
 			b1.col = tempCol;
+			//// 컨테이너에서 저장된 참조를 교환
 			var b1_raw_index = b1.getContainerIndex(); // 블록의 row col 을 참고하여 컨테이너에서 존재해야될 인덱스를 계산해서 반환. 현재 컨테이너에서의 인덱스가 아닐 수 잇음!
 			var b2_raw_index = b2.getContainerIndex();	
 			SMTH.CONTAINER.PIPES[b2_raw_index] = b2;
@@ -153,15 +158,17 @@ var BoardLayer = cc.Layer.extend ({
 			
 			// 스왑되어서 올라간 애는 플래그 삭제				
 			delete b1.fillBlockExecuted;
-
 		}
 	},
-	_updateBlockPotisionRender: function() { // 모델의(컨테이너) 좌표에 맞게 화면 상의 블록 스프라이트 좌표들을 업데이트하기  
+	_updateBlockPotisionRender: function() {
+		// 모델의(컨테이너) 좌표에 맞게 화면 상의 블록 스프라이트 좌표들을 업데이트하기  
 		var pipes = SMTH.CONTAINER.PIPES;
 		for(var i in pipes) {
 			var pipe = pipes[i];
 			// TODO : 추후 애니메이션으로 바꿔야
 			pipe.setPositionByRowCol(pipe.row, pipe.col);
+//			애니메이션으로 바꾼다면..
+//			pipe.moveToProperPosition();
 		}
 	},
 	_getBlockWithRowAndColumn: function(row,col) {

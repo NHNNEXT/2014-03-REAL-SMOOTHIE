@@ -26,6 +26,17 @@ var Block = cc.Sprite.extend({
 		var position = this._coordinateToPosition(this.row, this.col);
 		this.setPosition(position);
 	},
+	moveToProperPosition: function() {
+		var position = this._coordinateToPosition(this.row, this.col);
+//		cc.log("x/y: "+this.x+","+this.y+" pos: "+position.x+", "+position.y);
+		if (this.x == position.x && this.y == position.y) {
+//			cc.log("r/c: "+this.row+","+this.col);
+			return;
+		}
+//		cc.log("x/y: "+position.x+", "+position.y);
+//		cc.log("r/c: "+this.row+","+this.col+" pos: "+position.x+", "+position.y);
+		this.runAction(cc.Spawn(cc.moveTo(0.2, position)));
+	},
 	_coordinateToPosition: function(row, col) {
 		var width = BLOCK.SIZE.WIDTH;
 		var height = BLOCK.SIZE.HEIGHT;
