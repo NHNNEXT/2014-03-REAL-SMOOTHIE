@@ -17,6 +17,7 @@
 	var LEVEL = {
 		"STAGE1": {
 			"ID": 0,
+			"TITLE": "Connect Straw",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":1,"treasure":false},
@@ -37,6 +38,7 @@
 		},
 		"STAGE2": {
 			"ID": 1,
+			"TITLE": "Turn Left",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":1,"treasure":false},
@@ -57,6 +59,7 @@
 		},
 		"STAGE3": {
 			"ID": 2,
+			"TITLE": "One Shot Two Heal",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":1,"treasure":false},
@@ -79,6 +82,7 @@
 		},
 		"STAGE4": {
 			"ID": 3,
+			"TITLE": "Suck Twice",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":2,"treasure":false},
@@ -99,6 +103,7 @@
 		},
 		"STAGE5": {
 			"ID": 4,
+			"TITLE": "Two Cup in one chance",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":2,"treasure":false},
@@ -120,6 +125,7 @@
 		},
 		"STAGE6": {
 			"ID": 5,
+			"TITLE": "Treasure!",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":2,"treasure":true},
@@ -145,6 +151,7 @@
 		},
 		"STAGE7": {
 			"ID": 6,
+			"TITLE": "Carrot Smoothie",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
                {"id":6002,"hp":2,"treasure":true},

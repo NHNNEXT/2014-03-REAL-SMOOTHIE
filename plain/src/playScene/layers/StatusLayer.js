@@ -48,9 +48,11 @@ var StatusLayer = cc.Layer.extend({
         this.stageLabel.setFontName(res.LINEBold_ttf);
         this.stageLabel.setFontSize(50);
 		this.stageLabel.setColor( cc.color(190, 219, 57));
-
+		
         var levelDescription = SMTH.STATUS.CURRENT_LEVEL.TYPE + " " + SMTH.STATUS.CURRENT_LEVEL.MAP[0].length + "X" + SMTH.STATUS.CURRENT_LEVEL.MAP.length + " STAGE";
-                                  
+        if (SMTH.STATUS.CURRENT_LEVEL.TITLE !== null) {
+        	levelDescription = SMTH.STATUS.CURRENT_LEVEL.TITLE;
+        }                          
         this.stageLabel.setString(levelDescription);
                                   
 		this.stageLabel.x = size.width / 2;
