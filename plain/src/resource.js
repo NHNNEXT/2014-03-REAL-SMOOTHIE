@@ -11,6 +11,7 @@ var res = {
 		fixed_sign : "res/fixed.png",
 		sally : "res/sally.png",
 		cony : "res/cony.png",
+		cony_headsick: "res/cony_headsick.png",
 		button_n: "res/animationbuttonnormal.png",
 		button_p: "res/animationbuttonpressed.png",
 		replayNormal_png: "res/replayNormal.png",
@@ -22,6 +23,7 @@ var res = {
 		hpfull_png: "res/hp_full_140.png",
 		hpempty_png: "res/hp_empty_140.png",
 		mixer_png: "res/mixer.png",
+		item_carrot_png: "res/item_carrot.png",
 		LINEBold_ttf: {
    	     type:"font",
    		 name:"LINEBold",

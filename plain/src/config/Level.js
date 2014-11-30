@@ -15,13 +15,6 @@
 	var T  = BLOCK.TYPE.TREASURE;
 	
 	var LEVEL = {
-		"MAP": {
-			"TYPE": "PRESET",
-			"MAP": [
-			       [IR,IR,IR,IR,LD],
-			       [LR,IR,IR,IR,LL],
-			       ].reverse()
-		},
 		"STAGE1": {
 			"ID": 0,
 			"TYPE": "PRESET",
@@ -146,6 +139,28 @@
 			        ].reverse(),
 	        "MAXTURN" : 15
 		},
+		"STAGE7": {
+			"ID": 6,
+			"TYPE": "PRESET",
+			"EMEMYLIST" : [
+               {"id":6002,"hp":2,"treasure":true},
+               {"id":6001,"hp":2,"treasure":true},
+               {"id":6002,"hp":2,"treasure":true}
+               ],
+            "RANDOMRATIO" : {
+        	   "PIPE":[1,1,1,1], // L - I - X - T
+        	   "ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
+            },
+            "MAP" : [
+	            [E ,E ,E ],
+	            [P ,P ,P ],
+	            [P ,P ,P ],
+	            [P ,P ,P ],
+	            [P ,P ,P ],
+	            [F ,I ,F ]
+	            ].reverse(),
+            "MAXTURN" : 15
+		}/*,
 		"LEVEL0": {
             "ID": 6,
             "TYPE": "RANDOM",
@@ -200,7 +215,7 @@
 			         [P,F,F,F,F,F,P]
 			         ].reverse(),
 			"MAXTURN" : 40
-		}
+		}*/
 	};
 	
 	for (var key in LEVEL) {
