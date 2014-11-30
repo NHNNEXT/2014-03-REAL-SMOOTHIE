@@ -43,7 +43,12 @@ var LevelLoader = cc.Class.extend({
 				}
 				
 				for(var i in fixedPipes) {
-					if(fixedPipes[i].x == r && fixedPipes[i].y == c) block.fixed = true;
+					if(fixedPipes[i].x == r && fixedPipes[i].y == c) {
+						block.fixed = true;
+						var fixedSign = new cc.Sprite(res.fixed_sign);
+						fixedSign.setPosition(cc.p(70,70));
+						block.addChild(fixedSign);
+					}
 				}
 				
 				block.setPositionByRowCol(r, c);

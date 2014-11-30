@@ -8,6 +8,7 @@ var res = {
 		Pipe_2way_curve : "res/type-2way_c.png",
 		Pipe_3way : "res/type-3way.png",
 		Pipe_4way : "res/type-4way.png",
+		fixed_sign : "res/fixed.png",
 		sally : "res/sally.png",
 		cony : "res/cony.png",
 		button_n: "res/animationbuttonnormal.png",
