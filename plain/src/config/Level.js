@@ -126,6 +126,10 @@
 			    {"id":6001,"hp":2,"treasure":true},
 			    {"id":6001,"hp":2,"treasure":true}
 			],
+			"ITEMLIST": [
+			             {"id":"Item0001", "ratio": 1},
+			             {"id":"Item0001", "ratio": 1}
+			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
 			   "ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
@@ -147,6 +151,10 @@
                {"id":6001,"hp":2,"treasure":true},
                {"id":6002,"hp":2,"treasure":true}
                ],
+            "ITEMLIST": [
+               {"id":"Item0001", "ratio": 1},
+               {"id":"Item0001", "ratio": 1}
+            ],
             "RANDOMRATIO" : {
         	   "PIPE":[1,1,1,1], // L - I - X - T
         	   "ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
