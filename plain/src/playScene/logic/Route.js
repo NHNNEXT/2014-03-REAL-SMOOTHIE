@@ -60,7 +60,15 @@ var Route = cc.Class.extend({
 			}
 		}
 	},
-	
+	print: function() {
+		var log = "";
+		for (var i in this.blocks) {
+			var block = this.blocks[i];
+			var coord = "("+block.row+","+block.col+")";
+			log += coord;
+		}
+		cc.log(log);
+	},
 	hurt: function() {
 		for (var i in this.blocks) {
 			var block = this.blocks[i];

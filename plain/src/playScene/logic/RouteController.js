@@ -116,12 +116,12 @@ var RouteController = cc.Class.extend({
 		}
 	},
 	_checkVerticalConnection: function(upPipe, downPipe) {
-		if(upPipe.type > 0 && downPipe.type > 0) return false;
+		if(upPipe.type !== BLOCK.TYPE.PIPE && downPipe.type !== BLOCK.TYPE.PIPE) return false;
 		if(upPipe.HP <= 0 || downPipe.HP <= 0) return false;
 		return upPipe.isOpened(BLOCK.DIRECTION.DOWN) && downPipe.isOpened(BLOCK.DIRECTION.UP);
 	},
 	_checkHorizontalConnection: function(leftPipe, rightPipe) {
-		if(leftPipe.type > 0 && rightPipe.type > 0) return false;
+		if(leftPipe.type !== BLOCK.TYPE.PIPE&& rightPipe.type !== BLOCK.TYPE.PIPE) return false;
 		if(leftPipe.HP <= 0 || rightPipe.HP <= 0) return false;
 		return leftPipe.isOpened(BLOCK.DIRECTION.RIGHT) && rightPipe.isOpened(BLOCK.DIRECTION.LEFT);
 	},
