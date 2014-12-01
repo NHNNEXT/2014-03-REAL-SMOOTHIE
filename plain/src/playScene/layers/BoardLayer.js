@@ -113,7 +113,7 @@ var BoardLayer = cc.Layer.extend ({
 		if(row === this._level.row-1) {
 			var newBlock = new Pipe(Pipe.getRandomPipeType(360));
 			// 맨 위에서 떨어지도록 초기 위치를 윗쪽으로 설정 
-			newBlock.y = 500;
+			newBlock.setPositionByRowCol(this._level.row, col);
 			this.addChild(newBlock);
 			cc.log(newBlock.row+", "+newBlock.col);
 			return newBlock;
