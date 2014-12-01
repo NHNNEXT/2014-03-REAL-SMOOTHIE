@@ -32,6 +32,7 @@ var HealthBar = cc.ProgressTimer.extend({
 		this.setPercentage(percent);
 	},
 	heal: function(hp) {
+		cc.log("heal "+hp);
 		this.currentHP += hp;
 
 		var percent = (this.currentHP - this.dieAt) / (this.cureAt - this.dieAt) * 100;

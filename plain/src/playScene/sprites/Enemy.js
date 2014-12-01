@@ -6,7 +6,7 @@ var Enemy = Block.extend({
 	},
 	init: function() {
 		this.type = BLOCK.TYPE.ENEMY;
-		this.HP = EnemyTypeInfo[this.enemyType].HP;
+		this.HP = 1;
 		this.treasure = false;
 		
        	this.hpBar = new HealthBar(-1, 1, 0);
