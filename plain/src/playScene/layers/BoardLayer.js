@@ -161,7 +161,6 @@ var BoardLayer = cc.Layer.extend ({
 		result = this._fillBlock(row+1, col+1);
 		if (result instanceof Block) {
 			this._swapBlock(block, result);
-			// 여기서 리턴을 해주면 처음만나는 내려올 수 있는 블록만 내려오게 된다.
 			return 1;
 		} else if (result > 0) {
 			return temp < result ? temp : result;
@@ -177,7 +176,7 @@ var BoardLayer = cc.Layer.extend ({
 			cc.log("맨 위 같으니 대입만!");
 			b2.row = b1.row;
 			b2.col = b1.col;
-			var b2_raw_index = b2.getContainerIndex();	
+			var b2_raw_index = b2.getContainerIndex();
 			SMTH.CONTAINER.PIPES[b2_raw_index] = b2;
 			this.removeChild(b1);
 		} else {
@@ -193,8 +192,14 @@ var BoardLayer = cc.Layer.extend ({
 			//// 컨테이너에서 저장된 참조를 교환
 			var b1_raw_index = b1.getContainerIndex(); // 블록의 row col 을 참고하여 컨테이너에서 존재해야될 인덱스를 계산해서 반환. 현재 컨테이너에서의 인덱스가 아닐 수 잇음!
 			var b2_raw_index = b2.getContainerIndex();	
+			cc.log("의심: "+ b1_raw_index);
+			cc.log("의심: "+ b2_raw_index);
 			SMTH.CONTAINER.PIPES[b2_raw_index] = b2;
-			SMTH.CONTAINER.PIPES[b1_raw_index] = b1;
+			if (b1_raw_index < SMTH.CONTAINER.PIPES.length) {
+				// null블록이 하늘 위로 스왑된경우
+				// index가 Container 밖의 이상한 곳에 존재
+				SMTH.CONTAINER.PIPES[b1_raw_index] = b1;
+			}
 			
 			// 스왑되어서 올라간 애는 플래그 삭제				
 			delete b1.fillBlockExecuted;

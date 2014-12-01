@@ -76,8 +76,13 @@ var RouteController = cc.Class.extend({
 
 	makeRoutes: function() {
 		var friends = [];
+		cc.log("LEN: " + SMTH.CONTAINER.PIPES.length);
 		for (var i = 0; i < SMTH.CONTAINER.PIPES.length ;i++) {
 			var block = SMTH.CONTAINER.PIPES[i];
+			if (block == undefined) {
+				cc.log(i);
+				cc.log(SMTH.CONTAINER.PIPES);
+			}
 			if (block.isFriend()) {
 				var friend = block;
 				if (friends.indexOf(friend) >= 0) {
