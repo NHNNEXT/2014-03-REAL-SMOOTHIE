@@ -55,6 +55,7 @@ var BoardLayer = cc.Layer.extend ({
 		SMTH.CONTAINER.PIPES[row*levelCol+col] = replacement;
 	},
 	fallBlock: function(){
+		this.fallStep = 0;
 		cc.log("컨테이너길이: "+SMTH.CONTAINER.PIPES.length);
 		
 		// 애니메이션큐 초기화
@@ -64,9 +65,9 @@ var BoardLayer = cc.Layer.extend ({
 			pipe.animationQueue = [];
 		}
 		this._printBlockSnapshot();
-		// TODO: 한 스텝이 끝나고 애니메이션이 끝날 때까지 다음 스텝을 진행하지 말고 기다려야 함.
 		while(this._fallOneStep()){
 			this._printBlockSnapshot();
+			this.fallStep++;
 		};
 		this._printBlockSnapshot();
 		this._updateBlockPotisionRender();
@@ -112,6 +113,8 @@ var BoardLayer = cc.Layer.extend ({
 		// row가 맨 윗줄을 의미하면 새로운 파이프블록을 랜덤하게 생성해서 반환한다.
 		if(row === this._level.row-1) {
 			var newBlock = new Pipe(Pipe.getRandomPipeType(360));
+			// 나중에 추가된 블록은 일정 시간 기다렸다가 움직여야 하나씩 떨어지는 것처럼 보임.
+			newBlock.appendAnimation(new cc.DelayTime(this.fallStep * 0.2));
 			// 맨 위에서 떨어지도록 초기 위치를 윗쪽으로 설정 
 			newBlock.setPositionByRowCol(this._level.row, col);
 			this.addChild(newBlock);
