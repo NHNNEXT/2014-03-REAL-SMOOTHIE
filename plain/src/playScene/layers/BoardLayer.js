@@ -121,12 +121,20 @@ var BoardLayer = cc.Layer.extend ({
 			cc.log(newBlock.row+", "+newBlock.col);
 			return newBlock;
 		}	
+		
 		var block = this._getBlockWithRowAndColumn(row, col);
+		
 		// block에 방문 플래그를 단다.
 		block.fillBlockExecuted = true;
+		
 		// 블록이 내려갈 수 있는 놈이면 반환 한다.
 		if(block.type !== BLOCK.TYPE.NULL && !block.fixed) {
 			return block;
+		}
+		// 블록이 내려갈 수 없는 놈이면,
+		if (block.type == BLOCK.TYPE.PIPE && block.fixed) {
+			// 못 내려가겠다고 선언한다.
+			return 0;
 		}
 		
 		var result = this._fillBlock(row+1, col); // result :  내려갈 수 있는 유효한 블록이 반환됨 or 블록이 올 예정이라면 "기다려" 값이옴 or 끝까지 갔는데 확보실패했다면 "기다리지마"
@@ -138,10 +146,26 @@ var BoardLayer = cc.Layer.extend ({
 			// 기다려
 			return result + 1;
 		}
-		/* 여기서 대각선 위의 것을 고려하는 것을 구현한다.
-		this._fillBlock(row+1, col-1);
-		this._fillBlock(row+1, col+1);
-		*/
+		
+		// 만약 블록이 직하강할 수 없는 위치라면...
+		// 여기서 대각선 위의 것을 고려하는 것을 구현한다.
+		result = this._fillBlock(row+1, col-1);
+		if (result instanceof Block) {
+			this._swapBlock(block, result);
+			// 여기서 리턴을 해주면 처음만나는 내려올 수 있는 블록만 내려오게 된다.
+			return 1;
+		} else if (result > 0) {
+			// 양쪽을 모두 비교한 후 짧은 쪽을 선택한다.
+			temp = result;
+		}
+		result = this._fillBlock(row+1, col+1);
+		if (result instanceof Block) {
+			this._swapBlock(block, result);
+			// 여기서 리턴을 해주면 처음만나는 내려올 수 있는 블록만 내려오게 된다.
+			return 1;
+		} else if (result > 0) {
+			return temp < result ? temp : result;
+		}
 		return 0;
 	},
 	_swapBlock: function(b1, b2) {

@@ -29,7 +29,6 @@ var Block = cc.Sprite.extend({
 	},
 	appendAnimation: function(action) {
 		if (action == null) return;
-		cc.log(this.animationQueue);
 		this.animationQueue.push(action);
 	},
 	moveToProperPosition: function() {
