@@ -42,7 +42,6 @@ Treasure.prototype.treasureTouchHandler = {
 		var i = 0;
 		while (randValue > accItemRatio[i]) i++;
 		var itemImage = ItemType[itemList[i].id].image;
-		
 		this.setOpacity(0);
 		var replacement = new cc.Sprite(itemImage);
 		replacement.setPosition(cc.p(70,70));

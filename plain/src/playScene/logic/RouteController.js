@@ -50,6 +50,8 @@ var RouteController = cc.Class.extend({
 			if(this.pipes[i].HP <= 0) {
 				continue;
 			}
+			if(this.pipes[i].type == BLOCK.TYPE.ISOLATION) continue; 
+
 			this.pipes[i].visitFlag = false;
 			this.pipes[i].connectedWith = [];
 			this.pipes[i].setColor(cc.color(255, 255, 255));
