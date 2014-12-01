@@ -9,6 +9,7 @@
 	var TD = BLOCK.TYPE.PIPE.T.D;
 	var TR = BLOCK.TYPE.PIPE.T.R;
 	var TL = BLOCK.TYPE.PIPE.T.L;
+	var X = BLOCK.TYPE.PIPE.X.U;
 	var F  = BLOCK.TYPE.FRIEND.SALLY;
 	var E  = BLOCK.TYPE.ENEMY.CONY;
 	var I  = BLOCK.TYPE.ISOLATION;
@@ -167,15 +168,106 @@
         	   "ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
             },
             "MAP" : [
-	            [E ,E ,E ],
-	            [P ,P ,P ],
-	            [P ,P ,P ],
-	            [P ,P ,P ],
-	            [P ,P ,P ],
-	            [F ,I ,F ]
+				[E ,E ,E ],
+				[P ,P ,P ],
+				[P ,P ,P ],
+				[P ,P ,P ],
+				[P ,P ,P ],
+				[F ,I ,F ]
 	            ].reverse(),
             "MAXTURN" : 15
-		}/*,
+		},
+		"STAGE8": {
+			"ID": 7,
+			"TITLE": "Something Fixed",
+			"TYPE": "PRESET",
+			"EMEMYLIST" : [
+               {"id":6001,"hp":2,"treasure":true},
+               {"id":6002,"hp":2,"treasure":true},
+               {"id":6001,"hp":2,"treasure":true}
+            ],
+            "ITEMLIST": [
+	            {"id":"Item0001", "ratio": 1},
+	            {"id":"Item0001", "ratio": 1}
+	        ],
+            "RANDOMRATIO" : {
+            	"PIPE":[1,1,1,1], // L - I - X - T
+            	"ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
+            },
+            "FIXEDPIPE" : [cc.p(3,1)],
+            "MAP" : [
+                 [E ,E ,E ],
+                 [P ,P ,P ],
+                 [P ,X ,P ],
+                 [P ,P ,P ],
+                 [P ,P ,P ],
+                 [F ,I ,F ]
+             ].reverse(),
+             "MAXTURN" : 15
+		},
+		"STAGE9": {
+			"ID": 8,
+			"TITLE": "Strange Empty",
+			"TYPE": "PRESET",
+			"EMEMYLIST" : [
+               {"id":6001,"hp":2,"treasure":true},
+               {"id":6002,"hp":2,"treasure":true},
+               {"id":6001,"hp":2,"treasure":true},
+               {"id":6002,"hp":2,"treasure":true},
+               {"id":6001,"hp":2,"treasure":true}
+            ],
+            "ITEMLIST": [
+	            {"id":"Item0001", "ratio": 1},
+	            {"id":"Item0001", "ratio": 1}
+	        ],
+            "RANDOMRATIO" : {
+            	"PIPE":[1,1,1,1], // L - I - X - T
+            	"ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
+            },
+            "FIXEDPIPE" : [cc.p(3,1), cc.p(3,2), cc.p(3,3)],
+            "MAP" : [
+				[E ,E ,E ,E ,E],
+				[P ,P ,P ,P ,P],
+				[P ,P ,P ,P ,P],
+				[P ,TL,TD,TR,P],
+				[P ,P ,P ,P ,P],
+				[P ,P ,P ,P ,P],
+				[I ,F ,I ,F ,I]
+             ].reverse(),
+             "MAXTURN" : 15
+		},
+		"STAGE10": {
+			"ID": 9,
+			"TITLE": "Try All Together",
+			"TYPE": "PRESET",
+			"EMEMYLIST" : [
+			    {"id":6002,"hp":2,"treasure":true},
+				{"id":6001,"hp":2,"treasure":true},
+				{"id":6002,"hp":2,"treasure":true},
+				{"id":6001,"hp":2,"treasure":true},
+				{"id":6002,"hp":2,"treasure":true}
+			],
+           "ITEMLIST": [
+                        {"id":"Item0001", "ratio": 1},
+                        {"id":"Item0001", "ratio": 1}
+            ],
+            "RANDOMRATIO" : {
+            	"PIPE":[1,1,1,1], // L - I - X - T
+            	"ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
+            },
+            "FIXEDPIPE" : [cc.p(5,0), cc.p(5,4), cc.p(2,3)],
+            "MAP" : [
+                     [E ,E ,E ,E ,E],
+                     [LU,P ,P ,P ,LL],
+                     [P ,P ,P ,P ,P],
+                     [P ,P ,IR,P ,P],
+                     [P ,P ,P ,P ,P],
+                     [P ,P ,P ,P ,P],
+                     [I ,F ,I ,F ,I]
+             ].reverse(),
+             "MAXTURN" : 15
+		}
+		/*,
 		"LEVEL0": {
             "ID": 6,
             "TYPE": "RANDOM",
