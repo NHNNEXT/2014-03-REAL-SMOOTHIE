@@ -7,9 +7,10 @@ var BoardLayer = cc.Layer.extend ({
 	},
 
 	init: function() {
+		this.blockFallingCount = 0;
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		SMTH.STATUS.GAME_STATE = SMTH.CONST.GAME_STATE.NOT_END;
-
+		
 		//SMTH.CONTAINER안에 pipe를 초기화
 		SMTH.CONTAINER.PIPES =[];
 
@@ -19,13 +20,25 @@ var BoardLayer = cc.Layer.extend ({
                                   
 		this._createMap(row, col);
 		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
-                                  
+     
         cc.audioEngine.setMusicVolume(0.7);
-        cc.audioEngine.playMusic(res.GamePlayBGM_mp3, true);
-                                  
+        cc.audioEngine.playMusic(res.GamePlayBGM_mp3, true);                                  
         SMTH.EVENT_MANAGER.notice("gameStart");
+         
+        // 이벤트 핸들러 등록 하기 
+        SMTH.EVENT_MANAGER.handle("allBlockFallingEnd", function(e) {
+        	SMTH.EVENT_MANAGER.routeController.updateRoute(true);        	
+        });        
+        
 	},
-
+	_increaseBlockFalling : function() {
+		this.blockFallingCount++;
+	},
+	_decreaseBlockFalling : function() {
+		this.blockFallingCount--;
+		if(this.blockFallingCount <= 0) 
+			SMTH.EVENT_MANAGER.notice("allBlockFallingEnd");
+	},
 	_createMap : function(row, col) { 
 		var map = this._level.MAP;
 		var levelLoader = new LevelLoader(this._level);
@@ -214,13 +227,14 @@ var BoardLayer = cc.Layer.extend ({
 	},
 	_updateBlockPotisionRender: function() {
 		// 모델의(컨테이너) 좌표에 맞게 화면 상의 블록 스프라이트 좌표들을 업데이트하기 
-		
 		var pipes = SMTH.CONTAINER.PIPES;
 		for(var i in pipes) {
 			var pipe = pipes[i];
 			if (pipe.animationQueue.length == 0 || pipe.animationQueue == null) {
 				continue;
 			}
+			this._increaseBlockFalling();
+			pipe.appendAnimation(cc.callFunc(this._decreaseBlockFalling.bind(this)));
 			pipe.runAction(cc.sequence(pipe.animationQueue));
 		}
 	},

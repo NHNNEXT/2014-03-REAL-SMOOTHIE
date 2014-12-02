@@ -59,7 +59,6 @@ var EventManager = cc.Class.extend({
 		this.handle("routeDied", function(e) {
 			var board = SMTH.CONTAINER.BOARD;
 			board.fallBlock(); // 블록을 내려오게함
-			this.routeController.updateRoute(true);
 		}.bind(this));
 		
 		this.handle("turnEnd", function(e) {
