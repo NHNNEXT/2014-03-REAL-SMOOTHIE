@@ -33,6 +33,7 @@ var GameClearLayer = cc.LayerColor.extend({
 		// add the label as a child to this layer
 		this.addChild(this.clearLabel);
         
+		cc.audioEngine.setMusicVolume(0.4);
         cc.audioEngine.playEffect(res.gameclear_mp3);
 		
 		var playAgainNormal = new cc.Sprite(res.replayNormal_png);
@@ -56,6 +57,7 @@ var GameClearLayer = cc.LayerColor.extend({
 	touchEvent: function(touch, event) {
         cc.audioEngine.playEffect(res.button_mp3);
 		this.parent.removeChild(this);
+		cc.audioEngine.stopAllEffects();
 		cc.director.runScene(new PlayScene());
 	},
 	

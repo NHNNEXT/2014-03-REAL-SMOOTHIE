@@ -21,7 +21,7 @@ var BoardLayer = cc.Layer.extend ({
 		this._createMap(row, col);
 		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
      
-        cc.audioEngine.setMusicVolume(0.7);
+        cc.audioEngine.setMusicVolume(0.5);
         cc.audioEngine.playMusic(res.GamePlayBGM_mp3, true);                                  
         SMTH.EVENT_MANAGER.notice("gameStart");
          

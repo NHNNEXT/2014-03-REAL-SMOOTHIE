@@ -57,6 +57,7 @@ var GameOverLayer = cc.LayerColor.extend({
 	touchEvent: function(touch, event) {
 		cc.audioEngine.playEffect(res.button_mp3);
         this.parent.removeChild(this);
+        cc.audioEngine.stopAllEffects();
         cc.director.runScene(new PlayScene());
 	}
 
