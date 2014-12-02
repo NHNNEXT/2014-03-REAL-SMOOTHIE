@@ -148,23 +148,30 @@ var BoardLayer = cc.Layer.extend ({
 		}
 		
 		// 만약 블록이 직하강할 수 없는 위치라면...
-		// 여기서 대각선 위의 것을 고려하는 것을 구현한다.
-		result = this._fillBlock(row+1, col-1);
-		if (result instanceof Block) {
-			this._swapBlock(block, result);
-			// 여기서 리턴을 해주면 처음만나는 내려올 수 있는 블록만 내려오게 된다.
-			return 1;
-		} else if (result > 0) {
-			// 양쪽을 모두 비교한 후 짧은 쪽을 선택한다.
-			temp = result;
+		// 여기서 대각선 위의 것을 고려하는 것을 구현한다
+		if(col !== 0) {
+			result = this._fillBlock(row+1, col-1);
+			var temp;
+			if (result instanceof Block) {
+				this._swapBlock(block, result);
+				// 여기서 리턴을 해주면 처음만나는 내려올 수 있는 블록만 내려오게 된다.
+				return 1;
+			} else if (result > 0) {
+				// 양쪽을 모두 비교한 후 짧은 쪽을 선택한다.
+				temp = result;
+			}
 		}
-		result = this._fillBlock(row+1, col+1);
-		if (result instanceof Block) {
-			this._swapBlock(block, result);
-			return 1;
-		} else if (result > 0) {
-			return temp < result ? temp : result;
+
+		if(col !== this._level.col - 1) {
+			result = this._fillBlock(row+1, col+1);
+			if (result instanceof Block) {
+				this._swapBlock(block, result);
+				return 1;
+			} else if (result > 0) {
+				return temp < result ? temp : result;
+			}
 		}
+		
 		return 0;
 	},
 	_swapBlock: function(b1, b2) {

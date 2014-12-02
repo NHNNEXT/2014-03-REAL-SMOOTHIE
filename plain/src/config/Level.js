@@ -265,7 +265,7 @@
                      [P ,P ,P ,P ,P],
                      [I ,F ,I ,F ,I]
              ].reverse(),
-             "MAXTURN" : 15
+             "MAXTURN" : 25
 		}
 		/*,
 		"LEVEL0": {
