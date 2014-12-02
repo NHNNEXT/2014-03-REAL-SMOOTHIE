@@ -255,7 +255,7 @@
             	"PIPE":[1,1,1,1], // L - I - X - T
             	"ROTATE":[1,1,1,1] // 360 - 90 - 180 - 270
             },
-            "FIXEDPIPE" : [cc.p(5,0), cc.p(5,4), cc.p(2,3)],
+            "FIXEDPIPE" : [cc.p(5,0), cc.p(5,4), cc.p(3,2)],
             "MAP" : [
                      [E ,E ,E ,E ,E],
                      [LU,P ,P ,P ,LL],
