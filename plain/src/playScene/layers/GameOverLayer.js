@@ -33,14 +33,14 @@ var GameOverLayer = cc.LayerColor.extend({
 		// add the label as a child to this layer
 		this.addChild(this.overLabel);
 		
-		var playAgainNormal = new cc.Sprite(res.replayNormal_png);
-		var playAgainSelected = new cc.Sprite(res.replaySelected_png);
-		var playAgainDisabled = new cc.Sprite(res.replayNormal_png);
-		var playAgain = new cc.MenuItemSprite(playAgainNormal, playAgainSelected, playAgainDisabled, function(){
+		var retryNormal = new cc.Sprite(res.retryNormal_png);
+		var retrySelected = new cc.Sprite(res.retrySelected_png);
+		var retryDisabled = new cc.Sprite(res.retryNormal_png);
+		var retry = new cc.MenuItemSprite(retryNormal, retrySelected, retryDisabled, function(){
 			this.touchEvent();
 		}.bind(this) );
 
-		var menu = new cc.Menu(playAgain);
+		var menu = new cc.Menu(retry);
 		this.addChild(menu, 1, 2);
 		menu.x = winsize.width / 2;
 		menu.y = winsize.height / 2;
@@ -57,6 +57,7 @@ var GameOverLayer = cc.LayerColor.extend({
 	touchEvent: function(touch, event) {
 		cc.audioEngine.playEffect(res.button_mp3);
         this.parent.removeChild(this);
+        SMTH.START_LEVEL_INDEX--;
         cc.audioEngine.stopAllEffects();
         cc.director.runScene(new PlayScene());
 	}

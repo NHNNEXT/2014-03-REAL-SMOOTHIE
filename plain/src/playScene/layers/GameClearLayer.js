@@ -36,13 +36,13 @@ var GameClearLayer = cc.LayerColor.extend({
 		cc.audioEngine.setMusicVolume(0.4);
         cc.audioEngine.playEffect(res.gameclear_mp3);
 		
-		var playAgainNormal = new cc.Sprite(res.replayNormal_png);
-		var playAgainSelected = new cc.Sprite(res.replaySelected_png);
-		var playAgainDisabled = new cc.Sprite(res.replayNormal_png);
-		var playAgain = new cc.MenuItemSprite(playAgainNormal, playAgainSelected, playAgainDisabled,
+        var playNextNormal = new cc.Sprite(res.nextNormal_png);
+        var playNextSelected = new cc.Sprite(res.nextSelected_png);
+        var playNextDisabled = new cc.Sprite(res.nextNormal_png);
+		var playNext = new cc.MenuItemSprite(playNextNormal, playNextSelected, playNextDisabled,
 				function(){this.touchEvent();}.bind(this) );
 		
-		var menu = new cc.Menu(playAgain);
+		var menu = new cc.Menu(playNext);
 		this.addChild(menu, 1, 2);
 		menu.x = winsize.width / 2;
 		menu.y = winsize.height / 2;
