@@ -8,6 +8,9 @@ var HealthBar = cc.ProgressTimer.extend({
 		this.cureAt = right;
 		this.currentHP = onStart;
 		
+		var height = this._getHeight();		
+		this.setPosition(undefined, 26);
+
 		var percent = (onStart - left) / (right - left) * 100;
 		this.setPercentage(percent);
 		

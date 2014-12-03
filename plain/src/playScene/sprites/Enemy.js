@@ -27,6 +27,10 @@ var Enemy = Block.extend({
 	},
 	hurt: function(damage, callback) {
 		this.hpBar.heal(damage);
+		// hpBar가 Full면 그림을 바꾸기 
+		if(this.hpBar.getPercentage() === 100) {
+			cc.log("코니: 고마워^^ 나 상태가 좋아진듯!")
+		}
 		callback();
 	},
 	isOpened : function(dir) {
