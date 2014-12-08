@@ -3,7 +3,8 @@ var SMTH = SMTH || {};
 SMTH.CONTAINER = {
 	BOARD: null,
 	PIPES: [],
-	TURN: null
+	TURN: null,
+	LOCALSTORAGE: null
 };
 
 SMTH.STATUS = {
