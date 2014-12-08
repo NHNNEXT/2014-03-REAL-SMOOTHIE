@@ -90,6 +90,7 @@ Pipe.prototype.pipeTouchHandler = {
 			this.guidePipe.setScale(1.0, 1.0);
 			// 파이프가 돌아가면 좌표계도 같이 돌아간다. 0도로 해놓으면 항상 같은 모양이 나온다.
 			this.guidePipe.setRotation(0);
+			this.guidePipe.setColor( cc.color(200, 0, 0));
 			this.guidePipe.opacity = 80;
 			this.addChild(this.guidePipe);
 			
@@ -103,16 +104,29 @@ Pipe.prototype.pipeTouchHandler = {
 		var target = event.getCurrentTarget();
 		this.deltaX += touch.getDelta().x;
 		
-		var angle = Math.sqrt(Math.sqrt(Math.abs(this.deltaX) / cc.director.getWinSize().width)) * 120;
+		var angle = Math.sqrt(Math.abs(this.deltaX) / cc.director.getWinSize().width) * 120;
 		if (this.deltaX < 0) angle = -angle;
-		this.guidePipe.setRotation(angle);
+		
+		if(Math.abs(this.deltaX) < BLOCK.SIZE.WIDTH/2) {
+			this.guidePipe.setRotation(0);
+			this.guidePipe.setScale(Math.abs(this.deltaX)/(BLOCK.SIZE.WIDTH/2), Math.abs(this.deltaX)/(BLOCK.SIZE.WIDTH/2));
+			this.guidePipe.setColor( cc.color(200, 0, 0));
+			this.guidePipe.opacity = 80;
+		} else {
+			this.guidePipe.setRotation(angle);
+			this.guidePipe.setScale(1.0, 1.0);
+			this.guidePipe.setColor( cc.color(0, 200, 0));
+			this.guidePipe.opacity = 80;
+		}
 	},
 	"onTouchEnded": function (touch, event) {         
 		var target = event.getCurrentTarget();
 		//cc.log("sprite onTouchesEnded.. ");
 		target.setOpacity(255);
-		
+		cc.log("delta:" + this.deltaX);
 		this.removeChild(this.guidePipe);
+		
+		if(Math.abs(this.deltaX) < BLOCK.SIZE.WIDTH/2) return;
 		
 		if(this.HP <= 0 && this.isRotten === false) {
 			// 사라질 파이프는 입력 무시
