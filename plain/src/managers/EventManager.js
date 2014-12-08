@@ -14,10 +14,18 @@ var EventManager = cc.Class.extend({
 			this.currentScene = cc.director.getRunningScene();
 			this.routeController = new RouteController();
 			// 게임 시작 시 연결된 파이프 공격 ㅇㅇ.
-			this.routeController.updateRoute(true);
+			this.routeController.updateRoute(false);
 		}.bind(this));
 		
 		this.handle("pipeRotateEnd", function(e) {
+			this.routeController.updateRoute(false);
+		}.bind(this));
+		
+		this.handle("mix", function(e) {
+			//mix and update cup
+		}.bind(this));
+		
+		this.handle("slurp", function(e) {
 			this.routeController.updateRoute(true);
 		}.bind(this));
 		

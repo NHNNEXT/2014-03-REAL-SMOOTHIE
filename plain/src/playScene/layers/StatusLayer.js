@@ -25,7 +25,8 @@ var StatusLayer = cc.Layer.extend({
 				res.mixer_png,
 				res.mixer_png,
 				function () {
-					cc.log("Mix!")
+					cc.log("Mix!");
+					SMTH.EVENT_MANAGER.notice("mix");
 				}, this);
 		mixer.attr({
 			x: size.width / 2,

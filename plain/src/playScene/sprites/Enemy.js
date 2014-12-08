@@ -13,6 +13,15 @@ var Enemy = Block.extend({
         this.hpBar.x = 70;
 		this.addChild(this.hpBar);
 		
+		var enemyTapListener = cc.EventListener.create({
+			event: cc.EventListener.TOUCH_ONE_BY_ONE,
+			swallowTouches: false,
+			onTouchBegan: this.enemyTapListener.onTouchBegan.bind(this),
+			onTouchEnded: this.enemyTapListener.onTouchEnded.bind(this)
+		});
+		
+		cc.eventManager.addListener(enemyTapListener.clone(), this);
+		
 		var actionTo = cc.scaleBy(1.5, 1.04);
         var actionToBack = actionTo.reverse();
 		var rep = new cc.RepeatForever(cc.sequence(actionTo, actionToBack), 5);
@@ -40,3 +49,20 @@ var Enemy = Block.extend({
 		return true;
 	}
 });
+
+Enemy.prototype.enemyTapListener = {
+		"onTouchBegan": function (touch, event) { 
+			var target = event.getCurrentTarget();
+			var locationInNode = target.convertToNodeSpace(touch.getLocation());    
+			var s = target.getContentSize();
+			var rect = cc.rect(0, 0, s.width, s.height);
+			// 선택한 파이프를 찾았다면-
+			if (cc.rectContainsPoint(rect, locationInNode)) {
+				return true;
+			}
+			return false;
+		},
+		"onTouchEnded": function (touch, event) { 
+			SMTH.EVENT_MANAGER.notice("slurp");
+		}
+}
