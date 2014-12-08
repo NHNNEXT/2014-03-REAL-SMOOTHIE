@@ -6,7 +6,7 @@ var LevelLoader = cc.Class.extend({
 	init: function() {
 		var enemies =  this._level.EMEMYLIST.slice(0);
 		var fixedPipes = this._level.FIXEDPIPE;
-		
+		var friendIndex = 0;
 		SMTH.CONTAINER.PIPES = [];
 		
 		for (var r in this._level.MAP) {
@@ -24,7 +24,16 @@ var LevelLoader = cc.Class.extend({
 				}
 				// FRIEND
 				else if (type < 6000) {
-					block = new Friend(5001);
+					var friendName = SAVE.ATTACK_ORDER[friendIndex];
+					friendIndex++;
+					if (friendIndex >= SAVE.ATTACK_ORDER.length) {
+						friendIndex = 0;
+					}
+					
+					var friendInfo = SAVE.FRIENDS[friendName];
+					block = new Friend(friendInfo.type);
+					block.setItem(friendInfo.item);
+					block.setCups(friendInfo.cups);
 				}
 				// ENEMY
 				else if (type < 7000) {
