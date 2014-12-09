@@ -12,6 +12,7 @@
     "jsList":[
         "src/resource.js",
         "src/Ajax.js",
+        "src/config/MixerLevel.js",
         "src/config/PipeType.js",
         "src/config/FriendType.js",
         "src/config/EnemyType.js",
@@ -39,6 +40,8 @@
         "src/playScene/sprites/Treasure.js",
         "src/playScene/sprites/NullBlock.js",
         "src/playScene/sprites/HealthBar.js",
+        "src/playScene/sprites/Cup.js",
+        "src/playScene/sprites/Smoothie.js",
         "src/managers/EventManager.js"
     ]
 }
