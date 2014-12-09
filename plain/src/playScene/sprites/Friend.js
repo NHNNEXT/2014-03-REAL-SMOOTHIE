@@ -11,6 +11,16 @@ var Friend = Block.extend({
 		var rep = new cc.RepeatForever(cc.sequence(actionTo, actionToBack), 5);
         this.runAction(rep);
 	},
+	setItem: function(item) {
+		if (item === "none") {
+			this.item = null;
+		} else
+			this.item = item;
+	},
+	setCups: function(cupsLevel) {
+		this.cups = cupsLevel;
+		
+	},
 	isOpened : function(dir) {
 		return true;
 	},
