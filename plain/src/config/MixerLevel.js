@@ -1,11 +1,14 @@
 var CupLevel = [
     // Level 0
     {
+    	"capacity": 0,
+    	"image": res.no_cup
+    },{
     	"capacity": 150,
-    	"image": res.paperCup_small
+    	"image": res.papercup_small
     },{
     	"capacity": 200,
-    	"image": res.paperCup_big
+    	"image": res.papercup_big
     }
 
 ];
