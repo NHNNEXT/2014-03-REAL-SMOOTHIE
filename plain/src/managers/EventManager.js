@@ -10,6 +10,8 @@ var EventManager = cc.Class.extend({
 			
 		}.bind(this));
 		
+		this.rountesCount = 0;
+		
 		this.handle("gameStart", function(e){
 			this.currentScene = cc.director.getRunningScene();
 			this.routeController = new RouteController();
@@ -65,8 +67,11 @@ var EventManager = cc.Class.extend({
 		}.bind(this));
 		
 		this.handle("routeDied", function(e) {
-			var board = SMTH.CONTAINER.BOARD;
-			board.fallBlock(); // 블록을 내려오게함
+			this.rountesCount++;
+			if(this.routeController.routes.length == this.rountesCount) {
+				var board = SMTH.CONTAINER.BOARD;
+				board.fallBlock(); // 블록을 내려오게함
+			}
 		}.bind(this));
 		
 		this.handle("turnEnd", function(e) {
