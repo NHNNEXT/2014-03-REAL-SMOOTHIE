@@ -13,11 +13,11 @@ var BoardController = cc.Class.extend({
 	},
 	initListener: function() {
 		// 이벤트 핸들러 등록 하기 
-		SMTH.EVENT_MANAGER.handle("allBlockFallingEnd", function(e) {
+		SMTH.EVENT_MANAGER.listen("allBlockFallingEnd", function(e) {
 			SMTH.EVENT_MANAGER.routeController.updateRoute(true);        	
 		}); 
 		
-		SMTH.EVENT_MANAGER.handle("attackEnd", function(e) {
+		SMTH.EVENT_MANAGER.listen("attackEnd", function(e) {
 			var pipes = SMTH.CONTAINER.PIPES;
 			for (var i in pipes) {
 				var block = pipes[i];
@@ -43,7 +43,7 @@ var BoardController = cc.Class.extend({
 			}
 		}.bind(this));
 		
-		SMTH.EVENT_MANAGER.handle("fadeoutEnd", function(e) {
+		SMTH.EVENT_MANAGER.listen("fadeoutEnd", function(e) {
 			this.fallBlock();
 		}.bind(this));
 	},

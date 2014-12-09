@@ -4,11 +4,11 @@ var EventManager = cc.Class.extend({
 	},
 	init: function() {
 		// format
-//		this.handle("", function(e){
+//		this.listen("", function(e){
 //			
 //		}.bind(this));
 		
-		this.handle("gameStart", function(e){
+		this.listen("gameStart", function(e){
 			this.currentScene = cc.director.getRunningScene();
 			this.routeController = new RouteController();
 			this.boardController = new BoardController();
@@ -16,7 +16,7 @@ var EventManager = cc.Class.extend({
 			this.routeController.updateRoute(false);
 		}.bind(this));
 		
-		this.handle("turnEnd", function(e) {
+		this.listen("turnEnd", function(e) {
 			// RouteController와 Judge를 모두 건드려야 해서 여기에 남게 됨.
 			var GAME_STATE = SMTH.CONST.GAME_STATE;
 			this.routeController.updateRoute(false);
@@ -40,7 +40,7 @@ var EventManager = cc.Class.extend({
 	notice: function(eventName, userData) {
 		cc.eventManager.dispatchCustomEvent(eventName, userData);
 	},
-	handle: function(eventName, handlerFunction) {
+	listen: function(eventName, handlerFunction) {
 		cc.eventManager.addCustomListener(eventName, handlerFunction);
 	},
 	fire: function() {

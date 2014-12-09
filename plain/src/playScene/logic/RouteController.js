@@ -14,15 +14,15 @@ var RouteController = cc.Class.extend({
 		this.NumberOfCanAttack = 0;
 	},
 	initListener: function() {
-		SMTH.EVENT_MANAGER.handle("pipeRotateEnd", function(e) {
+		SMTH.EVENT_MANAGER.listen("pipeRotateEnd", function(e) {
 			this.updateRoute(false);
 		}.bind(this));
 		
-		SMTH.EVENT_MANAGER.handle("slurp", function(e) {
+		SMTH.EVENT_MANAGER.listen("slurp", function(e) {
 			this.updateRoute(true);
 		}.bind(this));
 		
-		SMTH.EVENT_MANAGER.handle("attack", function(e) {
+		SMTH.EVENT_MANAGER.listen("attack", function(e) {
 			var routes = this.routes;
 			for (var i in routes) {
 				var route = routes[i];
