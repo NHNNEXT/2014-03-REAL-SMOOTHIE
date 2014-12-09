@@ -1,17 +1,37 @@
 
 var RouteController = cc.Class.extend({
-	ctor:function () {
-		//this._super();
+	ctor: function () {
 		this.init();
+		this.initListener();
 	},
 
-	init:function () {
+	init: function () {
 		SMTH.CONTAINER.TURN = 0;
 		this.pipes = [];
 		this.routes = [];
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		this.canAttack = false;
 		this.NumberOfCanAttack = 0;
+	},
+	initListener: function() {
+		SMTH.EVENT_MANAGER.handle("pipeRotateEnd", function(e) {
+			this.updateRoute(false);
+		}.bind(this));
+		
+		SMTH.EVENT_MANAGER.handle("slurp", function(e) {
+			this.updateRoute(true);
+		}.bind(this));
+		
+		SMTH.EVENT_MANAGER.handle("attack", function(e) {
+			var routes = this.routes;
+			for (var i in routes) {
+				var route = routes[i];
+				if (route.numberOfEnemies > 0) {
+					route.hurt();
+				}
+			}
+			SMTH.EVENT_MANAGER.notice("attackEnd");
+		}.bind(this));
 	},
 	updateRoute: function(withAttack) {
 		// 보드 상의 모든 파이프의 연결 정보를 초기화 
@@ -38,7 +58,7 @@ var RouteController = cc.Class.extend({
 		
 		// 공격이 가능하다면 공격
 		if (this.canAttack) {
-			SMTH.EVENT_MANAGER.notice("attack", this.routes);
+			SMTH.EVENT_MANAGER.notice("attack");
 		} else {
 			// 공격이 불가능해졌을 때 턴 종료 선언
 			SMTH.EVENT_MANAGER.notice("turnEnd");

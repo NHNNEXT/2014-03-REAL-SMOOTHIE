@@ -31,6 +31,7 @@
         "src/playScene/layers/BoardLayer.js",
         "src/playScene/logic/Route.js",
         "src/playScene/logic/RouteController.js",
+        "src/playScene/logic/BoardController.js",
         "src/playScene/logic/LevelLoader.js",
         "src/playScene/logic/Judge.js",
         "src/playScene/sprites/Block.js",

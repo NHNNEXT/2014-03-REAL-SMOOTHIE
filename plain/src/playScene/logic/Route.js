@@ -9,8 +9,6 @@ var Route = cc.Class.extend({
 		this.blocks = null;
 		this.numberOfEnemies = 0;
 		this.numberOfFriends = 0;
-		this.blockDeadCnt = 0;
-		this.attackFinCount = 0;
 		this.attackFlag = false;
 		this.blocks = [];
 		this.searchRoute(this.friend);
@@ -75,26 +73,10 @@ var Route = cc.Class.extend({
 			if (block.isFriend()) {
 				// don't hurt
 			} else {
-				block.hurt(this.numberOfFriends,function() {
-					this.increaseAtkCnt();
-				}.bind(this));
+				block.hurt(this.numberOfFriends);
 			}
 		}
         cc.audioEngine.playEffect(res.attack_mp3);
-	},
-	
-	increaseAtkCnt: function() {
-		this.attackFinCount++;
-		var attackableBlockCount = this.blocks.length - this.numberOfFriends;
-		if (this.attackFinCount >= attackableBlockCount) {
-			SMTH.EVENT_MANAGER.notice("routeUsed", this);
-		}
-	},
-	decreaseDeadCnt: function() {
-		this.blockDeadCnt = this.blockDeadCnt - 1;
-		if (this.blockDeadCnt <= 0) {
-			SMTH.EVENT_MANAGER.notice("routeDied", this);
-		}
 	}
 
 });
