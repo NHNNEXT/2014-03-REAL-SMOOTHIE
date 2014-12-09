@@ -8,15 +8,9 @@ var BoardController = cc.Class.extend({
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		this.blockFallingCount = 0;
 		this.fadeoutCount = 0;
-		
-		       
 	},
 	initListener: function() {
 		// 이벤트 핸들러 등록 하기 
-		SMTH.EVENT_MANAGER.listen("allBlockFallingEnd", function(e) {
-			SMTH.EVENT_MANAGER.routeController.updateRoute(true);        	
-		}); 
-		
 		SMTH.EVENT_MANAGER.listen("attackEnd", function(e) {
 			var pipes = SMTH.CONTAINER.PIPES;
 			for (var i in pipes) {
@@ -46,6 +40,10 @@ var BoardController = cc.Class.extend({
 		SMTH.EVENT_MANAGER.listen("fadeoutEnd", function(e) {
 			this.fallBlock();
 		}.bind(this));
+		
+		SMTH.EVENT_MANAGER.listen("allBlockFallingEnd", function(e) {
+			SMTH.EVENT_MANAGER.notice("slurp");	
+		}); 
 	},
 	_increaseBlockFalling : function() {
 		this.blockFallingCount++;
@@ -75,7 +73,6 @@ var BoardController = cc.Class.extend({
 	},
 	fallBlock: function(){
 		this.fallStep = 0;
-		cc.log("컨테이너길이: "+SMTH.CONTAINER.PIPES.length);
 
 		// 애니메이션큐 초기화
 		var pipes = SMTH.CONTAINER.PIPES;
@@ -137,7 +134,6 @@ var BoardController = cc.Class.extend({
 			// 맨 위에서 떨어지도록 초기 위치를 윗쪽으로 설정 
 			newBlock.setPositionByRowCol(this._level.row, col);
 			this.board.addChild(newBlock);
-			cc.log(newBlock.row+", "+newBlock.col);
 			return newBlock;
 		}	
 
@@ -199,7 +195,6 @@ var BoardController = cc.Class.extend({
 		// 두번째 블록이 새로 생성된 블록이라면 row, col == -1.
 		// 이 때, r1, c1 에 넣고 원래있던 블록을 소멸시킨다.
 		if(b2.row === -1 && b2.col === -1) {
-			cc.log("맨 위 같으니 대입만!");
 			b2.row = b1.row;
 			b2.col = b1.col;
 			var b2_raw_index = b2.getContainerIndex();
@@ -208,7 +203,6 @@ var BoardController = cc.Class.extend({
 		} else {
 			// 모델(데이터)만 우선 바꾼다
 			//// 파이프의 row col 을 교환
-			cc.log("스왑!");
 			var tempRow = b2.row;
 			var tempCol = b2.col;
 			b2.row = b1.row;
@@ -218,13 +212,13 @@ var BoardController = cc.Class.extend({
 			//// 컨테이너에서 저장된 참조를 교환
 			var b1_raw_index = b1.getContainerIndex(); // 블록의 row col 을 참고하여 컨테이너에서 존재해야될 인덱스를 계산해서 반환. 현재 컨테이너에서의 인덱스가 아닐 수 잇음!
 			var b2_raw_index = b2.getContainerIndex();	
-			cc.log("의심: "+ b1_raw_index);
-			cc.log("의심: "+ b2_raw_index);
 			SMTH.CONTAINER.PIPES[b2_raw_index] = b2;
 			if (b1_raw_index < SMTH.CONTAINER.PIPES.length) {
+				SMTH.CONTAINER.PIPES[b1_raw_index] = b1;
+			} else {
 				// null블록이 하늘 위로 스왑된경우
 				// index가 Container 밖의 이상한 곳에 존재
-				SMTH.CONTAINER.PIPES[b1_raw_index] = b1;
+				this.board.removeChild(b1);
 			}
 
 			// 스왑되어서 올라간 애는 플래그 삭제				

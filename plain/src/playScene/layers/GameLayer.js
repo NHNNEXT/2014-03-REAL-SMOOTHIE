@@ -4,7 +4,7 @@ var GameLayer = cc.Layer.extend({
 		this.init();
 	},
 	init:function () {
-		SMTH.CONTAINER.BOARD = new BoardLayer();
+		this.controller = new GameController();
 		//localStorage Test
 		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
 		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;
@@ -19,8 +19,9 @@ var GameLayer = cc.Layer.extend({
 			SMTH.CONTAINER.LOCALSTORAGE.setItem("test", 0);
 		}
 		cc.log("local:" + SMTH.CONTAINER.LOCALSTORAGE.getItem("test"));
-		this.addChild(SMTH.CONTAINER.BOARD);
+		this.addChild(new BoardLayer());
 		this.addChild(new StatusLayer());
+		
 	}
 
 });

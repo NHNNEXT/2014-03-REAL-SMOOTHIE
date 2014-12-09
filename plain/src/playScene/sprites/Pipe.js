@@ -37,16 +37,6 @@ var Pipe = Block.extend({
 		});
 		cc.eventManager.addListener(pipeTouchListener.clone(), this);
 	},
-	
-	
-	update:function (dt) {
-		/*
-		if (this.HP <= 0) {
-			this.active = false;
-			this.destroy();
-		}
-		*/
-	},
 	rotateRight: function () {
         cc.audioEngine.playEffect(res.rotateRight_mp3);
 
@@ -94,7 +84,6 @@ Pipe.prototype.pipeTouchHandler = {
 			this.guidePipe.opacity = 80;
 			this.addChild(this.guidePipe);
 			
-			//cc.log("sprite began... x = " + locationInNode.x + ", y = " + locationInNode.y);
 			target.opacity = 180;
 			return true;
 		}
@@ -121,9 +110,7 @@ Pipe.prototype.pipeTouchHandler = {
 	},
 	"onTouchEnded": function (touch, event) {         
 		var target = event.getCurrentTarget();
-		//cc.log("sprite onTouchesEnded.. ");
 		target.setOpacity(255);
-		cc.log("delta:" + this.deltaX);
 		this.removeChild(this.guidePipe);
 		
 		if(Math.abs(this.deltaX) < BLOCK.SIZE.WIDTH/2) return;

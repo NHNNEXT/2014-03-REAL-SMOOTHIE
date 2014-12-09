@@ -15,11 +15,13 @@ var RouteController = cc.Class.extend({
 	},
 	initListener: function() {
 		SMTH.EVENT_MANAGER.listen("pipeRotateEnd", function(e) {
-			this.updateRoute(false);
+			// TODO: 턴 방식이 제대로 구현되면 이 리스너는 없어져야 함
+			this.updateRoute();
 		}.bind(this));
 		
 		SMTH.EVENT_MANAGER.listen("slurp", function(e) {
-			this.updateRoute(true);
+			this.updateRoute();
+			this.attack();
 		}.bind(this));
 		
 		SMTH.EVENT_MANAGER.listen("attack", function(e) {
@@ -41,21 +43,20 @@ var RouteController = cc.Class.extend({
 		// 라우트를 생성
 		this.makeRoutes();
 		// 라우트를 식별하기 위한 채색작업 수행
-		this.colorRoute();
-		
-		// 공격 필요없이 채색작업만 필요한 경우 withAttack을 false로 넘겨줌
-		if (withAttack == false) {
-			return;
-		}
+		this.colorRoute();		
+	},
+	attack: function() {
+		// 공격 가능 정보 초기화
+		this.canAttack = false;
 		// 공격할 수 있는지 판단
 		this.checkRoute();
-		
+
 		/* 
 		 * 아래 과정은 공격이 불가능해질때까지 반복됨.
 		 * 공격 후 파이프 재생성, 다시 라우트 생성, 공격 할 수 있다면 다시
 		 * 공격 후 파이프 재생성 ...
 		 */
-		
+
 		// 공격이 가능하다면 공격
 		if (this.canAttack) {
 			SMTH.EVENT_MANAGER.notice("attack");
@@ -65,7 +66,6 @@ var RouteController = cc.Class.extend({
 		}
 	},
 	initRoute: function() {
-		this.canAttack = false;
 		this.pipes = SMTH.CONTAINER.PIPES;
 		for(var i in this.pipes) {
 			if(this.pipes[i].HP <= 0) {
@@ -98,13 +98,8 @@ var RouteController = cc.Class.extend({
 
 	makeRoutes: function() {
 		var friends = [];
-		cc.log("LEN: " + SMTH.CONTAINER.PIPES.length);
 		for (var i = 0; i < SMTH.CONTAINER.PIPES.length ;i++) {
 			var block = SMTH.CONTAINER.PIPES[i];
-			if (block == undefined) {
-				cc.log(i);
-				cc.log(SMTH.CONTAINER.PIPES);
-			}
 			if (block.isFriend()) {
 				var friend = block;
 				if (friends.indexOf(friend) >= 0) {

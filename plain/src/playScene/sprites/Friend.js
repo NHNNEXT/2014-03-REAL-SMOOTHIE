@@ -18,8 +18,16 @@ var Friend = Block.extend({
 			this.item = item;
 	},
 	setCups: function(cupsLevel) {
-		this.cups = cupsLevel;
-		
+		this.cups = [];
+		for (var i in cupsLevel) {
+			var cupLevel = cupsLevel[i];
+			var cup = new Cup(cupLevel);
+			cup.x = 20 + 30*i;
+			cup.y = 0;
+			cup.scale = 0.15;
+			this.addChild(cup);
+			this.cups.push(cup);
+		}
 	},
 	isOpened : function(dir) {
 		return true;

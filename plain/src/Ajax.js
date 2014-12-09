@@ -20,13 +20,13 @@ var Ajax = cc.Class.extend({
 		data = config.data || null;
 		
 		if (url == undefined) {
-			cc.log("undefined url");
+			cc.warn("undefined url");
 			return;
 		}
 		
 		var request = cc.loader.getXMLHttpRequest();
 		if (request == undefined) {
-			cc.log("Unable to create request");
+			cc.warn("Unable to create request");
 			return;
 		}
 		
