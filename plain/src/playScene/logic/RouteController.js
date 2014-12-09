@@ -11,6 +11,7 @@ var RouteController = cc.Class.extend({
 		this.routes = [];
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		this.canAttack = false;
+		this.NumberOfCanAttack = 0;
 	},
 	updateRoute: function(withAttack) {
 		// 보드 상의 모든 파이프의 연결 정보를 초기화 
@@ -70,6 +71,7 @@ var RouteController = cc.Class.extend({
 			var route = this.routes[i];
 			if (route.numberOfEnemies > 0) {
 				this.canAttack = true;
+				this.NumberOfCanAttack++;
 			}
 		}
 	},

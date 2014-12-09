@@ -68,7 +68,8 @@ var EventManager = cc.Class.extend({
 		
 		this.handle("routeDied", function(e) {
 			this.rountesCount++;
-			if(this.routeController.routes.length == this.rountesCount) {
+			cc.log("number of route" + this.routeController.routes.length)
+			if(this.routeController.NumberOfCanAttack == this.rountesCount) {
 				var board = SMTH.CONTAINER.BOARD;
 				board.fallBlock(); // 블록을 내려오게함
 			}
