@@ -17,6 +17,10 @@ var RouteController = cc.Class.extend({
 		SMTH.EVENT_MANAGER.listen("pipeRotateEnd", function(e) {
 			// TODO: 턴 방식이 제대로 구현되면 이 리스너는 없어져야 함
 			this.updateRoute();
+			this.checkRoute();
+			if (!this.canAttack){
+				SMTH.EVENT_MANAGER.notice("turnEnd");
+			}
 		}.bind(this));
 		
 		SMTH.EVENT_MANAGER.listen("slurp", function(e) {
