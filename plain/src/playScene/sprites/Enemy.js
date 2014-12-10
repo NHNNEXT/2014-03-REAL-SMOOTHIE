@@ -8,6 +8,7 @@ var Enemy = Block.extend({
 		this.type = BLOCK.TYPE.ENEMY;
 		this.HP = 1;
 		this.treasure = false;
+		this.isBlinking = false;
 		
        	this.hpBar = new HealthBar(-1, 1, 0);
         this.hpBar.x = 70;
@@ -40,6 +41,17 @@ var Enemy = Block.extend({
 		if(this.hpBar.getPercentage() === 100) {
 			cc.log("코니: 고마워^^ 나 상태가 좋아진듯!")
 		}
+		this.stopBlinking();
+		
+	},
+	willBeHealed: function(hp) {
+		if (this.isBlinking) return;
+		this.hpBar.blink(1);
+		this.isBlinking = true;
+	},
+	stopBlinking: function() {
+		this.hpBar.stopBlinking();
+		this.isBlinking = false;
 	},
 	isOpened : function(dir) {
 		return true;

@@ -6,7 +6,6 @@ var RouteController = cc.Class.extend({
 	},
 
 	init: function () {
-		SMTH.CONTAINER.TURN = 0;
 		this.pipes = [];
 		this.routes = [];
 		this._level = SMTH.STATUS.CURRENT_LEVEL;
@@ -20,6 +19,20 @@ var RouteController = cc.Class.extend({
 			this.checkRoute();
 			if (!this.canAttack){
 				SMTH.EVENT_MANAGER.notice("turnEnd");
+			} else {
+				SMTH.EVENT_MANAGER.notice("canAttack");
+			}
+		}.bind(this));
+		
+		SMTH.EVENT_MANAGER.listen("canAttack", function(e) {
+			// Enemy의 hpBar가 반짝이게 하기
+			var blocks = SMTH.CONTAINER.PIPES;
+			for (var i in this.routes) {
+				var route = this.routes[i];
+				for (var j in route.enemies) {
+					var enemy = route.enemies[j]; 
+					enemy.willBeHealed(1);
+				}
 			}
 		}.bind(this));
 		

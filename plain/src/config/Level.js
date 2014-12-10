@@ -21,8 +21,8 @@
 			"TITLE": "Connect Straw",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			    {"id":6001,"hp":1,"treasure":false},
-			    {"id":6001,"hp":1,"treasure":false}
+			    {"id":6001,"hp":1,"sick":{"name":"cough", "hurt":1},"treasure":false},
+			    {"id":6001,"hp":1,"sick":{"name":"cough", "hurt":1},"treasure":false}
 			],
 			"RANDOMRATIO" : {
 				"PIPE":[0,1,0,0], // L - I - X - T
@@ -42,8 +42,8 @@
 			"TITLE": "Turn Left",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			    {"id":6001,"hp":1,"treasure":false},
-			    {"id":6001,"hp":1,"treasure":false}
+                {"id":6001,"hp":1,"sick":{"name":"cough", "hurt":1},"treasure":false},
+                {"id":6001,"hp":1,"sick":{"name":"cough", "hurt":1},"treasure":false}
 			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
@@ -63,10 +63,10 @@
 			"TITLE": "One Shot Two Heal",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			    {"id":6001,"hp":1,"treasure":false},
-			    {"id":6001,"hp":1,"treasure":false},
-			    {"id":6001,"hp":1,"treasure":false},
-			    {"id":6001,"hp":1,"treasure":false}
+			    {"id":6001,"hp":1,"sick":{"name":"cough", "hurt":1},"treasure":false},
+			    {"id":6001,"hp":1,"sick":{"name":"cough", "hurt":1},"treasure":false},
+			    {"id":6001,"hp":1,"sick":{"name":"cough", "hurt":1},"treasure":false},
+			    {"id":6001,"hp":1,"sick":{"name":"cough", "hurt":1},"treasure":false}
 			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
@@ -86,8 +86,8 @@
 			"TITLE": "Suck Twice",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			    {"id":6001,"hp":2,"treasure":false},
-			    {"id":6001,"hp":2,"treasure":false}
+			    {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":false},
+			    {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":false}
 			],
 			"RANDOMRATIO" : {
 				"PIPE":[1,1,1,1], // L - I - X - T
@@ -107,9 +107,9 @@
 			"TITLE": "Two Cup in one chance",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			    {"id":6001,"hp":2,"treasure":false},
-			    {"id":6001,"hp":2,"treasure":false},
-			    {"id":6001,"hp":2,"treasure":false}
+			    {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":false},
+			    {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":false},
+			    {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":false}
 			],
 			"RANDOMRATIO" : {
 			   "PIPE":[1,1,1,1], // L - I - X - T
@@ -129,9 +129,9 @@
 			"TITLE": "Treasure!",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			    {"id":6001,"hp":2,"treasure":true},
-			    {"id":6001,"hp":2,"treasure":true},
-			    {"id":6001,"hp":2,"treasure":true}
+                {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+                {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+                {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true}
 			],
 			"ITEMLIST": [
 			             {"id":"Item0001", "ratio": 1},
@@ -155,10 +155,10 @@
 			"TITLE": "Carrot Smoothie",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-               {"id":6002,"hp":2,"treasure":true},
-               {"id":6001,"hp":2,"treasure":true},
-               {"id":6002,"hp":2,"treasure":true}
-               ],
+			    {"id":6002,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+			    {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+			    {"id":6002,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true}
+            ],
             "ITEMLIST": [
                {"id":"Item0001", "ratio": 1},
                {"id":"Item0001", "ratio": 1}
@@ -182,9 +182,9 @@
 			"TITLE": "Something Fixed",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-               {"id":6001,"hp":2,"treasure":true},
-               {"id":6002,"hp":2,"treasure":true},
-               {"id":6001,"hp":2,"treasure":true}
+			    {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+			    {"id":6002,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+			    {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true}
             ],
             "ITEMLIST": [
 	            {"id":"Item0001", "ratio": 1},
@@ -210,11 +210,11 @@
 			"TITLE": "Strange Empty",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-               {"id":6001,"hp":2,"treasure":true},
-               {"id":6002,"hp":2,"treasure":true},
-               {"id":6001,"hp":2,"treasure":true},
-               {"id":6002,"hp":2,"treasure":true},
-               {"id":6001,"hp":2,"treasure":true}
+			   {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+			   {"id":6002,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+               {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+               {"id":6002,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+               {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true}
             ],
             "ITEMLIST": [
 	            {"id":"Item0001", "ratio": 1},
@@ -241,11 +241,11 @@
 			"TITLE": "Try All Together",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
-			    {"id":6002,"hp":2,"treasure":true},
-				{"id":6001,"hp":2,"treasure":true},
-				{"id":6002,"hp":2,"treasure":true},
-				{"id":6001,"hp":2,"treasure":true},
-				{"id":6002,"hp":2,"treasure":true}
+                {"id":6002,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+			    {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+				{"id":6002,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+				{"id":6001,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true},
+				{"id":6002,"hp":2,"sick":{"name":"cough", "hurt":1},"treasure":true}
 			],
            "ITEMLIST": [
                         {"id":"Item0001", "ratio": 1},

@@ -4,6 +4,7 @@ var GameController = cc.Class.extend({
 		this.initListener();
 	},
 	init: function() {
+		SMTH.CONTAINER.TURN = 0;
 	},
 	initListener: function() {
 		SMTH.EVENT_MANAGER.listen("gameStart", function(e){

@@ -2,6 +2,7 @@ var Route = cc.Class.extend({
 	
 	ctor:function (friend) {
 		this.friend = friend;
+		this.enemies = [];
 		this.init();
 	},
 
@@ -30,6 +31,7 @@ var Route = cc.Class.extend({
 			var block = this.blocks[i];
 			if (block.type == BLOCK.TYPE.ENEMY) {
 				this.numberOfEnemies += 1;
+				this.enemies.push(block);
 			}
 			if (block.type == BLOCK.TYPE.FRIEND) {
 				this.numberOfFriends += 1;
