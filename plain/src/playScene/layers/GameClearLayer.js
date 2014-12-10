@@ -49,11 +49,6 @@ var GameClearLayer = cc.LayerColor.extend({
                                           
 	},
 	
-	test: function() {
-		cc.log("test clear");
-		return true;
-	},
-	
 	touchEvent: function(touch, event) {
         cc.audioEngine.playEffect(res.button_mp3);
 		this.parent.removeChild(this);
@@ -63,10 +58,10 @@ var GameClearLayer = cc.LayerColor.extend({
 	
 	sendResult : function() {
 		Ajax.getInstance().POST({
-		url: "http://10.73.45.135:8080/api/saveresult",
-		data: "moves=" + SMTH.CONTAINER.TURN,
-		callback: function(response) {
-			cc.log(response);
+			url: "http://10.73.45.135:8080/api/saveresult",
+			data: "moves=" + SMTH.CONTAINER.TURN,
+			callback: function(response) {
+				cc.log(response);
 			}
 		});
 	}
