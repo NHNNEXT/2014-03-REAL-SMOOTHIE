@@ -64,6 +64,7 @@ cc.game.onStart = function(){
 		} else {
 			res.LINEBold_ttf = res.LINEBold_ttf.srcs[0];
 		}
+		//cocos2d-js 버전확인
 		cc.log(cc.ENGINE_VERSION);
 	    cc.director.runScene(new PlayScene());
 	}, this);

@@ -16,6 +16,7 @@ var RouteController = cc.Class.extend({
 		SMTH.EVENT_MANAGER.listen("pipeRotateEnd", function(e) {
 			// TODO: 턴 방식이 제대로 구현되면 이 리스너는 없어져야 함
 			this.updateRoute();
+			//파이프를 돌렸는데 공격할 파이프가 없으면 턴 종료
 			this.checkRoute();
 			if (!this.canAttack){
 				SMTH.EVENT_MANAGER.notice("turnEnd");
@@ -104,12 +105,15 @@ var RouteController = cc.Class.extend({
 		}
 	},
 	checkRoute : function() {
+		//라우트를 검사하기 전에 정보 초기화
+		this.NumberOfCanAttack = 0;
+		this.canAttack = false;
 		for (var i in this.routes) {
 			var route = this.routes[i];
 			if (route.numberOfEnemies > 0) {
 				this.canAttack = true;
 				this.NumberOfCanAttack++;
-			}
+			} 
 		}
 	},
 
