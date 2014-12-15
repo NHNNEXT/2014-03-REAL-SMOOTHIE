@@ -48,12 +48,11 @@
  */
 
 cc.game.onStart = function(){
-	cc.view.adjustViewPort(true);
-    /*
-    var winSize = cc.director.getWinSize()
-    cc.view.setDesignResolutionSize(winSize.width, winSize.height, cc.ResolutionPolicy.SHOW_ALL);
-    */
- 	cc.view.setDesignResolutionSize(640, 1136, cc.ResolutionPolicy.SHOW_ALL);
+    cc.view.adjustViewPort(true);
+
+    var screenSize = cc.view.getFrameSize();
+    
+ 	cc.view.setDesignResolutionSize(screenSize.width, screenSize.height, cc.ResolutionPolicy.SHOW_ALL);
 	cc.view.resizeWithBrowserSize(true);
 
     //load resources
@@ -61,7 +60,7 @@ cc.game.onStart = function(){
 		// 실행 기기체크. navigator 객체의 유무로 브라우저인지 네이티브인지 체크해서 폰트 주소 변경.
 		if( cc.view._viewName === "Cocos2dHTML5" ) {
 			res.LINEBold_ttf = res.LINEBold_ttf.name
-		} else {
+        } else {
 			res.LINEBold_ttf = res.LINEBold_ttf.srcs[0];
 		}
 		//cocos2d-js 버전확인

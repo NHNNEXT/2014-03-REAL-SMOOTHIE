@@ -57,7 +57,7 @@ var StatusLayer = cc.Layer.extend({
         this.stageLabel.setString(levelDescription);
                                   
 		this.stageLabel.x = size.width / 2;
-		this.stageLabel.y = size.height / 2 + 500;
+		this.stageLabel.y = size.height - 50;
 		
 		this.turnLabel = new cc.LabelTTF();
 		this.turnLabel.setString("Remaining " + (SMTH.STATUS.CURRENT_LEVEL.MAXTURN - SMTH.CONTAINER.TURN));
@@ -67,7 +67,7 @@ var StatusLayer = cc.Layer.extend({
         this.turnLabel.setColor(cc.color(255, 255, 255));
 		
 		this.turnLabel.x = size.width / 2;
-		this.turnLabel.y = size.height / 2 + 450;
+		this.turnLabel.y = size.height - 100;
 		
 		this.addChild(this.turnLabel);
 		this.addChild(this.stageLabel);

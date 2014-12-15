@@ -2,7 +2,10 @@ var res = {
 		HelloWorld_png : "res/HelloWorld.png",
 		Rect_png : "res/rect.png",
 		BG_jpg : "res/BG.jpg",
-		// Blocks
+		fruits_png: "res/fruits.png",
+        fruits_blur_png : "res/fruits_blur.png",
+        home_title_png : "res/home_title.png",
+        // Blocks
 		Pipe_2way_line : "res/test2-i.png",
 		Pipe_2way_curve : "res/test2-l.png",
 		Pipe_3way : "res/test2-t.png",
