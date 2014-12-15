@@ -16,6 +16,8 @@ var GameController = cc.Class.extend({
 		}.bind(this));
 
 		SMTH.EVENT_MANAGER.listen("turnEnd", function(e) {
+			SMTH.CONTAINER.TURN++;
+			SMTH.STATUS.PIPE_ROTATE_DISABLED = false;
 			var GAME_STATE = SMTH.CONST.GAME_STATE;
 			this.routeController.updateRoute();
 
@@ -42,8 +44,10 @@ var GameController = cc.Class.extend({
 				if (block.type == BLOCK.TYPE.FRIEND) {
 					// TODO: MotorLevel 채워넣어야 함
 					// TODO: CutterLevel 채워넣어야 함
-					var amount = MotorLevel[0].generateAmount;
+					var amount = MotorLevel[0].amount;
 					var fineness = CutterLevel[0].fineness;
+					cc.log(MotorLevel[0]);
+					cc.log(amount);
 					var smoothie = new Smoothie(block.item, amount, fineness);
 					block.addSmoothie(smoothie);
 				}

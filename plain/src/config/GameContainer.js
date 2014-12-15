@@ -9,7 +9,7 @@ SMTH.CONTAINER = {
 
 SMTH.STATUS = {
 	"GAME_STATE": null,
-	"CURRENT_LEVEL": null
+	"CURRENT_LEVEL": null,
 }
 
 SMTH.CONST = {};

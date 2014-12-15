@@ -14,27 +14,21 @@ var RouteController = cc.Class.extend({
 	},
 	initListener: function() {
 		SMTH.EVENT_MANAGER.listen("pipeRotateEnd", function(e) {
-			// TODO: 턴 방식이 제대로 구현되면 이 리스너는 없어져야 함
 			this.updateRoute();
-			//파이프를 돌렸는데 공격할 파이프가 없으면 턴 종료
 			this.checkRoute();
-			if (!this.canAttack){
-				SMTH.EVENT_MANAGER.notice("turnEnd");
-			} else {
-				SMTH.EVENT_MANAGER.notice("canAttack");
-			}
-		}.bind(this));
-		
-		SMTH.EVENT_MANAGER.listen("canAttack", function(e) {
-			// Enemy의 hpBar가 반짝이게 하기
-			var blocks = SMTH.CONTAINER.PIPES;
-			for (var i in this.routes) {
-				var route = this.routes[i];
-				for (var j in route.enemies) {
-					var enemy = route.enemies[j]; 
-					enemy.willBeHealed(1);
+			
+			if (this.canAttack) {
+				// Enemy의 hpBar가 반짝이게 하기
+				var blocks = SMTH.CONTAINER.PIPES;
+				for (var i in this.routes) {
+					var route = this.routes[i];
+					for (var j in route.enemies) {
+						var enemy = route.enemies[j]; 
+						enemy.willBeHealed(1);
+					}
 				}
 			}
+			SMTH.EVENT_MANAGER.notice("mix");
 		}.bind(this));
 		
 		SMTH.EVENT_MANAGER.listen("slurp", function(e) {
@@ -79,8 +73,8 @@ var RouteController = cc.Class.extend({
 		if (this.canAttack) {
 			SMTH.EVENT_MANAGER.notice("attack");
 		} else {
-			// 공격이 불가능해졌을 때 턴 종료 선언
-			SMTH.EVENT_MANAGER.notice("turnEnd");
+			// 공격이 불가능해졌을 때 믹서기 터치와 같은 효과 (턴 종료)
+			SMTH.EVENT_MANAGER.notice("mix");
 		}
 	},
 	initRoute: function() {

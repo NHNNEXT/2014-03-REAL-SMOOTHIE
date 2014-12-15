@@ -16,7 +16,7 @@ var Smoothie = cc.Class.extend({
 	interpolateAttr: function(attr1, attr2, w1, w2) {
 		var attr = [];
 		for (var i = 0; i < attr1.length; i++) {
-			attr.push((attr1[i] * v1 + attr2[i] * v2) / (w1 + w2));
+			attr.push((attr1[i] * w1 + attr2[i] * w2) / (w1 + w2));
 		}
 		return attr;
 	}
