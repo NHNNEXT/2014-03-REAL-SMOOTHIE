@@ -24,6 +24,8 @@
  ****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
+
 #import "cocos2d.h"
 
 #import "AppController.h"
@@ -32,7 +34,10 @@
 #import "platform/ios/CCEAGLView-ios.h"
 
 @implementation AppController
-
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [FBSession.activeSession handleOpenURL:url];
+}
 #pragma mark -
 #pragma mark Application lifecycle
 
@@ -95,6 +100,7 @@ static AppDelegate s_sharedApplication;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [FBAppCall handleDidBecomeActive];
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */

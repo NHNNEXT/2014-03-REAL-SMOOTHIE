@@ -21,6 +21,7 @@
         "src/config/ItemType.js",
         "src/config/Level.js",
         "src/config/SavedInfo.js",
+        "src/config/MapSetting.js",
         "src/config/GameContainer.js",
         "src/playScene/PlayScene.js",
         "src/playScene/layers/BackgroundLayer.js",
@@ -45,10 +46,10 @@
         "src/playScene/sprites/HealthBar.js",
         "src/playScene/sprites/Cup.js",
         "src/playScene/sprites/Smoothie.js",
+        "src/mapScene/MapLayer.js",
+        "src/mapScene/MapPipe.js",
+        "src/mapScene/MapScene.js",
         "src/homeScene/HomeScene.js",
         "src/managers/EventManager.js"
-              
-              
-              
     ]
 }
