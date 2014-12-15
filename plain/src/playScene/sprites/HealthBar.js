@@ -3,21 +3,18 @@ var HealthBar = cc.Sprite.extend({
 		// 배경: 흰 HP bar
 		this._super(res.hpempty_png);
 		
-		var hpWhite = new cc.Sprite(res.hpempty_png);
-		var hpGradient = new cc.Sprite(res.hpfull_png);
-		
-		this.hpBar = this.createIndicator(hpGradient);
+		this.hpBar = this.createIndicator(new cc.Sprite(res.hpfull_png));
 		this.addChild(this.hpBar, 2);
 		
-		this.healIndicator = this.createIndicator(hpWhite);
+		this.healIndicator = this.createIndicator(new cc.Sprite(res.hpempty_png));
 		this.healIndicator.setColor(cc.color(80,255,40));
 		this.addChild(this.healIndicator, 1);
 		
-		this.damageIndicator = this.createIndicator(hpWhite);
+		this.damageIndicator = this.createIndicator(new cc.Sprite(res.hpempty_png));
 		this.damageIndicator.setColor(cc.color(251, 2, 8));
 		this.addChild(this.damageIndicator, 3);
 		
-		this.remainIndicator = this.createIndicator(hpGradient);
+		this.remainIndicator = this.createIndicator(new cc.Sprite(res.hpfull_png));
 		this.addChild(this.remainIndicator, 4);
 		
 		this.dieAt = min;
@@ -72,10 +69,12 @@ var HealthBar = cc.Sprite.extend({
 		var newPercentage = this.getPercentageOf(this.currentHP + hpDist);
 		
 		if (hpDist > 0) {
+			cc.log("Heal: "+hpDist);
 			// 회복
 			this.healIndicator.setPercentage(newPercentage);
 			this.healIndicator.runAction(blinkingAction);
 		} else {
+			cc.log("Damage: "+hpDist);
 			// 데미지
 			this.damageIndicator.setPercentage(this.getPercentageOf());
 			this.remainIndicator.setPercentage(newPercentage);
@@ -83,12 +82,12 @@ var HealthBar = cc.Sprite.extend({
 		}
 	},
 	stopBlinking: function() {
+		this.healIndicator.stopAllActions();
+		this.damageIndicator.stopAllActions();
+		
 		this.healIndicator.setOpacity(0);
 		this.damageIndicator.setOpacity(0);
 		this.remainIndicator.setOpacity(0);
-
-		this.healIndicator.stopAllActions();
-		this.damageIndicator.stopAllActions();
 	},
 	getPercentageOf: function(hp) {
 		if (hp == undefined) hp = this.currentHP;

@@ -38,7 +38,7 @@ var Enemy = Block.extend({
 	hurt: function(damage) {
 		this.hpBar.heal(damage);
 		// TODO: hpBar가 Full면 그림을 바꾸기 
-		if(this.hpBar.getPercentage() === 100) {
+		if(this.hpBar.getPercentageOf() === 100) {
 			cc.log("코니: 고마워^^ 나 상태가 좋아진듯!")
 		}
 		this.stopBlinking();
