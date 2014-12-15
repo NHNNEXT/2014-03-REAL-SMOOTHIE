@@ -9,6 +9,8 @@ var Cup = cc.Sprite.extend({
 		this.content = null;
 	},
 	addSmoothie: function(smoothie) {
+		if (this.capacity == 0) return smoothie.amount;
+		
 		// 빈 컴일 경우
 		if (this.content == null) {
 			this.content = smoothie;
@@ -16,9 +18,15 @@ var Cup = cc.Sprite.extend({
 			this.content.mix(smoothie);
 		}
 		
+		// var fillPercent = this.content.amount / this.capacity;
+		this.setColor(ItemType[smoothie.ingredient].color);
+		
 		if (this.content.amount > this.capacity) {
 			this.content.amount = this.capacity;
+			// 더하고 남은 양 반환
+			return this.content.amount - this.capacity;
 		}
+		return 0;
 	}
 	
 });

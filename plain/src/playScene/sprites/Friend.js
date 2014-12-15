@@ -13,7 +13,8 @@ var Friend = Block.extend({
 	},
 	setItem: function(item) {
 		if (item === "none") {
-			this.item = null;
+			// yogurt
+			this.item = "Item0000";
 		} else
 			this.item = item;
 	},
@@ -27,6 +28,16 @@ var Friend = Block.extend({
 			cup.scale = 0.15;
 			this.addChild(cup);
 			this.cups.push(cup);
+		}
+	},
+	addSmoothie: function(smoothie) {
+		var remain = smoothie.amount;
+		for (var i in this.cups) {
+			var cup = this.cups[i];
+			// 컵에 스무디를 따르고 남은 스무디는 다음 컵에 따른다.
+			var remain = cup.addSmoothie(smoothie);
+			if (remain == 0) return;
+			smoothie.amount = remain;
 		}
 	},
 	isOpened : function(dir) {

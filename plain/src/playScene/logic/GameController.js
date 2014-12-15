@@ -37,7 +37,18 @@ var GameController = cc.Class.extend({
 		
 		// 믹서기가 눌렸을 때 실행될 로직
 		SMTH.EVENT_MANAGER.listen("mix", function(e) {
-			
+			for (var i in SMTH.CONTAINER.PIPES) {
+				var block = SMTH.CONTAINER.PIPES[i];
+				if (block.type == BLOCK.TYPE.FRIEND) {
+					// TODO: MotorLevel 채워넣어야 함
+					// TODO: CutterLevel 채워넣어야 함
+					var amount = MotorLevel[0].generateAmount;
+					var fineness = CutterLevel[0].fineness;
+					var smoothie = new Smoothie(block.item, amount, fineness);
+					block.addSmoothie(smoothie);
+				}
+			}
+			SMTH.EVENT_MANAGER.notice("turnEnd");
 		});
 	}
 });

@@ -13,8 +13,18 @@ var CupLevel = [
 
 ];
 
-var MotorLevel = [];
-var CutterLevel = [];
+var MotorLevel = [
+    // Level 0
+	{
+		"amount": 100
+	}
+];
+var CutterLevel = [
+	// Level 0
+	{
+	   "fineness": 1
+	}
+];
 
 var MixerLevel = {
 		"CUP": CupLevel,
