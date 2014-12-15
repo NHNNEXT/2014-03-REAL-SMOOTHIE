@@ -40,6 +40,19 @@ var Friend = Block.extend({
 			smoothie.amount = remain;
 		}
 	},
+	getSmoothie: function() {
+		var smoothie = null;
+		for (var i in this.cups) {
+			var cup = this.cups[i];
+			if (cup.content == null) continue;
+			if (smoothie == null)
+				smoothie = cup.content;
+			else {
+				smoothie.mix(cup.content);
+			}
+		}
+		return smoothie;
+	},
 	isOpened : function(dir) {
 		return true;
 	},

@@ -52,7 +52,9 @@ var Pipe = Block.extend({
 			SMTH.EVENT_MANAGER.notice("pipeRotateEnd");
 		}) ));
 	},
-	
+	hurt: function() {
+		if(!this.fixed) this.HP--;
+	},
 	isOpened : function(dir) {
 		var pipeInfo = PipeTypeInfo[this.shape];
 		return pipeInfo[(360+dir-this.rotation) % 360]

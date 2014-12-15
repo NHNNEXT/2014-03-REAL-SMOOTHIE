@@ -19,5 +19,8 @@ var Smoothie = cc.Class.extend({
 			attr.push((attr1[i] * w1 + attr2[i] * w2) / (w1 + w2));
 		}
 		return attr;
+	},
+	clone: function() {
+		return new Smoothie(this.ingredient, this.amount, this.fineness);
 	}
 });

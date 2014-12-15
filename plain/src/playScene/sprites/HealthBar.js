@@ -69,13 +69,14 @@ var HealthBar = cc.Sprite.extend({
 		var newPercentage = this.getPercentageOf(this.currentHP + hpDist);
 		
 		if (hpDist > 0) {
-			cc.log("Heal: "+hpDist);
 			// 회복
+			this.healIndicator.setOpacity(255);
 			this.healIndicator.setPercentage(newPercentage);
 			this.healIndicator.runAction(blinkingAction);
 		} else {
-			cc.log("Damage: "+hpDist);
 			// 데미지
+			this.damageIndicator.setOpacity(255);
+			this.remainIndicator.setOpacity(255);
 			this.damageIndicator.setPercentage(this.getPercentageOf());
 			this.remainIndicator.setPercentage(newPercentage);
 			this.damageIndicator.runAction(blinkingAction);

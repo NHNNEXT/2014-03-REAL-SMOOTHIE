@@ -17,20 +17,24 @@ var RouteController = cc.Class.extend({
 			this.updateRoute();
 			this.checkRoute();
 			
+			SMTH.EVENT_MANAGER.notice("mix");
+		}.bind(this));
+		
+		SMTH.EVENT_MANAGER.listen("smoothieFilled", function(e) {
 			if (this.canAttack) {
 				// Enemy의 hpBar가 반짝이게 하기
 				var blocks = SMTH.CONTAINER.PIPES;
 				for (var i in this.routes) {
 					var route = this.routes[i];
+					var smoothiePerEnemy = route.calculateSmoothiePerEnemy();
+					if (smoothiePerEnemy == null) continue;
 					for (var j in route.enemies) {
-						var enemy = route.enemies[j]; 
-						enemy.willBeHealed(1);
+						var enemy = route.enemies[j];
+						enemy.willBeHealed(smoothiePerEnemy);
 					}
 				}
 			}
-			SMTH.EVENT_MANAGER.notice("mix");
-		}.bind(this));
-		
+		}.bind(this))
 		SMTH.EVENT_MANAGER.listen("slurp", function(e) {
 			this.updateRoute();
 			this.attack();

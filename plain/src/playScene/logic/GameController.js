@@ -46,12 +46,11 @@ var GameController = cc.Class.extend({
 					// TODO: CutterLevel 채워넣어야 함
 					var amount = MotorLevel[0].amount;
 					var fineness = CutterLevel[0].fineness;
-					cc.log(MotorLevel[0]);
-					cc.log(amount);
 					var smoothie = new Smoothie(block.item, amount, fineness);
 					block.addSmoothie(smoothie);
 				}
 			}
+			SMTH.EVENT_MANAGER.notice("smoothieFilled");
 			SMTH.EVENT_MANAGER.notice("turnEnd");
 		});
 	}
