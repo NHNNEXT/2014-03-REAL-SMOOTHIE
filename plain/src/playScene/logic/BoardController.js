@@ -80,12 +80,12 @@ var BoardController = cc.Class.extend({
 			var pipe = pipes[i];
 			pipe.animationQueue = [];
 		}
-		this._printBlockSnapshot();
+//		this._printBlockSnapshot();
 		while(this._fallOneStep()){
-			this._printBlockSnapshot();
+//			this._printBlockSnapshot();
 			this.fallStep++;
 		};
-		this._printBlockSnapshot();
+//		this._printBlockSnapshot();
 		this._updateBlockPotisionRender();
 	},
 	_fallOneStep: function() {
@@ -125,7 +125,6 @@ var BoardController = cc.Class.extend({
 		return blockSwaped;
 	},
 	_fillBlock: function(row, col) {
-		cc.log("_fillBlock: ("+row+", "+col+")");
 		// row가 맨 윗줄을 의미하면 새로운 파이프블록을 랜덤하게 생성해서 반환한다.
 		if(row === this._level.row-1) {
 			var newBlock = new Pipe(Pipe.getRandomPipeType(360));

@@ -40,6 +40,30 @@ var Friend = Block.extend({
 			smoothie.amount = remain;
 		}
 	},
+	getSmoothie: function() {
+		var smoothie = null;
+		for (var i in this.cups) {
+			var cup = this.cups[i];
+			if (cup.content == null) continue;
+			if (smoothie == null)
+				smoothie = cup.content;
+			else {
+				smoothie.mix(cup.content);
+			}
+		}
+		return smoothie;
+	},
+	useSmoothie: function() {
+		// 스무디를 모두 사용함
+		// 컵을 모두 비움
+		var result = this.getSmoothie();
+		for (var i in this.cups) {
+			var cup = this.cups[i];
+			cup.content = null;
+			cup.resetColor();
+		}
+		return result;
+	},
 	isOpened : function(dir) {
 		return true;
 	},

@@ -69,13 +69,42 @@ var Route = cc.Class.extend({
 		}
 		cc.log(log);
 	},
+	calculateSmoothiePerEnemy: function(use) {
+		// 스무디 객체 합치기 
+		var mixedSmoothie = null;
+		for (var i in this.blocks) {
+			var block = this.blocks[i];
+			if (block.isFriend()) {
+				var smoothie = null;
+				if (use) {
+					smoothie = block.useSmoothie();
+				} else {
+					smoothie = block.getSmoothie();
+				}
+				if (smoothie == null) continue;
+				cc.log(smoothie.amount);
+				if (mixedSmoothie == null) mixedSmoothie = smoothie.clone();
+				else {
+					mixedSmoothie.mix(smoothie);
+				}
+			}
+		}
+		if (mixedSmoothie == null) {
+			return null;
+		}
+		// 공격력을 1/n으로 
+		cc.log("expected smoothie: "+mixedSmoothie.amount+"/"+this.numberOfEnemies);
+		mixedSmoothie.amount = mixedSmoothie.amount / this.numberOfEnemies;
+		return mixedSmoothie;
+	},
 	hurt: function() {
+		var mixedSmoothie = this.calculateSmoothiePerEnemy(true);
 		for (var i in this.blocks) {
 			var block = this.blocks[i];
 			if (block.isFriend()) {
 				// don't hurt
 			} else {
-				block.hurt(this.numberOfFriends);
+				block.hurt(mixedSmoothie);
 			}
 		}
         cc.audioEngine.playEffect(res.attack_mp3);

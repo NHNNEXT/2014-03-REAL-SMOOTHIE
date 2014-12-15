@@ -52,7 +52,9 @@ var Pipe = Block.extend({
 			SMTH.EVENT_MANAGER.notice("pipeRotateEnd");
 		}) ));
 	},
-	
+	hurt: function() {
+		if(!this.fixed) this.HP--;
+	},
 	isOpened : function(dir) {
 		var pipeInfo = PipeTypeInfo[this.shape];
 		return pipeInfo[(360+dir-this.rotation) % 360]
@@ -89,7 +91,7 @@ Pipe.prototype.pipeTouchHandler = {
 		}
 		return false;
 	},
-	"onTouchMoved": function (touch, event) {         
+	"onTouchMoved": function (touch, event) { 
 		var target = event.getCurrentTarget();
 		this.deltaX += touch.getDelta().x;
 		
@@ -108,7 +110,7 @@ Pipe.prototype.pipeTouchHandler = {
 			this.guidePipe.opacity = 80;
 		}
 	},
-	"onTouchEnded": function (touch, event) {         
+	"onTouchEnded": function (touch, event) {   
 		var target = event.getCurrentTarget();
 		target.setOpacity(255);
 		this.removeChild(this.guidePipe);
@@ -125,14 +127,12 @@ Pipe.prototype.pipeTouchHandler = {
 			// 턴 초과시 입력 무시
 			return;
 		} else if(!this.fixed) {
-			SMTH.CONTAINER.TURN++;
 			if (this.deltaX >= 0) {
 				target.rotateRight();
 			} else if (this.deltaX < 0)  {
 				target.rotateLeft();
 			}
 		}
-		
 	}
 };
 

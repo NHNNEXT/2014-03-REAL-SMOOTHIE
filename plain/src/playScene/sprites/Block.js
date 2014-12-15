@@ -44,8 +44,9 @@ var Block = cc.Sprite.extend({
 		return cc.p(col*width + width/2 , row*height + height/2);
 	},
 	
-	hurt: function(damage) { // 파이프와 적이 파괴되는 경우를 생각해서 만든거임
-		if(!this.fixed) this.HP = this.HP - damage;
+	hurt: function(smoothie) {
+		// 파이프는 1씩 닳도록 오버라이딩 
+		// 적은 자신의 속성과 비교하여 데미지 계산하도록 오버라이딩 
 	},
 
 	isPipe : function() {
