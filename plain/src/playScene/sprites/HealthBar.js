@@ -1,26 +1,41 @@
-var HealthBar = cc.ProgressTimer.extend({
-	ctor: function(left, right, onStart) {
-		this._super(new cc.Sprite(res.hpfull_png));
-		this.setType(cc.ProgressTimer.TYPE_BAR);
-		this.setMidpoint(cc.p(0,0.5));
+var HealthBar = cc.Sprite.extend({
+	ctor: function(min, max, onStart) {
+		// 배경: 흰 HP bar
+		this._super(res.hpempty_png);
 		
-		this.dieAt = left;
-		this.cureAt = right;
+		var hpWhite = new cc.Sprite(res.hpempty_png);
+		var hpGradient = new cc.Sprite(res.hpfull_png);
+		
+		this.hpBar = this.createIndicator(hpGradient);
+		this.addChild(this.hpBar, 2);
+		
+		this.healIndicator = this.createIndicator(hpWhite);
+		this.healIndicator.setColor(cc.color(80,255,40));
+		this.addChild(this.healIndicator, 1);
+		
+		this.damageIndicator = this.createIndicator(hpWhite);
+		this.damageIndicator.setColor(cc.color(251, 2, 8));
+		this.addChild(this.damageIndicator, 3);
+		
+		this.remainIndicator = this.createIndicator(hpGradient);
+		this.addChild(this.remainIndicator, 4);
+		
+		this.dieAt = min;
+		this.cureAt = max;
 		this.currentHP = onStart;
-		
-		var height = this._getHeight();		
-		this.setPosition(undefined, 26);
 
-		var percent = (onStart - left) / (right - left) * 100;
-		this.setPercentage(percent);
-		
-		this.addChild(new cc.Sprite(res.hpempty_png), -2);
-		
-		this.indicator = new cc.Sprite(res.hpempty_png);
-		this.addChild(this.indicator, -1);
+		var percent = (onStart - min) / (max - min) * 100;
+		this.hpBar.setPercentage(percent);
 		
 		this.setChildrenOnCenter();
-	}, 
+	},
+	createIndicator: function(sprite) {
+		var indicator = new cc.ProgressTimer(sprite);
+		indicator.setType(cc.ProgressTimer.TYPE_BAR);
+		indicator.setMidpoint(cc.p(0,0.5));
+		indicator.setPercentage(0);
+		return indicator;
+	},
 	setChildrenOnCenter: function() {
 		var width = this._getWidth();
 		var height = this._getHeight();
@@ -37,33 +52,43 @@ var HealthBar = cc.ProgressTimer.extend({
 		this.dieAt = -hp;
 		
 		var percent = this.getPercentageOf();
-		this.setPercentage(percent);
+		this.hpBar.setPercentage(percent);
 	},
 	heal: function(hp) {
 		this.currentHP += hp;
 
 		var percent = this.getPercentageOf();
-		this.setPercentage(percent);
+		this.hpBar.setPercentage(percent);
 		
 		if (this.currentHP >= this.cureAt) {
 			this.getParent().HP = -1;
 		}
 	},
-	blink: function(heal) {
-		// TODO: 아직 치료되는 양이 아니라 전체가 깜빡이는 수준
-//		var start = this.getPercentage() / 100 * this.width;
-//		var end = this.getPercentageOf(this.currentHP + heal) / 100 * this.width;
-//		var width = end - start;
-//		this.indicator.setScale(width / this.width, 0.1);
-		this.indicator.setColor(cc.color(100,250,70));
-		var fadeout = cc.fadeOut(0.5);
-		this.blinkingAction = new cc.RepeatForever(cc.sequence(fadeout, fadeout.reverse()));
+	blink: function(hpDist) {
+		if (hpDist == 0) return;
 
-		this.indicator.runAction(this.blinkingAction);
+		var fadeout = cc.fadeOut(0.5);
+		var blinkingAction = new cc.RepeatForever(cc.sequence(fadeout, fadeout.reverse()));
+		var newPercentage = this.getPercentageOf(this.currentHP + hpDist);
+		
+		if (hpDist > 0) {
+			// 회복
+			this.healIndicator.setPercentage(newPercentage);
+			this.healIndicator.runAction(blinkingAction);
+		} else {
+			// 데미지
+			this.damageIndicator.setPercentage(this.getPercentageOf());
+			this.remainIndicator.setPercentage(newPercentage);
+			this.damageIndicator.runAction(blinkingAction);
+		}
 	},
 	stopBlinking: function() {
-		this.indicator.setColor(cc.color(255,255,255));
-		this.indicator.stopAction(this.blinkingAction);
+		this.healIndicator.setOpacity(0);
+		this.damageIndicator.setOpacity(0);
+		this.remainIndicator.setOpacity(0);
+
+		this.healIndicator.stopAllActions();
+		this.damageIndicator.stopAllActions();
 	},
 	getPercentageOf: function(hp) {
 		if (hp == undefined) hp = this.currentHP;
