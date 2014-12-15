@@ -7,16 +7,18 @@ var HealthBar = cc.Sprite.extend({
 		var hpGradient = new cc.Sprite(res.hpfull_png);
 		
 		this.hpBar = this.createIndicator(hpGradient);
-		this.addChild(this.hpBar);
+		this.addChild(this.hpBar, 2);
 		
 		this.healIndicator = this.createIndicator(hpWhite);
-		this.addChild(this.healIndicator, -2);
+		this.healIndicator.setColor(cc.color(80,255,40));
+		this.addChild(this.healIndicator, 1);
 		
 		this.damageIndicator = this.createIndicator(hpWhite);
-		this.addChild(this.damageIndicator, -2);
+		this.damageIndicator.setColor(cc.color(251, 2, 8));
+		this.addChild(this.damageIndicator, 3);
 		
 		this.remainIndicator = this.createIndicator(hpGradient);
-		this.addChild(this.remainIndicator, -2);
+		this.addChild(this.remainIndicator, 4);
 		
 		this.dieAt = min;
 		this.cureAt = max;
@@ -62,22 +64,31 @@ var HealthBar = cc.Sprite.extend({
 			this.getParent().HP = -1;
 		}
 	},
-	blink: function(heal) {
-		// TODO: 아직 치료되는 양이 아니라 전체가 깜빡이는 수준
-//		var start = this.getPercentage() / 100 * this.width;
-//		var end = this.getPercentageOf(this.currentHP + heal) / 100 * this.width;
-//		var width = end - start;
-//		this.indicator.setScale(width / this.width, 0.1);
-		cc.log("hul");
-		this.indicator.setOpacity(255);
-		var fadeout = cc.fadeOut(0.5);
-		this.blinkingAction = new cc.RepeatForever(cc.sequence(fadeout, fadeout.reverse()));
+	blink: function(hpDist) {
+		if (hpDist == 0) return;
 
-		this.indicator.runAction(this.blinkingAction);
+		var fadeout = cc.fadeOut(0.5);
+		var blinkingAction = new cc.RepeatForever(cc.sequence(fadeout, fadeout.reverse()));
+		var newPercentage = this.getPercentageOf(this.currentHP + hpDist);
+		
+		if (hpDist > 0) {
+			// 회복
+			this.healIndicator.setPercentage(newPercentage);
+			this.healIndicator.runAction(blinkingAction);
+		} else {
+			// 데미지
+			this.damageIndicator.setPercentage(this.getPercentageOf());
+			this.remainIndicator.setPercentage(newPercentage);
+			this.damageIndicator.runAction(blinkingAction);
+		}
 	},
 	stopBlinking: function() {
-		this.indicator.setColor(cc.color(255,255,255));
-		this.indicator.stopAction(this.blinkingAction);
+		this.healIndicator.setOpacity(0);
+		this.damageIndicator.setOpacity(0);
+		this.remainIndicator.setOpacity(0);
+
+		this.healIndicator.stopAllActions();
+		this.damageIndicator.stopAllActions();
 	},
 	getPercentageOf: function(hp) {
 		if (hp == undefined) hp = this.currentHP;
