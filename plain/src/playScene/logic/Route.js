@@ -69,13 +69,18 @@ var Route = cc.Class.extend({
 		}
 		cc.log(log);
 	},
-	calculateSmoothiePerEnemy: function() {
+	calculateSmoothiePerEnemy: function(use) {
 		// 스무디 객체 합치기 
 		var mixedSmoothie = null;
 		for (var i in this.blocks) {
 			var block = this.blocks[i];
 			if (block.isFriend()) {
-				var smoothie = block.getSmoothie();
+				var smoothie = null;
+				if (use) {
+					smoothie = block.useSmoothie();
+				} else {
+					smoothie = block.getSmoothie();
+				}
 				if (smoothie == null) continue;
 				cc.log(smoothie.amount);
 				if (mixedSmoothie == null) mixedSmoothie = smoothie.clone();
@@ -93,8 +98,7 @@ var Route = cc.Class.extend({
 		return mixedSmoothie;
 	},
 	hurt: function() {
-		var mixedSmoothie = this.calculateSmoothiePerEnemy();
-		cc.log("hurt smoothie: "+mixedSmoothie.amount);
+		var mixedSmoothie = this.calculateSmoothiePerEnemy(true);
 		for (var i in this.blocks) {
 			var block = this.blocks[i];
 			if (block.isFriend()) {

@@ -5,7 +5,7 @@ var CupLevel = [
     	"image": res.no_cup
     },{
     	"capacity": 150,
-    	"image": res.papercup_small
+    	"image": res.papercup_small_empty
     },{
     	"capacity": 200,
     	"image": res.papercup_big

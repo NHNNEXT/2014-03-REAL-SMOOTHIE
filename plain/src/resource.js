@@ -36,7 +36,9 @@ var res = {
 		// Mixer
 		mixer_png: "res/mixer.png",
 		no_cup: "res/no_cup.png",
-		papercup_small: "res/papercup_small.png",
+		papercup_small_empty: "res/papercup_small.png",
+		papercup_small_half: "res/papercup_small.png",
+		papercup_small_full: "res/papercup_small.png",
 		// Font
 		LINEBold_ttf: {
    	     type:"font",

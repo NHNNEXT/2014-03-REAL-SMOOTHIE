@@ -37,6 +37,9 @@ var Enemy = Block.extend({
 	},
 	hurt: function(smoothie) {
 		// 일단 양에 비례하는 방식으로 
+		if (smoothie === null) {
+			return;
+		}
 		cc.log("hurt " + smoothie.amount);
 		var damage = smoothie.amount / 100;
 		this.hpBar.heal(damage);

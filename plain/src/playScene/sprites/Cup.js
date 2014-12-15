@@ -8,6 +8,22 @@ var Cup = cc.Sprite.extend({
 	init: function() {
 		this.content = null;
 	},
+	resetColor: function() {
+		var fillPercent = 0;
+		if (this.content !== null) {
+			fillPercent = this.content.amount / this.capacity;
+		}
+		
+		if (fillPercent > 0) {
+			if (fillPercent >= 0.95) {
+				this.setColor(cc.color(255,100,100));
+			} else {
+				this.setColor(cc.color(255,190,100));
+			}
+		} else {
+			this.setColor(cc.color(255,255,255));
+		}
+	},
 	addSmoothie: function(smoothie) {
 		if (this.capacity == 0) return smoothie.amount;
 		
@@ -18,8 +34,7 @@ var Cup = cc.Sprite.extend({
 			this.content.mix(smoothie);
 		}
 		
-		// var fillPercent = this.content.amount / this.capacity;
-		this.setColor(ItemType[smoothie.ingredient].color);
+		this.resetColor();
 		
 		if (this.content.amount > this.capacity) {
 			this.content.amount = this.capacity;
