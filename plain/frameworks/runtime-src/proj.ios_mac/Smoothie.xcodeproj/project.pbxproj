@@ -14,6 +14,7 @@
 		1AD7E0A818C9DB93004817A6 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6BF21418C9DB5900FB0E1C /* main.js */; };
 		1AD7E0A918C9DBE3004817A6 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6BF21418C9DB5900FB0E1C /* main.js */; };
 		1AE159EC18C9DF3600FCA372 /* project.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A081B18C9DF05005C6854 /* project.json */; };
+		1B2683DE1A3EC4C400AB87C2 /* HomeScene.js in Resources */ = {isa = PBXBuildFile; fileRef = 1B2683DD1A3EC4C400AB87C2 /* HomeScene.js */; };
 		502380DC17EBB88200990C9B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 502380DB17EBB88200990C9B /* libcurl.dylib */; };
 		5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5091731417ECDF7A00D62437 /* Icon-29.png */; };
 		5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5091731517ECDF7A00D62437 /* Icon-40.png */; };
@@ -135,6 +136,7 @@
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		1A96A4F2174A3432008653A9 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../js-bindings/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../js-bindings/cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
+		1B2683DD1A3EC4C400AB87C2 /* HomeScene.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = HomeScene.js; path = ../../../src/homeScene/HomeScene.js; sourceTree = "<group>"; };
 		502380DB17EBB88200990C9B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5091731417ECDF7A00D62437 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-29.png"; path = "ios/Icon-29.png"; sourceTree = "<group>"; };
 		5091731517ECDF7A00D62437 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40.png"; path = "ios/Icon-40.png"; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				1B2683DD1A3EC4C400AB87C2 /* HomeScene.js */,
 				C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */,
 				1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */,
 				BAF426FA19484B3E002B22EF /* script */,
@@ -421,7 +424,7 @@
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
 					A922753C1517C094001B78AA = {
-						DevelopmentTeam = MDDB52YB8L;
+						DevelopmentTeam = LH8HEKVSH8;
 					};
 				};
 			};
@@ -510,6 +513,7 @@
 				5091731F17ECDF7A00D62437 /* Icon-100.png in Resources */,
 				509D4AC117EBB2AB00697056 /* Icon-72.png in Resources */,
 				509D4AC017EBB2AB00697056 /* Icon-57.png in Resources */,
+				1B2683DE1A3EC4C400AB87C2 /* HomeScene.js in Resources */,
 				5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */,
 				C03780EB18BEE0E400FE4F13 /* src in Resources */,
 				509D4AC617EBB2AB00697056 /* Icon-152.png in Resources */,
@@ -688,7 +692,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
@@ -714,7 +718,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;

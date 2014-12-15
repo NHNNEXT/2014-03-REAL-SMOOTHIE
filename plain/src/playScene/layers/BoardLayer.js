@@ -1,4 +1,3 @@
-
 var BoardLayer = cc.Layer.extend ({
 
 	ctor:function () {

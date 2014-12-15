@@ -45,6 +45,10 @@
         "src/playScene/sprites/HealthBar.js",
         "src/playScene/sprites/Cup.js",
         "src/playScene/sprites/Smoothie.js",
+        "src/homeScene/HomeScene.js",
         "src/managers/EventManager.js"
+              
+              
+              
     ]
 }
