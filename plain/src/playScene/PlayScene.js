@@ -6,7 +6,7 @@ var PlayScene = cc.Scene.extend({
 		this.initSMTH();
 		
 		this.addChild(new BackgroundLayer());
-		this.addChild(new GameLayer());		
+		this.addChild(new GameLayer());
 		
 //		Ajax.getInstance().POST({
 //			url: "http://httpbin.org/post",
