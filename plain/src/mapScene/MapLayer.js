@@ -32,7 +32,7 @@ var MapLayer = cc.Layer.extend({
 		
 	},
 	autoCorrect: function() {
-		var clear = SAVE.LAST_CLEAR;
+		var clear = SAVE.LAST_CLEAR + 1;
 		var routeIdx = 0;
 		for (var l = 0; l < clear; l++) {
 			var blockList = SMTH.MAPS.COLOR[l];

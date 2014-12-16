@@ -76,11 +76,7 @@ var Route = cc.Class.extend({
 			var block = this.blocks[i];
 			if (block.isFriend()) {
 				var smoothie = null;
-				if (use) {
-					smoothie = block.useSmoothie();
-				} else {
-					smoothie = block.getSmoothie();
-				}
+				smoothie = block.getSmoothie();
 				if (smoothie == null) continue;
 				cc.log(smoothie.amount);
 				if (mixedSmoothie == null) mixedSmoothie = smoothie.clone();

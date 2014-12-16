@@ -12,5 +12,5 @@ var SAVE = {
 		}
 	},
 	"ATTACK_ORDER": ["BROWN", "CONY"],
-	"LAST_CLEAR": 4
+	"LAST_CLEAR": 0
 }

@@ -23,18 +23,35 @@ var HomeScene = cc.Scene.extend({
 				)
 			)
 		);
+		facebook = plugin.FacebookAgent.getInstance();
 
 		var title = new cc.Sprite(res.home_title_png);
 		title.setPosition(centerPos.x, winsize.height + 100);
 		title.setOpacity(0);
 		this.addChild(title);
+
+		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
+		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;
+		
+		cc.log(SMTH.CONTAINER.LOCALSTORAGE);
+		if(facebook._isLoggedIn === false && SMTH.CONTAINER.LOCALSTORAGE) { 
+			SMTH.CONTAINER.LOCALSTORAGE.removeItem("facebookInfo");
+		}
+
 		
 		var playNormal = new cc.Sprite(res.playNormal_png);
 		var playSelected = new cc.Sprite(res.playSelected_png);
 		var playDisabled = new cc.Sprite(res.playNormal_png);
 		var play = new cc.MenuItemSprite(playNormal, playSelected, playDisabled, function() {
-			//this.touchEvent();
-			cc.director.runScene(new MapScene());
+			if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
+				var pic_url = JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).picture;
+				res.userPic = pic_url;
+				cc.LoaderScene.preload([pic_url], function () {
+				    cc.director.runScene(new MapScene());
+				}, this);				
+			} else {
+				cc.director.runScene(new MapScene());
+			}
 		}.bind(this));
 		var playMenu = new cc.Menu(play);
 		playMenu.setOpacity(0);
@@ -43,18 +60,8 @@ var HomeScene = cc.Scene.extend({
 		playMenu.y = winsize.height / 2 - 700;		
 
 
-
-
-	
-
-		facebook = plugin.FacebookAgent.getInstance();
 			
 
-		
-	//	var fb_connect_handler = null;
-		
-		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
-		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;
 		//로컬스토리지에 해당키에 값이 지는지 없는지 확인
 		if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
 			var facebookBtn = createLogout.apply(this);			

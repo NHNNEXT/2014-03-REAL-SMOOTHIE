@@ -46,7 +46,12 @@ var GameClearLayer = cc.LayerColor.extend({
 		this.addChild(menu, 1, 2);
 		menu.x = winsize.width / 2;
 		menu.y = winsize.height / 2;
-                                          
+		
+		
+		if(SAVE.LAST_CLEAR <= SMTH.STATUS.CURRENT_LEVEL.ID + 1) {
+			SAVE.LAST_CLEAR = SMTH.STATUS.CURRENT_LEVEL.ID + 1;
+		}
+                                 
 	},
 	
 	touchEvent: function(touch, event) {

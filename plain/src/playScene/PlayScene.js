@@ -8,6 +8,40 @@ var PlayScene = cc.Scene.extend({
 		this.addChild(new BackgroundLayer());
 		this.addChild(new GameLayer());
 		
+		
+	    var screenSize = cc.view.getFrameSize();
+
+		var mapNormal = new cc.Sprite(res.map_png);
+		var mapSelected = new cc.Sprite(res.map_png);
+		var mapDisabled = new cc.Sprite(res.map_png);
+		var map = new cc.MenuItemSprite(mapNormal, mapSelected, mapDisabled, function() {
+			cc.director.runScene(new MapScene());
+		}.bind(this));
+		var mapMenu = new cc.Menu(map);
+		this.addChild(mapMenu, 1, 2);
+		mapMenu.x = 70;
+		mapMenu.y = 70;	
+		
+		
+		if(facebook._isLoggedIn === true) { 
+
+			var userSprite = new cc.Sprite(res.userPic);
+			this.addChild(userSprite);
+			userSprite.x = 180;
+			userSprite.y = 70;
+			
+			var userLabel = new cc.LabelTTF();
+			userLabel.setFontName(res.LINEBold_ttf);
+			userLabel.setFontSize(35);
+			userLabel.setColor( cc.color(255,255,255));
+			//JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).name
+			cc.log();
+			userLabel.setString(JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).name);
+			userLabel.x = 330;
+			userLabel.y = 60;
+			this.addChild(userLabel);			
+		}
+		
 //		Ajax.getInstance().POST({
 //			url: "http://httpbin.org/post",
 //			data: "name=sally",
