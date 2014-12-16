@@ -14,6 +14,12 @@ var res = {
 		treasure_png: "res/treasure.png",
 		fixed_sign : "res/fixed.png",
 		// UI
+		fbConnectNormal_png: "res/fb_connect.png",
+		fbConnectSelected_png: "res/fb_connect.png",
+		fbLogoutNormal_png: "res/fb_logout.png",
+		fbLogoutSelected_png: "res/fb_logout.png",
+		playNormal_png: "res/play_btn.png",
+		playSelected_png: "res/play_btn.png",
 		button_n: "res/animationbuttonnormal.png",
 		button_p: "res/animationbuttonpressed.png",
 		nextNormal_png: "res/nextNormal.png",
