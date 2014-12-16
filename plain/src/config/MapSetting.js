@@ -12,29 +12,41 @@ var TD = BLOCK.TYPE.PIPE.T.D;
 var TR = BLOCK.TYPE.PIPE.T.R;
 var TL = BLOCK.TYPE.PIPE.T.L;
 var X = BLOCK.TYPE.PIPE.X.U;
-var T  = BLOCK.TYPE.TREASURE;
+var NN = BLOCK.TYPE.NULL;
 	
 var MapSetting = {
 	"MAP": [
-	    [X, LD, LR, IR, TD, IR, LD],
+	    [TL, LD, LR, IR, TD, IR, LD],
 	    [IU, LU, TD, LD, LR, IR, TD],
-	    [LU, IR, LD, LU, X, IR, LD],
-	    [TU, TU, TD, TU, TD, TU, TR],
-	    [TL, LL, LR, TD, LD, IU, IU],
-	    [LU, IR, TR, LR, X, TD, TR],
-	    [LR, IR, TD, TR, LU, IR, LL]
+	    [LU, IR, IR, LL, LU, TU, LD],
+	    [TU, IR, IR, IR, IR, TD, LL],
+	    [IU, NN, LR, IR, IR, TU, LD],
+	    [LU, IR, LL, LR, LD, LU, TR],
+	    [LR, IR, IR, TR, LU, IR, LL]
 	].reverse(),
 	"LEVEL": [
 	     cc.p(0,0),
 	     cc.p(0,3),
 	     cc.p(1,6),
-	     cc.p(1,1),
+	     cc.p(1,2),
 	     cc.p(3,0),
-	     cc.p(3,2),
 	     cc.p(3,5),
 	     cc.p(5,6),
 	     cc.p(6,4),
+	     cc.p(5,2),
 	     cc.p(6,0)
+	],
+	"COLOR": [
+	    [cc.p(0,0)],
+	    [cc.p(0,1),cc.p(0,2),cc.p(0,3)],
+	    [cc.p(1,3),cc.p(1,4),cc.p(0,4),cc.p(0,5),cc.p(0,6),cc.p(1,6)],
+	    [cc.p(1,5),cc.p(2,6),cc.p(2,5),cc.p(2,4),cc.p(2,3),cc.p(2,2),cc.p(1,2)],
+	    [cc.p(1,1),cc.p(1,0),cc.p(2,0),cc.p(3,0)],
+	    [cc.p(3,1),cc.p(3,2),cc.p(3,3),cc.p(3,4),cc.p(3,5)],
+	    [cc.p(3,6),cc.p(4,6),cc.p(4,5),cc.p(4,4),cc.p(5,4),cc.p(5,5),cc.p(5,6)],
+	    [cc.p(6,6),cc.p(6,5),cc.p(6,4)],
+	    [cc.p(6,3),cc.p(6,2),cc.p(5,2)],
+	    [cc.p(5,3),cc.p(4,3),cc.p(4,2),cc.p(4,1),cc.p(4,0),cc.p(5,1),cc.p(5,0),cc.p(6,1),cc.p(6,0)]
 	]
 }
 

@@ -11,5 +11,6 @@ var SAVE = {
 			"cups": [1,0,0,0]
 		}
 	},
-	"ATTACK_ORDER": ["BROWN", "CONY"]
+	"ATTACK_ORDER": ["BROWN", "CONY"],
+	"LAST_CLEAR": 4
 }

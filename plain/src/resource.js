@@ -22,6 +22,7 @@ var res = {
 		retrySelected_png: "res/retrySelected.png",
 		CloseNormal_png : "res/CloseNormal.png",
 		CloseSelected_png : "res/CloseSelected.png",
+		levelCircle_png : "res/circle.png",
 		// Characters
 		sally : "res/sally.png",
 		cony : "res/cony.png",
