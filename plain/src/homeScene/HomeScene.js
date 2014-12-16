@@ -1,7 +1,7 @@
 var HomeScene = cc.Scene.extend({
 	onEnter: function() {
 		this._super();
-		//        this.initSMTH();
+		this.initSMTH();
 		this.addChild(new BackgroundLayer());
 		var winsize = cc.director.getWinSize();
 		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
@@ -14,35 +14,27 @@ var HomeScene = cc.Scene.extend({
 		this.addChild(fruitBlur);
 		fruitBlur.setScale(2.3);
 		
-		/*
+		
 		fruitBlur.runAction(		
-			cc.RepeatForever(
+			cc.repeatForever(
 				cc.sequence(
 					cc.moveTo(40, winsize.width, winsize.height),
 					cc.moveTo(40, 0, 0)
 				)
 			)
 		);
-*/
-		
+
 		var title = new cc.Sprite(res.home_title_png);
 		title.setPosition(centerPos.x, winsize.height + 100);
 		title.setOpacity(0);
 		this.addChild(title);
-		/*
-		fbConnectNormal_png: "res/fb_connect.png",
-		fbConnectSelected_png: "res/fb_connect.png",
-		fbLogoutNormal_png: "res/fb_logout.png",
-		fbLogoutSelected_png: "res/fb_logout.png",
-		playNormal_png: "res/play_btn.png",
-		playSelected_png: "res/play_btn.png",
-		*/
 		
 		var playNormal = new cc.Sprite(res.playNormal_png);
 		var playSelected = new cc.Sprite(res.playSelected_png);
 		var playDisabled = new cc.Sprite(res.playNormal_png);
 		var play = new cc.MenuItemSprite(playNormal, playSelected, playDisabled, function() {
 			//this.touchEvent();
+			cc.director.runScene(new MapScene());
 		}.bind(this));
 		var playMenu = new cc.Menu(play);
 		playMenu.setOpacity(0);
@@ -50,49 +42,123 @@ var HomeScene = cc.Scene.extend({
 		playMenu.x = winsize.width / 2;
 		playMenu.y = winsize.height / 2 - 700;		
 
+
+
+
 	
-	/*
-		cc.loader.loadJs("", [
-		    "frameworks/cocos2d-html5/external/pluginx/Plugin.js",
-		    "frameworks/cocos2d-html5/external/pluginx/platform/facebook_sdk.js",
-		    "frameworks/cocos2d-html5/external/pluginx/platform/facebook.js"
-		], function(){
-			SMTH.EVENT_MANAGER.notice("facebookSDKLoaded");		
-		});
-*/
-/*
-		SMTH.EVENT_MANAGER.listen("facebookSDKLoaded", function(e) {			
-		});
-*/
+
 		facebook = plugin.FacebookAgent.getInstance();
 			
-		var connectNormal = new cc.Sprite(res.fbConnectNormal_png);
-		var connectSelected = new cc.Sprite(res.fbConnectSelected_png);
-		var connectDisabled = new cc.Sprite(res.fbConnectNormal_png);
-		
-		var fb_connect_handler = null;
-		
-		var connect = new cc.MenuItemSprite(connectNormal, connectSelected, connectDisabled, function(){
-			facebook.isLoggedIn(function(code, response){
-			    if(code == plugin.FacebookAgent.CODE_SUCCEED){
-			        cc.log("isLoggedIn : " + response["isLoggedIn"])
-			    } else {
-			        cc.log("Check failed, error #" + code + ": " + response);
-			    }
-			});
-		});
-		
-
 
 		
+	//	var fb_connect_handler = null;
 		
-		var connectMenu = new cc.Menu(connect);
-		connectMenu.setOpacity(0);
-		this.addChild(connectMenu, 1, 2);
-		connectMenu.x = winsize.width / 2;
-		connectMenu.y = winsize.height / 2 - 1200;	
-		/*
-;*/		
+		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
+		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;
+		//로컬스토리지에 해당키에 값이 지는지 없는지 확인
+		if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
+			var facebookBtn = createLogout.apply(this);			
+		} else {
+			var facebookBtn = createConnect.apply(this);
+		}
+		
+		function createConnect() {
+			var connectNormal = new cc.Sprite(res.fbConnectNormal_png);
+			var connectSelected = new cc.Sprite(res.fbConnectSelected_png);
+			var connectDisabled = new cc.Sprite(res.fbConnectNormal_png);
+		
+			var connectBtn = new cc.MenuItemSprite(connectNormal, connectSelected, connectDisabled, function(){
+				facebook.login([], function(code, response){
+				    if(code == plugin.FacebookAgent.CODE_SUCCEED){
+						facebook.api("/me", plugin.FacebookAgent.HttpMethod.GET, function (type, response) {
+						    if (type == plugin.FacebookAgent.CODE_SUCCEED) {
+						        cc.log(response);
+						        var facebookInfo = SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo") || "{}";
+								facebookInfo = JSON.parse(facebookInfo);
+								facebookInfo.name = response.name;
+								facebookInfo.id = response.id;
+								SMTH.CONTAINER.LOCALSTORAGE.setItem("facebookInfo", JSON.stringify(facebookInfo));
+								
+								cc.log(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo"));
+								if(Object.keys(facebookInfo).length >= 3) {
+									SMTH.EVENT_MANAGER.notice("fbLoggedIn");
+								}
+						    } else {
+						        cc.log("Graph API request failed, error #" + code + ": " + response);
+						    }
+						});
+						facebook.api("/me/picture", plugin.FacebookAgent.HttpMethod.GET, function (type, response) {
+						    if (type == plugin.FacebookAgent.CODE_SUCCEED) {
+						        var facebookInfo = SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo") || "{}";
+								facebookInfo = JSON.parse(facebookInfo);
+								facebookInfo.picture = response.data.url;
+								SMTH.CONTAINER.LOCALSTORAGE.setItem("facebookInfo", JSON.stringify(facebookInfo));
+								cc.log(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo"));
+								if(Object.keys(facebookInfo).length >= 3) {
+									SMTH.EVENT_MANAGER.notice("fbLoggedIn");
+								}
+						    } else {
+						        cc.log("Graph API request failed, error #" + code + ": " + response);
+						    }
+						});
+						
+				        cc.log("login succeeded");
+				        cc.log("AccessToken: " + response["accessToken"]);
+				        var permissions = response["permissions"];
+				        var str = "Permissions: ";
+				        for (var i = 0; i < permissions.length; ++i) {
+				            str += permissions[i] + " ";
+				        }
+				        cc.log("Permissions: " + str);
+				        this.removeChild(facebookMenu);
+				        
+						facebookBtn = createLogout.apply(this);
+						facebookMenu = new cc.Menu(facebookBtn);
+						this.addChild(facebookMenu, 1, 2);
+						facebookMenu.x = centerPos.x;
+						facebookMenu.y = centerPos.y - 200;	
+						        
+				    } else {
+				        cc.log("Login failed, error #" + code + ": " + response);
+				    }
+				}.bind(this));										
+			}.bind(this));
+			return connectBtn;
+		}
+
+		function createLogout() {
+			var logoutNormal = new cc.Sprite(res.fbLogoutNormal_png);
+			var logoutSelected = new cc.Sprite(res.fbLogoutSelected_png);
+			var logoutDisabled = new cc.Sprite(res.fbLogoutNormal_png);		
+
+			var logoutBtn = new cc.MenuItemSprite(logoutNormal, logoutSelected, logoutDisabled, function(){
+				facebook.logout(function(code){
+				    if(code == plugin.FacebookAgent.CODE_SUCCEED){ //logout succeed
+				        cc.log("logout succeed");
+				        SMTH.CONTAINER.LOCALSTORAGE.removeItem("facebookInfo");
+
+				        this.removeChild(facebookMenu);
+				        
+						facebookBtn = createConnect.apply(this);
+						facebookMenu = new cc.Menu(facebookBtn);
+						this.addChild(facebookMenu, 1, 2);
+						facebookMenu.x = centerPos.x;
+						facebookMenu.y = centerPos.y - 200;					
+						SMTH.EVENT_MANAGER.notice("fbLoggedOut");
+
+				    } else {
+				        cc.log("Logout failed, error #" + code + ": " + response);
+				    }
+				}.bind(this));										
+			}.bind(this));
+			return logoutBtn;			
+		}			
+		
+		var facebookMenu = new cc.Menu(facebookBtn);
+		facebookMenu.setOpacity(0);
+		this.addChild(facebookMenu, 1, 2);
+		facebookMenu.x = winsize.width / 2;
+		facebookMenu.y = winsize.height / 2 - 1200;	
 		
 		title.runAction(
 			cc.sequence(
@@ -105,11 +171,11 @@ var HomeScene = cc.Scene.extend({
 					cc.callFunc(function() {					
 						playMenu.runAction(
 							cc.spawn(
-								cc.moveTo(2.3, centerPos.x, centerPos.y).easing(cc.easeInOut(5.0)), 
+								cc.moveTo(2.3, centerPos.x, centerPos.y - 50).easing(cc.easeInOut(5.0)), 
 								cc.fadeIn(2.5)
 							)
 						)
-						connectMenu.runAction(
+						facebookMenu.runAction(
 							cc.spawn(
 								cc.moveTo(2.3, centerPos.x, centerPos.y - 200).easing(cc.easeInOut(5.0)), 
 								cc.fadeIn(2.5)
@@ -122,43 +188,12 @@ var HomeScene = cc.Scene.extend({
 
 			)
 		);
-
-/*
-                                 var fruitsBlur = new cc.Sprite(res.fruits_blur_png);
-                                 CCFadeTo *fadeIn = [CCFadeTo actionWithDuration:0.5 opacity:127];
-                                 CCSequence *pulseSequence = [CCSequence actionOne:fadeIn two:fadeOut];
-                                 */
-		//        this.addChild(new GameLayer());
-		//		Ajax.getInstance().POST({
-		//			url: "http://httpbin.org/post",
-		//			data: "name=sally",
-		//			callback: function(response) {
-		//				cc.log(response);
-		//			}
-		//		});
-		//		Ajax.getInstance().POST({
-		//			url: "http://httpbin.org/post",
-		//			data: "name=sally",
-		//			callback: function(response) {
-		//				cc.log(response);
-		//			}
-		//		});
 	},
 	initSMTH: function() {
-/*
-        var levelArr = [];
-        for( var i in SMTH.LEVEL ) {
-        levelArr[SMTH.LEVEL[i].ID] = SMTH.LEVEL[i];
-        }
-        SMTH.STATUS.CURRENT_LEVEL = levelArr[SMTH.START_LEVEL_INDEX];
-        SMTH.START_LEVEL_INDEX++;
-        SMTH.START_LEVEL_INDEX = SMTH.START_LEVEL_INDEX % levelArr.length;
-        
         if (SMTH.EVENT_MANAGER != null) {
-        SMTH.EVENT_MANAGER.fire();
+        	SMTH.EVENT_MANAGER.fire();
         }
         SMTH.EVENT_MANAGER = new EventManager();
-   */
 	},
 	startGame: function() {}
 });
