@@ -39,6 +39,7 @@
 		},
 		"STAGE2": {
 			"ID": 1,
+			"CHARACTER": true,
 			"TITLE": "Turn Left",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [

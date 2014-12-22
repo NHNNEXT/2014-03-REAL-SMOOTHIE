@@ -7,12 +7,12 @@ var PopupController = cc.Class.extend({
 		this.initListener();
 		this.winsize = cc.director.getWinSize();
 	},
-	popup: function(layer) {
+	popup: function(layer, zindex) {
 		cc.log("popup");
 //		cc.director.pause();
 		//popup 에니메이션 설정
 		layer.setPosition(cc.p(0, this.winsize.height));
-		this.currentScene.addChild(layer);
+		this.currentScene.addChild(layer, zindex);
 		var easeMoveBy = cc.moveTo(1,cc.p(0,0)).easing(cc.easeBounceOut(0.5));
 		layer.runAction(easeMoveBy);
 	},
@@ -23,6 +23,10 @@ var PopupController = cc.Class.extend({
 		
 		SMTH.EVENT_MANAGER.listen("gameClear", function(e) {
 			this.popup(new GameClearLayer());
+		}.bind(this));
+		
+		SMTH.EVENT_MANAGER.listen("characterSelector", function(e) {
+			this.popup(new SelectorLayer(), 10);
 		}.bind(this));
 	}
 });

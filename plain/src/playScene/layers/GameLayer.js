@@ -5,6 +5,7 @@ var GameLayer = cc.Layer.extend({
 	},
 	init:function () {
 		this.controller = new GameController();
+		
 		//localStorage Test
 		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
 		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;

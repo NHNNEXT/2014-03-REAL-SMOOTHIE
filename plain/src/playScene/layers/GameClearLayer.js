@@ -53,6 +53,11 @@ var GameClearLayer = cc.LayerColor.extend({
 		}
                                  
 	},
+
+	test: function() {
+		cc.log("test GameClear");
+		return true;
+	},
 	
 	touchEvent: function(touch, event) {
         cc.audioEngine.playEffect(res.button_mp3);

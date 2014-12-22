@@ -22,9 +22,14 @@ var BoardLayer = cc.Layer.extend ({
 		this.setPosition((winSize.width - col * BLOCK.SIZE.WIDTH)/2, (winSize.height - row * BLOCK.SIZE.HEIGHT)/2);
      
         cc.audioEngine.setMusicVolume(0.5);
-        cc.audioEngine.playMusic(res.GamePlayBGM_mp3, true);                                  
+        cc.audioEngine.playMusic(res.GamePlayBGM_mp3, true); 
+        
         SMTH.EVENT_MANAGER.notice("gameStart");
-         
+        
+        if(this._level.CHARACTER) {
+        	cc.log("characterSelector");
+        	SMTH.EVENT_MANAGER.notice("characterSelector");
+        }
 	},
 	
 	_createMap : function(row, col) { 

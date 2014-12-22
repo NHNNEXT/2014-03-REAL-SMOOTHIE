@@ -40,6 +40,7 @@
         "src/playScene/layers/GameOverLayer.js",
         "src/playScene/layers/StatusLayer.js",
         "src/playScene/layers/BoardLayer.js",
+        "src/playScene/layers/SelectorLayer.js",
         "src/playScene/logic/Route.js",
         "src/playScene/logic/RouteController.js",
         "src/playScene/logic/BoardController.js",
