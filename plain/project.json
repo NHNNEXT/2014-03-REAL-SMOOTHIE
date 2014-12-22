@@ -8,15 +8,15 @@
     "engineDir":"frameworks/cocos2d-html5",
     "modules":[
         "cocos2d",
-        "extensions", 
-        "external", 
+        "extensions",
+        "external",
         "plugin-facebook"
     ],
-    "plugin" : {
-        "facebook": {
-            "appId" : "342501092541214",
-            "xfbml" : true,
-            "version" : "v2.0"
+    "plugin":{
+        "facebook":{
+            "appId":"342501092541214",
+            "xfbml":true,
+            "version":"v2.0"
         }
     },
     "jsList":[
@@ -33,6 +33,7 @@
         "src/config/SavedInfo.js",
         "src/config/MapSetting.js",
         "src/config/GameContainer.js",
+        "src/module/DataModule.js",
         "src/playScene/PlayScene.js",
         "src/playScene/layers/BackgroundLayer.js",
         "src/playScene/layers/GameLayer.js",
@@ -58,11 +59,14 @@
         "src/playScene/sprites/HealthBar.js",
         "src/playScene/sprites/Cup.js",
         "src/playScene/sprites/Smoothie.js",
+        "src/playScene/layers/tutorialLayers/TutorialLayer1.js",
         "src/mapScene/MapLayer.js",
         "src/mapScene/MapPipe.js",
         "src/mapScene/MapScene.js",
         "src/homeScene/HomeScene.js",
-        "src/managers/EventManager.js",
+        "src/managers/EventManager.js"
+    ],
+    "exclude":[
         "src/plugin/Plugin.js",
         "src/plugin/platform/facebook_sdk.js",
         "src/plugin/platform/facebook.js"

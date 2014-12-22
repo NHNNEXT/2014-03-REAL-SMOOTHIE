@@ -31,6 +31,8 @@ var res = {
 		CloseNormal_png : "res/CloseNormal.png",
 		CloseSelected_png : "res/CloseSelected.png",
 		levelCircle_png : "res/circle.png",
+		finger_png : "res/finger1.png",
+		fingerPress_png : "res/finger2.png",
 		// Characters
 		sally : "res/sally.png",
 		cony : "res/cony.png",

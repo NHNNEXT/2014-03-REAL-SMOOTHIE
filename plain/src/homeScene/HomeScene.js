@@ -23,35 +23,34 @@ var HomeScene = cc.Scene.extend({
 				)
 			)
 		);
-		facebook = plugin.FacebookAgent.getInstance();
 
 		var title = new cc.Sprite(res.home_title_png);
 		title.setPosition(centerPos.x, winsize.height + 100);
 		title.setOpacity(0);
 		this.addChild(title);
 
-		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
-		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;
-		
-		cc.log(SMTH.CONTAINER.LOCALSTORAGE);
-		if(facebook._isLoggedIn === false && SMTH.CONTAINER.LOCALSTORAGE) { 
-			SMTH.CONTAINER.LOCALSTORAGE.removeItem("facebookInfo");
-		}
-
+//		facebook = plugin.FacebookAgent.getInstance();
+//		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
+//		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;
+//		
+//		cc.log(SMTH.CONTAINER.LOCALSTORAGE);
+//		if(facebook._isLoggedIn === false && SMTH.CONTAINER.LOCALSTORAGE) { 
+//			SMTH.CONTAINER.LOCALSTORAGE.removeItem("facebookInfo");
+//		}
 		
 		var playNormal = new cc.Sprite(res.playNormal_png);
 		var playSelected = new cc.Sprite(res.playSelected_png);
 		var playDisabled = new cc.Sprite(res.playNormal_png);
 		var play = new cc.MenuItemSprite(playNormal, playSelected, playDisabled, function() {
-			if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
-				var pic_url = JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).picture;
-				res.userPic = pic_url;
-				cc.LoaderScene.preload([pic_url], function () {
-				    cc.director.runScene(new MapScene());
-				}, this);				
-			} else {
+//			if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
+//				var pic_url = JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).picture;
+//				res.userPic = pic_url;
+//				cc.LoaderScene.preload([pic_url], function () {
+//				    cc.director.runScene(new MapScene());
+//				}, this);				
+//			} else {
 				cc.director.runScene(new MapScene());
-			}
+//			}
 		}.bind(this));
 		var playMenu = new cc.Menu(play);
 		playMenu.setOpacity(0);
@@ -62,12 +61,12 @@ var HomeScene = cc.Scene.extend({
 
 			
 
-		//로컬스토리지에 해당키에 값이 지는지 없는지 확인
-		if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
-			var facebookBtn = createLogout.apply(this);			
-		} else {
-			var facebookBtn = createConnect.apply(this);
-		}
+//		//로컬스토리지에 해당키에 값이 지는지 없는지 확인
+//		if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
+//			var facebookBtn = createLogout.apply(this);			
+//		} else {
+//			var facebookBtn = createConnect.apply(this);
+//		}
 		
 		function createConnect() {
 			var connectNormal = new cc.Sprite(res.fbConnectNormal_png);
@@ -161,11 +160,11 @@ var HomeScene = cc.Scene.extend({
 			return logoutBtn;			
 		}			
 		
-		var facebookMenu = new cc.Menu(facebookBtn);
-		facebookMenu.setOpacity(0);
-		this.addChild(facebookMenu, 1, 2);
-		facebookMenu.x = winsize.width / 2;
-		facebookMenu.y = winsize.height / 2 - 1200;	
+//		var facebookMenu = new cc.Menu(facebookBtn);
+//		facebookMenu.setOpacity(0);
+//		this.addChild(facebookMenu, 1, 2);
+//		facebookMenu.x = winsize.width / 2;
+//		facebookMenu.y = winsize.height / 2 - 1200;	
 		
 		title.runAction(
 			cc.sequence(
@@ -182,12 +181,12 @@ var HomeScene = cc.Scene.extend({
 								cc.fadeIn(2.5)
 							)
 						)
-						facebookMenu.runAction(
-							cc.spawn(
-								cc.moveTo(2.3, centerPos.x, centerPos.y - 200).easing(cc.easeInOut(5.0)), 
-								cc.fadeIn(2.5)
-							)
-						)
+//						facebookMenu.runAction(
+//							cc.spawn(
+//								cc.moveTo(2.3, centerPos.x, centerPos.y - 200).easing(cc.easeInOut(5.0)), 
+//								cc.fadeIn(2.5)
+//							)
+//						)
 						cc.log("!!!");
 						
 					}.bind(this))
