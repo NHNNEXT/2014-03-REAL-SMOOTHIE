@@ -7,7 +7,7 @@ var PlayScene = cc.Scene.extend({
 		
 		this.addChild(new BackgroundLayer());
 		this.addChild(new GameLayer());
-		
+		this.addChild(new TutorialLayer1());
 		
 	    var screenSize = cc.view.getFrameSize();
 
@@ -42,13 +42,16 @@ var PlayScene = cc.Scene.extend({
 //			this.addChild(userLabel);			
 //		}
 		
-//		Ajax.getInstance().POST({
-//			url: "http://httpbin.org/post",
-//			data: "name=sally",
-//			callback: function(response) {
-//				cc.log(response);
-//			}
-//		});
+		var fbInfo = SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo");
+		var fbId = fbInfo.id || 1234567890;
+		
+		SMTH.MODULE.DATA.load(fbId, function() {
+			cc.log("QWEQWE"+JSON.stringify(SMTH.LOAD_CACHE));
+		});
+		var data = {};
+		SMTH.MODULE.DATA.save(fbId, data, function() {
+			cc.log("@@@#@#");
+		});
 //		Ajax.getInstance().POST({
 //			url: "http://httpbin.org/post",
 //			data: "name=sally",

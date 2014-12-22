@@ -37,7 +37,6 @@ var HomeScene = cc.Scene.extend({
 //		if(facebook._isLoggedIn === false && SMTH.CONTAINER.LOCALSTORAGE) { 
 //			SMTH.CONTAINER.LOCALSTORAGE.removeItem("facebookInfo");
 //		}
-
 		
 		var playNormal = new cc.Sprite(res.playNormal_png);
 		var playSelected = new cc.Sprite(res.playSelected_png);

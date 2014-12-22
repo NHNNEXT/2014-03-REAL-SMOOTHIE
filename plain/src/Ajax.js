@@ -5,10 +5,12 @@ var Ajax = cc.Class.extend({
 		//this._super();	
 	},
 	
-	_responseData : function(request, callback) {
+	_responseData : function(request, callback, error) {
 		if (request.readyState == 4 && (request.status >= 200 && request.status <= 207)) {			
 			var response = request.responseText;
 			callback(response);
+		} else {
+			error(response);
 		}
 	},
 
@@ -17,6 +19,7 @@ var Ajax = cc.Class.extend({
 		headerObj = config.headers || null,
 		url = config.url,
 		callback = config.callback;
+		error = config.error;
 		data = config.data || null;
 		
 		if (url == undefined) {
@@ -35,7 +38,7 @@ var Ajax = cc.Class.extend({
 		
 		if (callback !== undefined) {
 			request.onreadystatechange = function () {
-				this._responseData(request, callback);
+				this._responseData(request, callback, error);
 			}.bind(this);
 		}
 

@@ -65,7 +65,7 @@ cc.game.onStart = function(){
 		}
 		//cocos2d-js 버전확인
 		cc.log(cc.ENGINE_VERSION);
-	    cc.director.runScene(new HomeScene());
+	    cc.director.runScene(new PlayScene());
 	}, this);
 };
 cc.game.run();
