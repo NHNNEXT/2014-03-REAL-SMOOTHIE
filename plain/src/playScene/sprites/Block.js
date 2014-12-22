@@ -1,4 +1,3 @@
-
 var Block = cc.Sprite.extend({
 	ctor:function (resourceName) {
 		this._super(resourceName);
