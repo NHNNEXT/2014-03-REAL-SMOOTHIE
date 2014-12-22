@@ -7,7 +7,6 @@ var PlayScene = cc.Scene.extend({
 		
 		this.addChild(new BackgroundLayer());
 		this.addChild(new GameLayer());
-		this.addChild(new TutorialLayer1());
 		
 	    var screenSize = cc.view.getFrameSize();
 
@@ -42,12 +41,14 @@ var PlayScene = cc.Scene.extend({
 //			this.addChild(userLabel);			
 //		}
 		
-		var fbInfo = SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo");
-		var fbId = fbInfo.id || 1234567890;
+		var fbId = 123;
 		
-		SMTH.MODULE.DATA.load(fbId, function() {
-			cc.log("QWEQWE"+JSON.stringify(SMTH.LOAD_CACHE));
-		});
+//		var fbInfo = SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo");
+//		var fbId = fbInfo.id || 1234567890;
+//		
+//		SMTH.MODULE.DATA.load(fbId, function() {
+//			cc.log("QWEQWE"+JSON.stringify(SMTH.LOAD_CACHE));
+//		});
 //		var data = {"name": "yg"};
 //		SMTH.MODULE.DATA.save(fbId, data, function() {
 //			cc.log("@@@#@#");

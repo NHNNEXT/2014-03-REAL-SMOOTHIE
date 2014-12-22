@@ -59,7 +59,6 @@
         "src/playScene/sprites/HealthBar.js",
         "src/playScene/sprites/Cup.js",
         "src/playScene/sprites/Smoothie.js",
-        "src/playScene/layers/tutorialLayers/TutorialLayer1.js",
         "src/mapScene/MapLayer.js",
         "src/mapScene/MapPipe.js",
         "src/mapScene/MapScene.js",

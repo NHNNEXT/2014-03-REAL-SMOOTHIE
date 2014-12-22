@@ -25,6 +25,7 @@ var SelectorLayer = cc.LayerColor.extend({
 					
 					if (cc.rectContainsPoint(rect, locationInNode)) {
 						if(target.children[i].type.SALLY) {
+							cc.audioEngine.playEffect(res.button_mp3);
 							for(var j =0 ; j< this.selectedChar.length ; j++) {
 								if(this.selectedChar[j] == false) {
 									var char = new Friend(target.children[i].type.SALLY);
@@ -35,6 +36,7 @@ var SelectorLayer = cc.LayerColor.extend({
 								}
 							}
 						} else if(target.children[i].type) {
+							cc.audioEngine.playEffect(res.button_mp3);
 							for(var j =0 ; j< this.selectedChar.length ; j++) {
 								if(this.selectedChar[j].col == target.children[i].col){
 									this.removeChild(this.selectedChar[j]);
