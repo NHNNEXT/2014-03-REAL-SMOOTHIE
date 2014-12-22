@@ -18,6 +18,7 @@
 	var LEVEL = {
 		"STAGE1": {
 			"ID": 0,
+			"CHARACTER": true,
 			"TITLE": "Connect Straw",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [

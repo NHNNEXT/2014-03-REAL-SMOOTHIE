@@ -41,7 +41,6 @@ MapPipe.prototype.pipeTouchHandler = {
 		"onTouchEnded": function (level, touch, event) {   
 			var target = event.getCurrentTarget();
 			// runscene - level
-			cc.log(level);
 			SMTH.START_LEVEL_INDEX = level;
 			cc.director.runScene(new PlayScene());
 		}
