@@ -46,7 +46,6 @@ var GameOverLayer = cc.LayerColor.extend({
 		menu.y = winsize.height / 2;
         
         cc.audioEngine.playEffect(res.gameover_mp3);
-
 	},
 
 	test: function() {
@@ -60,6 +59,7 @@ var GameOverLayer = cc.LayerColor.extend({
         SMTH.START_LEVEL_INDEX--;
         cc.audioEngine.stopAllEffects();
         cc.director.runScene(new PlayScene());
+//        cc.director.resume();
 	}
 
 });

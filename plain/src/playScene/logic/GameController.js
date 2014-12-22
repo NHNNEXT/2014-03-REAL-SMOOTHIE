@@ -11,6 +11,7 @@ var GameController = cc.Class.extend({
 			this.currentScene = cc.director.getRunningScene();
 			this.routeController = new RouteController();
 			this.boardController = new BoardController();
+			this.popupController = new PopupController();
 			// 시작하면 색칠해주기
 			this.routeController.updateRoute();
 		}.bind(this));
@@ -29,10 +30,12 @@ var GameController = cc.Class.extend({
 			var status = Judge.checkGameEnd();
 			SMTH.STATUS.GAME_STATE = status;
 			if (status == GAME_STATE.GAME_OVER) {
-				this.currentScene.addChild(new GameOverLayer());
+				SMTH.EVENT_MANAGER.notice("gameOver");	
+//				this.currentScene.addChild(new GameOverLayer());
 				cc.log("OVER");
 			} else if (status == GAME_STATE.GAME_CLEAR) {
-				this.currentScene.addChild(new GameClearLayer());
+				SMTH.EVENT_MANAGER.notice("gameClear");
+//				this.currentScene.addChild(new GameClearLayer());
 				cc.log("CLEAR");
 			}
 		}.bind(this));
