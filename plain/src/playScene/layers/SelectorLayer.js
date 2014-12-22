@@ -8,6 +8,9 @@ var SelectorLayer = cc.LayerColor.extend({
 	init: function() {
 		// 캐릭터 선택창 설정
 		var winsize = cc.director.getWinSize();
+		var startCol = 3;
+		var charRow = 4;
+		var emptyRow = 2;
 		this.setContentSize(winsize);
 		this.selectedChar =[];
 		var touchListener = cc.EventListener.create({
@@ -29,7 +32,7 @@ var SelectorLayer = cc.LayerColor.extend({
 							for(var j =0 ; j< this.selectedChar.length ; j++) {
 								if(this.selectedChar[j] == false) {
 									var char = new Friend(target.children[i].type.SALLY);
-									char.setPositionByRowCol(2, 3+j);
+									char.setPositionByRowCol(emptyRow, startCol+j);
 									this.selectedChar[j] = char;
 									this.addChild(this.selectedChar[j]);
 									break;
@@ -65,10 +68,10 @@ var SelectorLayer = cc.LayerColor.extend({
 		this.addChild(this.SelectorLabel);
 		
 		var size = Object.size(SAVE.FRIENDS);
-		var yPosition = 3;
+		var yPosition = startCol;
 		for(var i in SAVE.FRIENDS) {
 			var char = new Friend(SAVE.FRIENDS[i].type);
-			char.setPositionByRowCol(4, yPosition);
+			char.setPositionByRowCol(charRow, yPosition);
 			this.addChild(char);
 			yPosition++;
 		}
@@ -82,7 +85,7 @@ var SelectorLayer = cc.LayerColor.extend({
 				}
 			}
 		}
-		var yPosition = 3;
+		var yPosition = startCol;
 		for(var i=0 ; i < count ; i++) {
 			block = new Isolation(0);
 			block.setPositionByRowCol(2, yPosition+i);
