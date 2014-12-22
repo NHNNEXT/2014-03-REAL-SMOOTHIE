@@ -25,12 +25,15 @@ public class ApiVerticle extends Verticle {
 			public void handle(final HttpServerRequest req) {
 				String userId = req.params().get("userId");
 				logger.info("GET");
+				logger.info(userId);
 				
 				JsonObject operation = new JsonObject();
 				operation.putString("action", "find");
 				operation.putString("collection", "userinfo");
 				operation.putObject("matcher", new JsonObject()
 					.putString("userId", userId));
+				operation.putObject("keys", new JsonObject()
+					.putNumber("_id", 0));
 				
 				mongoOperation(req, operation);
 			}
@@ -45,7 +48,8 @@ public class ApiVerticle extends Verticle {
 					@Override
 					public void handle(Buffer event) {
 						final String body = event.getString(0, event.length());
-						JsonObject update = (JsonObject) JSON.parse(body);
+						JsonObject update = new JsonObject(body);
+						update.putString("userId", userId);
 						
 						JsonObject operation = new JsonObject();
 						operation.putString("action", "update");

@@ -48,10 +48,10 @@ var PlayScene = cc.Scene.extend({
 		SMTH.MODULE.DATA.load(fbId, function() {
 			cc.log("QWEQWE"+JSON.stringify(SMTH.LOAD_CACHE));
 		});
-		var data = {};
-		SMTH.MODULE.DATA.save(fbId, data, function() {
-			cc.log("@@@#@#");
-		});
+//		var data = {"name": "yg"};
+//		SMTH.MODULE.DATA.save(fbId, data, function() {
+//			cc.log("@@@#@#");
+//		});
 //		Ajax.getInstance().POST({
 //			url: "http://httpbin.org/post",
 //			data: "name=sally",
