@@ -9,11 +9,6 @@ var HomeScene = cc.Scene.extend({
 			
 		this._setBG();
 		
-		this._setTitle();
-
-
-
-		
 		
 		var winsize = cc.director.getWinSize();
 		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
@@ -24,7 +19,7 @@ var HomeScene = cc.Scene.extend({
 		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
 		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;
 		
-		if(facebook._isLoggedIn === false && SMTH.CONTAINER.LOCALSTORAGE) { 
+		if(facebook._isLoggedIn === false && SMTH.CONTAINER.LOCALSTORAGE) {
 			SMTH.CONTAINER.LOCALSTORAGE.removeItem("facebookInfo");
 		}
 		
@@ -129,11 +124,13 @@ var HomeScene = cc.Scene.extend({
 			return logoutBtn;			
 		}			
 		
-		var facebookMenu = new cc.Menu(facebookBtn);
-		facebookMenu.setOpacity(0);
-		this.addChild(facebookMenu, 1, 2);
-		facebookMenu.x = winsize.width / 2;
-		facebookMenu.y = winsize.height / 2 - 1200;	
+		this.facebookMenu = new cc.Menu(facebookBtn);
+		this.facebookMenu.setOpacity(0);
+		this.addChild(this.facebookMenu, 1, 2);
+		this.facebookMenu.x = winsize.width / 2;
+		this.facebookMenu.y = winsize.height / 2 - 1200;
+        
+        this._setTitle();
 		
 
 	},
