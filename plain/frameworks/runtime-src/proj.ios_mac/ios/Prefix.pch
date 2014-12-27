@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'Smoothie' target in the 'Smoothie' project
+// Prefix header for all source files of the 'myProject' target in the 'myProject' project
 //
 
 #ifdef __OBJC__

@@ -24,8 +24,6 @@
  ****************************************************************************/
 
 #import <UIKit/UIKit.h>
-#import <FacebookSDK/FacebookSDK.h>
-
 #import "cocos2d.h"
 
 #import "AppController.h"
@@ -33,13 +31,16 @@
 #import "RootViewController.h"
 #import "platform/ios/CCEAGLView-ios.h"
 
+#import <FacebookSDK/FacebookSDK.h>
+
 @implementation AppController
+
+#pragma mark -
+#pragma mark Application lifecycle
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     return [FBSession.activeSession handleOpenURL:url];
 }
-#pragma mark -
-#pragma mark Application lifecycle
 
 // cocos2d application instance
 static AppDelegate s_sharedApplication;
@@ -100,10 +101,10 @@ static AppDelegate s_sharedApplication;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [FBAppCall handleDidBecomeActive];
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    [FBAppCall handleDidBecomeActive];
     cocos2d::Director::getInstance()->resume();
 }
 

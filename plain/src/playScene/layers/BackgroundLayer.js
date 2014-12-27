@@ -9,6 +9,8 @@ var BackgroundLayer = cc.Layer.extend({
 		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
 		var spriteBG = new cc.Sprite(res.BG_jpg);
 		spriteBG.setPosition(centerPos);
+		spriteBG.setScale(winsize.height / winsize.width);
+
 		this.addChild(spriteBG);
 	}
 });

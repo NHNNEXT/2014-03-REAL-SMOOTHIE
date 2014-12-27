@@ -2,71 +2,40 @@ var HomeScene = cc.Scene.extend({
 	onEnter: function() {
 		this._super();
 		this.initSMTH();
-		this.addChild(new BackgroundLayer());
+
+		this.title;
+		this.playMenu;
+		this.facebookMenu;
+			
+		this._setBG();
+		
+		this._setTitle();
+
+
+
+		
+		
 		var winsize = cc.director.getWinSize();
 		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
-		var spriteBG = new cc.Sprite(res.BG_jpg);
-		spriteBG.setPosition(centerPos);
-		this.addChild(spriteBG);
+
+		// get Global facebook instance
+		facebook = plugin.FacebookAgent.getInstance();
 		
-		var fruitBlur = new cc.Sprite(res.fruits_blur_png);
-		fruitBlur.setPosition(0,0);
-		this.addChild(fruitBlur);
-		fruitBlur.setScale(2.3);
+		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
+		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;
 		
+		if(facebook._isLoggedIn === false && SMTH.CONTAINER.LOCALSTORAGE) { 
+			SMTH.CONTAINER.LOCALSTORAGE.removeItem("facebookInfo");
+		}
 		
-		fruitBlur.runAction(		
-			cc.repeatForever(
-				cc.sequence(
-					cc.moveTo(40, winsize.width, winsize.height),
-					cc.moveTo(40, 0, 0)
-				)
-			)
-		);
+		this._setPlayButton();	
 
-		var title = new cc.Sprite(res.home_title_png);
-		title.setPosition(centerPos.x, winsize.height + 100);
-		title.setOpacity(0);
-		this.addChild(title);
-
-//		facebook = plugin.FacebookAgent.getInstance();
-//		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
-//		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;
-//		
-//		cc.log(SMTH.CONTAINER.LOCALSTORAGE);
-//		if(facebook._isLoggedIn === false && SMTH.CONTAINER.LOCALSTORAGE) { 
-//			SMTH.CONTAINER.LOCALSTORAGE.removeItem("facebookInfo");
-//		}
-		
-		var playNormal = new cc.Sprite(res.playNormal_png);
-		var playSelected = new cc.Sprite(res.playSelected_png);
-		var playDisabled = new cc.Sprite(res.playNormal_png);
-		var play = new cc.MenuItemSprite(playNormal, playSelected, playDisabled, function() {
-//			if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
-//				var pic_url = JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).picture;
-//				res.userPic = pic_url;
-//				cc.LoaderScene.preload([pic_url], function () {
-//				    cc.director.runScene(new MapScene());
-//				}, this);				
-//			} else {
-				cc.director.runScene(new MapScene());
-//			}
-		}.bind(this));
-		var playMenu = new cc.Menu(play);
-		playMenu.setOpacity(0);
-		this.addChild(playMenu, 1, 2);
-		playMenu.x = winsize.width / 2;
-		playMenu.y = winsize.height / 2 - 700;		
-
-
-			
-
-//		//로컬스토리지에 해당키에 값이 지는지 없는지 확인
-//		if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
-//			var facebookBtn = createLogout.apply(this);			
-//		} else {
-//			var facebookBtn = createConnect.apply(this);
-//		}
+		//로컬스토리지에 해당키에 값이 지는지 없는지 확인
+		if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
+			var facebookBtn = createLogout.apply(this);			
+		} else {
+			var facebookBtn = createConnect.apply(this);
+		}
 		
 		function createConnect() {
 			var connectNormal = new cc.Sprite(res.fbConnectNormal_png);
@@ -160,13 +129,55 @@ var HomeScene = cc.Scene.extend({
 			return logoutBtn;			
 		}			
 		
-//		var facebookMenu = new cc.Menu(facebookBtn);
-//		facebookMenu.setOpacity(0);
-//		this.addChild(facebookMenu, 1, 2);
-//		facebookMenu.x = winsize.width / 2;
-//		facebookMenu.y = winsize.height / 2 - 1200;	
+		var facebookMenu = new cc.Menu(facebookBtn);
+		facebookMenu.setOpacity(0);
+		this.addChild(facebookMenu, 1, 2);
+		facebookMenu.x = winsize.width / 2;
+		facebookMenu.y = winsize.height / 2 - 1200;	
 		
-		title.runAction(
+
+	},
+	initSMTH: function() {
+        if (SMTH.EVENT_MANAGER != null) {
+        	SMTH.EVENT_MANAGER.fire();
+        }
+        SMTH.EVENT_MANAGER = new EventManager();
+	},
+	startGame: function() {},
+	_setBG: function() {
+		this.addChild(new BackgroundLayer());
+		var winsize = cc.director.getWinSize();
+		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
+		var spriteBG = new cc.Sprite(res.BG_jpg);
+		spriteBG.setPosition(centerPos);
+		this.addChild(spriteBG);
+		
+		/* 움직이는 블러된 과일들 */
+		var fruitBlur = new cc.Sprite(res.fruits_blur_png);
+		fruitBlur.setPosition(0,0);
+		this.addChild(fruitBlur);
+		fruitBlur.setScale(2.3);
+		
+		fruitBlur.runAction(		
+			cc.repeatForever(
+				cc.sequence(
+					cc.moveTo(40, winsize.width, winsize.height),
+					cc.moveTo(40, 0, 0)
+				)
+			)
+		);
+	},
+	_setTitle: function() {
+		var winsize = cc.director.getWinSize();
+		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
+
+
+		this.title = new cc.Sprite(res.home_title_png);
+		this.title.setPosition(centerPos.x, winsize.height + 100);
+		this.title.setOpacity(0);
+		this.addChild(this.title);
+		
+		this.title.runAction(
 			cc.sequence(
 				cc.spawn(
 					cc.moveTo(2.5, centerPos.x, centerPos.y).easing(cc.easeInOut(5.0)), 
@@ -175,31 +186,54 @@ var HomeScene = cc.Scene.extend({
 				cc.spawn(
 					cc.moveTo(2.3, centerPos.x, winsize.height - 300).easing(cc.easeInOut(5.0)),
 					cc.callFunc(function() {					
-						playMenu.runAction(
+						this.playMenu.runAction(
 							cc.spawn(
 								cc.moveTo(2.3, centerPos.x, centerPos.y - 50).easing(cc.easeInOut(5.0)), 
 								cc.fadeIn(2.5)
 							)
 						)
-//						facebookMenu.runAction(
-//							cc.spawn(
-//								cc.moveTo(2.3, centerPos.x, centerPos.y - 200).easing(cc.easeInOut(5.0)), 
-//								cc.fadeIn(2.5)
-//							)
-//						)
-						cc.log("!!!");
-						
+						this.facebookMenu.runAction(
+							cc.spawn(
+								cc.moveTo(2.3, centerPos.x, centerPos.y - 200).easing(cc.easeInOut(5.0)), 
+								cc.fadeIn(2.5)
+							)
+						)						
 					}.bind(this))
 				)
 
 			)
 		);
+		
 	},
-	initSMTH: function() {
-        if (SMTH.EVENT_MANAGER != null) {
-        	SMTH.EVENT_MANAGER.fire();
-        }
-        SMTH.EVENT_MANAGER = new EventManager();
+	_setPlayButton: function() {
+		var winsize = cc.director.getWinSize();
+		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
+
+		var playNormal = new cc.Sprite(res.playNormal_png);
+		var playSelected = new cc.Sprite(res.playSelected_png);
+		var playDisabled = new cc.Sprite(res.playNormal_png);
+		var play = new cc.MenuItemSprite(playNormal, playSelected, playDisabled, function() {
+			if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
+				var pic_url = JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).picture;
+				res.userPic = pic_url;
+				cc.LoaderScene.preload([pic_url], function () {
+				    cc.director.runScene(new MapScene());
+				}, this);				
+			} else {
+				cc.director.runScene(new MapScene());
+			}
+		}.bind(this));
+		
+		this.playMenu = new cc.Menu(play);
+		this.playMenu.setOpacity(0);
+		this.addChild(this.playMenu, 1, 2);
+		this.playMenu.x = winsize.width / 2;
+		this.playMenu.y = winsize.height / 2 - 700;			
 	},
-	startGame: function() {}
+	_setFacebookButton: function() {
+		
+	}
 });
+
+
+

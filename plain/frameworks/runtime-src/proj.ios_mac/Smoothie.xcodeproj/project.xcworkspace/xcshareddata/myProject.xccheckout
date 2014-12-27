@@ -5,16 +5,16 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>CC4B9597-F3C0-4750-B1BF-9E670DB65A66</string>
+	<string>FE076FA9-6D49-4B8E-B08B-DB67E9F86755</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Smoothie</string>
+	<string>myProject</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>523A229F3DBEE226A01D89D97A0722BF51B36639</key>
 		<string>https://github.com/NHNNEXT/2014-03-REAL-SMOOTHIE.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>plain/frameworks/runtime-src/proj.ios_mac/Smoothie.xcodeproj</string>
+	<string>plain/frameworks/runtime-src/proj.ios_mac/myProject.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>523A229F3DBEE226A01D89D97A0722BF51B36639</key>
