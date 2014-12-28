@@ -33,6 +33,7 @@
         "src/config/MapSetting.js",
         "src/config/GameContainer.js",
         "src/module/DataModule.js",
+        "src/module/FacebookModule.js",
         "src/playScene/PlayScene.js",
         "src/playScene/layers/tutorialLayers/TutorialLayer.js",
         "src/playScene/layers/tutorialLayers/Tutorial1.js",

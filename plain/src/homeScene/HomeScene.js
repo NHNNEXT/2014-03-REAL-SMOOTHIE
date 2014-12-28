@@ -1,138 +1,84 @@
 var HomeScene = cc.Scene.extend({
 	onEnter: function() {
 		this._super();
-		this.initSMTH();
 
 		this.title;
 		this.playMenu;
 		this.facebookMenu;
-			
+
+		this._connectToggleHandlerCache = this._connectToggleHandler.bind(this);
+
+		this.initSMTH();
+					
 		this._setBG();
+		this._setPlayButton();	
+		this._setInitialFacebookButton();	
+        
+        this._setTitle();
 		
+		SMTH.EVENT_MANAGER.listen("fbLoggedIn", this._connectToggleHandlerCache);
+		SMTH.EVENT_MANAGER.listen("fbLoggedOut", this._connectToggleHandlerCache);
+	},
+	_setInitialFacebookButton: function() {
+		//로컬스토리지에 해당키에 값이 지는지 없는지 확인
+		if(SMTH.MODULE.DATA.isLoggedIn()) {
+			var facebookBtn = this._createLogoutButton.apply(this);			
+		} else {
+			var facebookBtn = this._createConnectButton.apply(this);
+		}
 		
 		var winsize = cc.director.getWinSize();
 		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
-
-		// get Global facebook instance
-		facebook = plugin.FacebookAgent.getInstance();
-		
-		//로컬스토리지를 SMTH.CONTAINER.LOCALSTORAGE 전역으로 설정한다.
-		SMTH.CONTAINER.LOCALSTORAGE = cc.sys.localStorage;
-		
-		if(facebook._isLoggedIn === false && SMTH.CONTAINER.LOCALSTORAGE) {
-			SMTH.CONTAINER.LOCALSTORAGE.removeItem("facebookInfo");
-		}
-		
-		this._setPlayButton();	
-
-		//로컬스토리지에 해당키에 값이 지는지 없는지 확인
-		if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
-			var facebookBtn = createLogout.apply(this);			
-		} else {
-			var facebookBtn = createConnect.apply(this);
-		}
-		
-		function createConnect() {
-			var connectNormal = new cc.Sprite(res.fbConnectNormal_png);
-			var connectSelected = new cc.Sprite(res.fbConnectSelected_png);
-			var connectDisabled = new cc.Sprite(res.fbConnectNormal_png);
-		
-			var connectBtn = new cc.MenuItemSprite(connectNormal, connectSelected, connectDisabled, function(){
-				facebook.login([], function(code, response){
-				    if(code == plugin.FacebookAgent.CODE_SUCCEED){
-						facebook.api("/me", plugin.FacebookAgent.HttpMethod.GET, function (type, response) {
-						    if (type == plugin.FacebookAgent.CODE_SUCCEED) {
-						        cc.log(response);
-						        var facebookInfo = SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo") || "{}";
-								facebookInfo = JSON.parse(facebookInfo);
-								facebookInfo.name = response.name;
-								facebookInfo.id = response.id;
-								SMTH.CONTAINER.LOCALSTORAGE.setItem("facebookInfo", JSON.stringify(facebookInfo));
-								
-								cc.log(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo"));
-								if(Object.keys(facebookInfo).length >= 3) {
-									SMTH.EVENT_MANAGER.notice("fbLoggedIn");
-								}
-						    } else {
-						        cc.log("Graph API request failed, error #" + code + ": " + response);
-						    }
-						});
-						facebook.api("/me/picture", plugin.FacebookAgent.HttpMethod.GET, function (type, response) {
-						    if (type == plugin.FacebookAgent.CODE_SUCCEED) {
-						        var facebookInfo = SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo") || "{}";
-								facebookInfo = JSON.parse(facebookInfo);
-								facebookInfo.picture = response.data.url;
-								SMTH.CONTAINER.LOCALSTORAGE.setItem("facebookInfo", JSON.stringify(facebookInfo));
-								cc.log(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo"));
-								if(Object.keys(facebookInfo).length >= 3) {
-									SMTH.EVENT_MANAGER.notice("fbLoggedIn");
-								}
-						    } else {
-						        cc.log("Graph API request failed, error #" + code + ": " + response);
-						    }
-						});
-						
-				        cc.log("login succeeded");
-				        cc.log("AccessToken: " + response["accessToken"]);
-				        var permissions = response["permissions"];
-				        var str = "Permissions: ";
-				        for (var i = 0; i < permissions.length; ++i) {
-				            str += permissions[i] + " ";
-				        }
-				        cc.log("Permissions: " + str);
-				        this.removeChild(facebookMenu);
-				        
-						facebookBtn = createLogout.apply(this);
-						facebookMenu = new cc.Menu(facebookBtn);
-						this.addChild(facebookMenu, 1, 2);
-						facebookMenu.x = centerPos.x;
-						facebookMenu.y = centerPos.y - 200;	
-						        
-				    } else {
-				        cc.log("Login failed, error #" + code + ": " + response);
-				    }
-				}.bind(this));										
-			}.bind(this));
-			return connectBtn;
-		}
-
-		function createLogout() {
-			var logoutNormal = new cc.Sprite(res.fbLogoutNormal_png);
-			var logoutSelected = new cc.Sprite(res.fbLogoutSelected_png);
-			var logoutDisabled = new cc.Sprite(res.fbLogoutNormal_png);		
-
-			var logoutBtn = new cc.MenuItemSprite(logoutNormal, logoutSelected, logoutDisabled, function(){
-				facebook.logout(function(code){
-				    if(code == plugin.FacebookAgent.CODE_SUCCEED){ //logout succeed
-				        cc.log("logout succeed");
-				        SMTH.CONTAINER.LOCALSTORAGE.removeItem("facebookInfo");
-
-				        this.removeChild(facebookMenu);
-				        
-						facebookBtn = createConnect.apply(this);
-						facebookMenu = new cc.Menu(facebookBtn);
-						this.addChild(facebookMenu, 1, 2);
-						facebookMenu.x = centerPos.x;
-						facebookMenu.y = centerPos.y - 200;					
-						SMTH.EVENT_MANAGER.notice("fbLoggedOut");
-
-				    } else {
-				        cc.log("Logout failed, error #" + code + ": " + response);
-				    }
-				}.bind(this));										
-			}.bind(this));
-			return logoutBtn;			
-		}			
 		
 		this.facebookMenu = new cc.Menu(facebookBtn);
 		this.facebookMenu.setOpacity(0);
 		this.addChild(this.facebookMenu, 1, 2);
 		this.facebookMenu.x = winsize.width / 2;
-		this.facebookMenu.y = winsize.height / 2 - 1200;
-        
-        this._setTitle();
-		
+		this.facebookMenu.y = winsize.height / 2 - 1200;		
+	},
+	_createLogoutButton: function() {
+		var logoutNormal = new cc.Sprite(res.fbLogoutNormal_png);
+		var logoutSelected = new cc.Sprite(res.fbLogoutSelected_png);
+		var logoutDisabled = new cc.Sprite(res.fbLogoutNormal_png);		
 
+		var logoutBtn = new cc.MenuItemSprite(logoutNormal, logoutSelected, logoutDisabled, function(){
+			SMTH.FB.logout(function() {
+				SMTH.MODULE.DATA.removeUserInfo();
+				cc.log("---- fbLoggedOut 이벤트 dispatched!");
+				SMTH.EVENT_MANAGER.notice("fbLoggedOut");
+			});			
+		}.bind(this));
+		return logoutBtn;
+	},
+	_createConnectButton: function() {
+		var connectNormal = new cc.Sprite(res.fbConnectNormal_png);
+		var connectSelected = new cc.Sprite(res.fbConnectSelected_png);
+		var connectDisabled = new cc.Sprite(res.fbConnectNormal_png);
+	
+		var connectBtn = new cc.MenuItemSprite(connectNormal, connectSelected, connectDisabled, function(){
+			SMTH.FB.login(function(facebookInfo) {
+				SMTH.MODULE.DATA.updateUserInfo(facebookInfo);
+				cc.log("---- fbLoggedIn 이벤트 dispatched!");
+				SMTH.EVENT_MANAGER.notice("fbLoggedIn");
+			});											
+		}.bind(this));
+		return connectBtn;
+	},
+	_connectToggleHandler: function() { // 페이스북에 로그인 했다는 이벤트가 발생했을 때 할 일 // 페이스북  connect 버튼을 logout 버튼으로 바꾼다.
+		var winsize = cc.director.getWinSize();
+		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
+		var facebookBtn = null;
+        this.removeChild(this.facebookMenu);
+
+        if(SMTH.MODULE.DATA.isLoggedIn())
+	        facebookBtn = this._createLogoutButton.apply(this);
+        else 
+	        facebookBtn = this._createConnectButton.apply(this);
+
+		this.facebookMenu = new cc.Menu(facebookBtn);
+		this.addChild(this.facebookMenu, 1, 2);
+		this.facebookMenu.x = centerPos.x;
+		this.facebookMenu.y = centerPos.y - 200;			
 	},
 	initSMTH: function() {
         if (SMTH.EVENT_MANAGER != null) {
@@ -177,22 +123,22 @@ var HomeScene = cc.Scene.extend({
 		this.title.runAction(
 			cc.sequence(
 				cc.spawn(
-					cc.moveTo(0.3, centerPos.x, centerPos.y).easing(cc.easeInOut(5.0)), 
-					cc.fadeIn(0.3)
+					cc.moveTo(0.6, centerPos.x, centerPos.y).easing(cc.easeInOut(5.0)), 
+					cc.fadeIn(0.6)
 				), 
 				cc.spawn(
-					cc.moveTo(0.3, centerPos.x, winsize.height - 300).easing(cc.easeInOut(5.0)),
+					cc.moveTo(0.6, centerPos.x, winsize.height - 300).easing(cc.easeInOut(5.0)),
 					cc.callFunc(function() {					
 						this.playMenu.runAction(
 							cc.spawn(
-								cc.moveTo(0.3, centerPos.x, centerPos.y - 50).easing(cc.easeInOut(5.0)), 
-								cc.fadeIn(0.5)
+								cc.moveTo(0.6, centerPos.x, centerPos.y - 50).easing(cc.easeInOut(5.0)), 
+								cc.fadeIn(0.6)
 							)
 						)
 						this.facebookMenu.runAction(
 							cc.spawn(
-								cc.moveTo(0.3, centerPos.x, centerPos.y - 200).easing(cc.easeInOut(5.0)), 
-								cc.fadeIn(0.5)
+								cc.moveTo(0.6, centerPos.x, centerPos.y - 200).easing(cc.easeInOut(5.0)), 
+								cc.fadeIn(0.6)
 							)
 						)						
 					}.bind(this))
@@ -210,8 +156,8 @@ var HomeScene = cc.Scene.extend({
 		var playSelected = new cc.Sprite(res.playSelected_png);
 		var playDisabled = new cc.Sprite(res.playNormal_png);
 		var play = new cc.MenuItemSprite(playNormal, playSelected, playDisabled, function() {
-			if(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")) {
-				var pic_url = JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).picture;
+			if(SMTH.MODULE.DATA.isLoggedIn()) {
+				var pic_url = SMTH.CONTAINER.LOCALSTORAGE.getItem("picture");
 				res.userPic = pic_url;
 				cc.LoaderScene.preload([pic_url], function () {
 				    cc.director.runScene(new MapScene());
