@@ -63,6 +63,7 @@
         "src/playScene/sprites/HealthBar.js",
         "src/playScene/sprites/Cup.js",
         "src/playScene/sprites/Smoothie.js",
+        "src/playScene/sprites/RIP.js",
         "src/mapScene/MapLayer.js",
         "src/mapScene/MapPipe.js",
         "src/mapScene/MapScene.js",

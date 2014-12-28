@@ -54,6 +54,13 @@ var GameController = cc.Class.extend({
 					var sickness = block.sickness;
 					var poison = new Smoothie("Item0000", -100 * sickness.hurt, 1)
 					block.hurt(poison);
+				}
+			}
+			// hurt로 사라지는 블록은 제외하고
+			for (var i in SMTH.CONTAINER.PIPES) {
+				var block = SMTH.CONTAINER.PIPES[i];
+				if (block.type == BLOCK.TYPE.ENEMY) {
+					if (block.expectedDamage > 0) continue;
 					block.willBeHealed(poison);
 				}
 			}

@@ -13,6 +13,7 @@ var res = {
 		isolation_png: "res/isolation.png",
 		treasure_png: "res/treasure.png",
 		fixed_sign : "res/fixed.png",
+		rip_png : "res/rip.png",
 		// UI
 		map_png: "res/map.png",
 		power_png: "res/power.png",

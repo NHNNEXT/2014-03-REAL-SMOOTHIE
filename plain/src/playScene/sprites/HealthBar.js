@@ -57,10 +57,8 @@ var HealthBar = cc.Sprite.extend({
 		var percent = this.getPercentageOf();
 		this.hpBar.setPercentage(percent);
 		
-		if (this.currentHP >= this.cureAt) {
-			this.getParent().HP = -1;
-		} else if (this.currentHP <= this.dieAt) {
-			this.getParent().HP = -1;
+		if (this.currentHP <= this.dieAt) {
+			SMTH.EVENT_MANAGER.notice("enemyDied", this.getParent());
 		}
 	},
 	blink: function(hpDist) {

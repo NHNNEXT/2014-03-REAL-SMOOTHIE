@@ -47,7 +47,9 @@ var Block = cc.Sprite.extend({
 		// 파이프는 1씩 닳도록 오버라이딩 
 		// 적은 자신의 속성과 비교하여 데미지 계산하도록 오버라이딩 
 	},
-
+	getHP: function() {
+		return this.HP;
+	},
 	isPipe : function() {
 		return false;
 	},

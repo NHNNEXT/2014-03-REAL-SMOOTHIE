@@ -18,7 +18,7 @@ var BoardController = cc.Class.extend({
 				// 아군은 교체하지 않음 
 				if (block.isFriend()) continue;
 				// HP가 남아있어도 교체하지 않음.
-				if (block.HP > 0) continue;
+				if (block.getHP() > 0) continue;
 				
 				// 다른 녀석들은 교체할 녀석들.
 				// 0.5초 애니메이션 후
@@ -44,6 +44,12 @@ var BoardController = cc.Class.extend({
 		SMTH.EVENT_MANAGER.listen("allBlockFallingEnd", function(e) {
 			SMTH.EVENT_MANAGER.notice("slurp");	
 		}); 
+		
+		SMTH.EVENT_MANAGER.listen("enemyDied", function(e) {
+			cc.log("enemyDied");
+			var deadEnemy = e.getUserData();
+			this.replaceBlock(deadEnemy);
+		}.bind(this));
 	},
 	_increaseBlockFalling : function() {
 		this.blockFallingCount++;
@@ -54,17 +60,16 @@ var BoardController = cc.Class.extend({
 			SMTH.EVENT_MANAGER.notice("allBlockFallingEnd");
 	},
 	replaceBlock: function(block) {
+		cc.log("replace!");
 		var row = Number(block.row);
 		var col = Number(block.col);
 		var levelCol = this._level.col;
 
-		this.board.removeChild(block);
 		var replacement = new NullBlock();
-		if(block.isEnemy() && block.treasure) {
-			replacement = new Treasure(1);
-		} else if(block.isEnemy() && !block.treasure) {
-			replacement = new Isolation(0);
-		}
+		if(block.isEnemy())
+			replacement = block.getReplacementBlock();
+		this.board.removeChild(block);
+		
 		// 블록의 화면 상의 위치를 세
 		replacement.setPositionByRowCol(row, col);
 		this.board.addChild(replacement);

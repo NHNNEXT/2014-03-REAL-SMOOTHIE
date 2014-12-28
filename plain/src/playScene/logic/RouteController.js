@@ -84,7 +84,7 @@ var RouteController = cc.Class.extend({
 	initRoute: function() {
 		this.pipes = SMTH.CONTAINER.PIPES;
 		for(var i in this.pipes) {
-			if(this.pipes[i].HP <= 0) {
+			if(this.pipes[i].getHP() <= 0) {
 				continue;
 			}
 			if(this.pipes[i].type == BLOCK.TYPE.ISOLATION) continue; 
@@ -160,12 +160,12 @@ var RouteController = cc.Class.extend({
 	},
 	_checkVerticalConnection: function(upPipe, downPipe) {
 		if(upPipe.type !== BLOCK.TYPE.PIPE && downPipe.type !== BLOCK.TYPE.PIPE) return false;
-		if(upPipe.HP <= 0 || downPipe.HP <= 0) return false;
+		if(upPipe.getHP() <= 0 || downPipe.getHP() <= 0) return false;
 		return upPipe.isOpened(BLOCK.DIRECTION.DOWN) && downPipe.isOpened(BLOCK.DIRECTION.UP);
 	},
 	_checkHorizontalConnection: function(leftPipe, rightPipe) {
 		if(leftPipe.type !== BLOCK.TYPE.PIPE&& rightPipe.type !== BLOCK.TYPE.PIPE) return false;
-		if(leftPipe.HP <= 0 || rightPipe.HP <= 0) return false;
+		if(leftPipe.getHP() <= 0 || rightPipe.getHP() <= 0) return false;
 		return leftPipe.isOpened(BLOCK.DIRECTION.RIGHT) && rightPipe.isOpened(BLOCK.DIRECTION.LEFT);
 	},
 		

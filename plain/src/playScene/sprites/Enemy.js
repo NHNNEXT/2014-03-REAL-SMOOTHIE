@@ -32,6 +32,19 @@ var Enemy = Block.extend({
 	setTreasure: function(treasure) {
 		this.treasure = treasure;
 	},
+	getHP: function() {
+		// Enemy는 HP가 차오르기 때문에 보완하기 위해서 꼼수를 씀
+		return this.hpBar.cureAt - this.hpBar.currentHP;
+	},
+	getReplacementBlock: function() {
+		var replacement = new Isolation(0);
+		if(this.getHP() > 0) {
+			replacement = new RIP();
+		} else if(this.treasure) {
+			replacement = new Treasure(1);
+		} 
+		return replacement;
+	},
 	setHP : function(hp) {
 		this.hpBar.setHP(hp);
 	},
@@ -43,13 +56,14 @@ var Enemy = Block.extend({
 		if (smoothie === null) {
 			return;
 		}
+		this.stopBlinking();
+		
 		var damage = smoothie.amount / 100;
 		this.hpBar.heal(damage);
 		// TODO: hpBar가 Full면 그림을 바꾸기 
 		if(this.hpBar.getPercentageOf() === 100) {
 			cc.log("코니: 고마워^^ 나 상태가 좋아진듯!")
 		}
-		this.stopBlinking();
 		
 	},
 	willBeHealed: function(smoothie) {
