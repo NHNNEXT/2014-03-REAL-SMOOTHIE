@@ -41,6 +41,7 @@ var LevelLoader = cc.Class.extend({
 					block = new Enemy(enemyInfo.id);
 					block.setHP(enemyInfo.hp);
 					block.setTreasure(enemyInfo.treasure);
+					block.setSickness(enemyInfo.sick);
 				} 
 				// ISOLATION
 				else if (type < 8000) {

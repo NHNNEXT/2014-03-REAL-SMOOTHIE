@@ -53,11 +53,13 @@ var HealthBar = cc.Sprite.extend({
 	},
 	heal: function(hp) {
 		this.currentHP += hp;
-
+		cc.log("HHHH"+hp);
 		var percent = this.getPercentageOf();
 		this.hpBar.setPercentage(percent);
 		
 		if (this.currentHP >= this.cureAt) {
+			this.getParent().HP = -1;
+		} else if (this.currentHP <= this.dieAt) {
 			this.getParent().HP = -1;
 		}
 	},

@@ -35,6 +35,9 @@ var Enemy = Block.extend({
 	setHP : function(hp) {
 		this.hpBar.setHP(hp);
 	},
+	setSickness: function(sickness) {
+		this.sickness = sickness;
+	},
 	hurt: function(smoothie) {
 		// 일단 양에 비례하는 방식으로 
 		if (smoothie === null) {
@@ -52,6 +55,7 @@ var Enemy = Block.extend({
 	willBeHealed: function(smoothie) {
 		this.hpBar.stopBlinking();
 		var damage = smoothie.amount / 100;
+		this.expectedDamage = damage;
 		this.hpBar.blink(damage);
 		this.isBlinking = true;
 	},
