@@ -78,7 +78,6 @@ var Route = cc.Class.extend({
 				var smoothie = null;
 				smoothie = block.getSmoothie();
 				if (smoothie == null) continue;
-				cc.log(smoothie.amount);
 				if (mixedSmoothie == null) mixedSmoothie = smoothie.clone();
 				else {
 					mixedSmoothie.mix(smoothie);
@@ -89,7 +88,6 @@ var Route = cc.Class.extend({
 			return null;
 		}
 		// 공격력을 1/n으로 
-		cc.log("expected smoothie: "+mixedSmoothie.amount+"/"+this.numberOfEnemies);
 		mixedSmoothie.amount = mixedSmoothie.amount / this.numberOfEnemies;
 		return mixedSmoothie;
 	},

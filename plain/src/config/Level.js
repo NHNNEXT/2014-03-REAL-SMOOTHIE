@@ -82,7 +82,7 @@
 			        [I ,F ,F , I]
 			        ].reverse(),
 	        "MAXTURN" : 10
-		},
+	    },
 		"STAGE4": {
 			"ID": 3,
 			"TITLE": "Suck Twice",

@@ -40,7 +40,6 @@ var Enemy = Block.extend({
 		if (smoothie === null) {
 			return;
 		}
-		cc.log("hurt " + smoothie.amount);
 		var damage = smoothie.amount / 100;
 		this.hpBar.heal(damage);
 		// TODO: hpBar가 Full면 그림을 바꾸기 
@@ -51,7 +50,6 @@ var Enemy = Block.extend({
 		
 	},
 	willBeHealed: function(smoothie) {
-		cc.log("willbe " + smoothie.amount);
 		this.hpBar.stopBlinking();
 		var damage = smoothie.amount / 100;
 		this.hpBar.blink(damage);

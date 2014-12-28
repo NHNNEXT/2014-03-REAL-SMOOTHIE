@@ -14,7 +14,6 @@
 		1AD7E0A818C9DB93004817A6 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6BF21418C9DB5900FB0E1C /* main.js */; };
 		1AD7E0A918C9DBE3004817A6 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6BF21418C9DB5900FB0E1C /* main.js */; };
 		1AE159EC18C9DF3600FCA372 /* project.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A081B18C9DF05005C6854 /* project.json */; };
-		1B800EAF1A4DA0540065C478 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B800EAE1A4DA0540065C478 /* FacebookSDK.framework */; };
 		1B800EB11A4DA5320065C478 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B800EB01A4DA5320065C478 /* CoreVideo.framework */; };
 		1B800EB31A4DA53D0065C478 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B800EB21A4DA53D0065C478 /* GameController.framework */; };
 		1B800EC41A4DA6DF0065C478 /* libPluginProtocol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B800EB91A4DA6870065C478 /* libPluginProtocol.a */; };
@@ -74,6 +73,7 @@
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
 		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
 		D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B061231803AB9F0077942B /* CoreMotion.framework */; };
+		D80CA0761A50413E00160C30 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B800EAE1A4DA0540065C478 /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,11 +254,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D80CA0761A50413E00160C30 /* FacebookSDK.framework in Frameworks */,
 				1B800EC51A4DA6E90065C478 /* libPluginFacebook.a in Frameworks */,
 				1B800EC41A4DA6DF0065C478 /* libPluginProtocol.a in Frameworks */,
 				1B800EB31A4DA53D0065C478 /* GameController.framework in Frameworks */,
 				1B800EB11A4DA5320065C478 /* CoreVideo.framework in Frameworks */,
-				1B800EAF1A4DA0540065C478 /* FacebookSDK.framework in Frameworks */,
 				BA4E718119EB6E3F00932425 /* MediaPlayer.framework in Frameworks */,
 				C037820C18BF77C500FE4F13 /* libjsbindings iOS.a in Frameworks */,
 				1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */,
@@ -784,6 +784,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Volumes/DATA/heejae/Desktop/myProject/frameworks/js-bindings/cocos2d-x/plugin/plugins/facebook/proj.ios/sdk",
+					"/Users/YG/Documents/workspace/js-projects/2014-03-REAL-SMOOTHIE/plain/frameworks/js-bindings/cocos2d-x/plugin/plugins/facebook/proj.ios/sdk",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -816,6 +817,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Volumes/DATA/heejae/Desktop/myProject/frameworks/js-bindings/cocos2d-x/plugin/plugins/facebook/proj.ios/sdk",
+					"/Users/YG/Documents/workspace/js-projects/2014-03-REAL-SMOOTHIE/plain/frameworks/js-bindings/cocos2d-x/plugin/plugins/facebook/proj.ios/sdk",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

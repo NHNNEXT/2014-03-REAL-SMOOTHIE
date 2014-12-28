@@ -177,22 +177,22 @@ var HomeScene = cc.Scene.extend({
 		this.title.runAction(
 			cc.sequence(
 				cc.spawn(
-					cc.moveTo(2.5, centerPos.x, centerPos.y).easing(cc.easeInOut(5.0)), 
-					cc.fadeIn(2.5)
+					cc.moveTo(0.3, centerPos.x, centerPos.y).easing(cc.easeInOut(5.0)), 
+					cc.fadeIn(0.3)
 				), 
 				cc.spawn(
-					cc.moveTo(2.3, centerPos.x, winsize.height - 300).easing(cc.easeInOut(5.0)),
+					cc.moveTo(0.3, centerPos.x, winsize.height - 300).easing(cc.easeInOut(5.0)),
 					cc.callFunc(function() {					
 						this.playMenu.runAction(
 							cc.spawn(
-								cc.moveTo(2.3, centerPos.x, centerPos.y - 50).easing(cc.easeInOut(5.0)), 
-								cc.fadeIn(2.5)
+								cc.moveTo(0.3, centerPos.x, centerPos.y - 50).easing(cc.easeInOut(5.0)), 
+								cc.fadeIn(0.5)
 							)
 						)
 						this.facebookMenu.runAction(
 							cc.spawn(
-								cc.moveTo(2.3, centerPos.x, centerPos.y - 200).easing(cc.easeInOut(5.0)), 
-								cc.fadeIn(2.5)
+								cc.moveTo(0.3, centerPos.x, centerPos.y - 200).easing(cc.easeInOut(5.0)), 
+								cc.fadeIn(0.5)
 							)
 						)						
 					}.bind(this))

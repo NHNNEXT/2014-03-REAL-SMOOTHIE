@@ -9,6 +9,9 @@ var PopupController = cc.Class.extend({
 	},
 	popup: function(layer, zindex) {
 		cc.log("popup");
+		if (zindex == undefined) {
+			zindex = 0;
+		}
 //		cc.director.pause();
 		//popup 에니메이션 설정
 		layer.setPosition(cc.p(0, this.winsize.height));

@@ -8,6 +8,14 @@ var PlayScene = cc.Scene.extend({
 		this.addChild(new BackgroundLayer());
 		this.addChild(new GameLayer());
 		
+		this.tutorial = new TutorialLayerFactory();
+		var tutorialLayer = this.tutorial.getLayer(SMTH.STATUS.CURRENT_LEVEL.ID)
+		if (tutorialLayer !== null) {
+			tutorialLayer.init();
+			this.addChild(tutorialLayer);
+			tutorialLayer.run();
+		}
+		
 	    var screenSize = cc.view.getFrameSize();
 
 		var mapNormal = new cc.Sprite(res.map_png);
