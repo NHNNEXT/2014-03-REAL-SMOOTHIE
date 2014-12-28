@@ -38,7 +38,6 @@
         "src/playScene/layers/tutorialLayers/Tutorial1.js",
         "src/playScene/layers/tutorialLayers/Tutorial2.js",
         "src/playScene/layers/tutorialLayers/Tutorial3.js",
-        "src/playScene/layers/tutorialLayers/TutorialLayerFactory.js",
         "src/config/Level.js",
         "src/playScene/layers/BackgroundLayer.js",
         "src/playScene/layers/GameLayer.js",

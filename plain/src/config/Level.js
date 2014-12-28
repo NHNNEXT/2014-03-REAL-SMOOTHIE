@@ -36,7 +36,8 @@
                     [IU,IR],
                     [F ,F ]
                     ].reverse(),
-            "MAXTURN" : 10
+            "MAXTURN" : 10,
+            "ADDITIONAL_LAYERS": [Tutorial1]
 		},
 		"STAGE2": {
 			"ID": 1,
@@ -58,7 +59,8 @@
 			        [P ,IU,LU,LL],
 			        [I ,F ,F , I]
 			        ].reverse(),
-	        "MAXTURN" : 10
+	        "MAXTURN" : 10,
+	        "ADDITIONAL_LAYERS": [Tutorial2]
 		},
 		"STAGE3": {
 			"ID": 2,
@@ -81,7 +83,8 @@
 			        [P ,IU,IU,P ],
 			        [I ,F ,F , I]
 			        ].reverse(),
-	        "MAXTURN" : 10
+	        "MAXTURN" : 10,
+	        "ADDITIONAL_LAYERS": [Tutorial3]
 	    },
 		"STAGE4": {
 			"ID": 3,

@@ -8,13 +8,20 @@ var PlayScene = cc.Scene.extend({
 		this.addChild(new BackgroundLayer());
 		this.addChild(new GameLayer());
 		
-		this.tutorial = new TutorialLayerFactory();
-		var tutorialLayer = this.tutorial.getLayer(SMTH.STATUS.CURRENT_LEVEL.ID)
-		if (tutorialLayer !== null) {
-			tutorialLayer.init();
-			this.addChild(tutorialLayer);
-			tutorialLayer.run();
+		var additionalLayers = SMTH.STATUS.CURRENT_LEVEL.ADDITIONAL_LAYERS;
+		for (var i in additionalLayers) {
+			var layer = new additionalLayers[i]();
+			this.addChild(layer);
+			layer.init();
+			layer.run();
 		}
+//		this.tutorial = new TutorialLayerFactory();
+//		var tutorialLayer = this.tutorial.getLayer(SMTH.STATUS.CURRENT_LEVEL.ID)
+//		if (tutorialLayer !== null) {
+//			tutorialLayer.init();
+//			this.addChild(tutorialLayer);
+//			tutorialLayer.run();
+//		}
 		
 	    var screenSize = cc.view.getFrameSize();
 
