@@ -28,9 +28,7 @@ var HomeScene = cc.Scene.extend({
 				id: SMTH.DATA.load("id")
 			});
 		}		
-					
-		//cc.log(SMTH.DATA.load("savedGame"));
-		
+							
 		this._setBG();
 		this._setPlayButton();	
 		this._setInitialFacebookButton();	
