@@ -23,13 +23,13 @@ var SelectorLayer = cc.LayerColor.extend({
 				
 				// 가져온 레이어의 자식들을 돌면서 해당된 자식의 레이어상에 위치를 받는다.
 				for(var i in target.children) {
+					if(target.children[i] == undefined) return true;
+					
 					var pos = target.children[i].getPosition();
 					var size = target.children[i].getContentSize();
 					var rect = cc.rect(pos.x-(size.width/2), pos.y-(size.height/2), size.width, size.height);
 					//터치된 아이의 위치와 해당된 자식의 레이어가 서로 포함되는지 확인한다.
 					if (cc.rectContainsPoint(rect, locationInNode)) {
-						//선택된 자식이 원한것이 아닌경우에 리턴 
-						if(!target.children[i].type == undefined) return true;
 						//선택된 자식이 프렌드 인경우에 선택된 프랜드를 리스에 넣는다.
 						if(target.children[i].friendType) {
 							cc.audioEngine.playEffect(res.button_mp3);
@@ -54,6 +54,7 @@ var SelectorLayer = cc.LayerColor.extend({
 						} 
 					}
 				}
+				this.setFriendsToLevel();
 				return true;
 			}.bind(this),
 		});
@@ -109,6 +110,18 @@ var SelectorLayer = cc.LayerColor.extend({
 		
 	},
 	
+	setFriendsToLevel: function() {
+//		var count = 0;
+//		for(var i in SMTH.STATUS.CURRENT_LEVEL.MAP) {
+//			for(var j in SMTH.STATUS.CURRENT_LEVEL.MAP[i]){
+//				if(SMTH.STATUS.CURRENT_LEVEL.MAP[i][j] == BLOCK.TYPE.FRIEND.SALLY) {
+//					SMTH.STATUS.CURRENT_LEVEL.MAP[i][j] = this.selectedChar[count].friendType
+//					count++;
+//				}
+//			}
+//		}
+	},
+	
 	test: function() {
 		cc.log("test Character Selector");
 		return true;
@@ -122,5 +135,6 @@ var SelectorLayer = cc.LayerColor.extend({
 		cc.audioEngine.playEffect(res.button_mp3);
 		this.parent.removeChild(this);
 //		cc.director.runScene(new PlayScene());
+//		SMTH.EVENT_MANAGER.notice("characterSelectored");
 	}
 });

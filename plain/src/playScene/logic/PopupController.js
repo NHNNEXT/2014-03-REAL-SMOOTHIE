@@ -35,6 +35,7 @@ var PopupController = cc.Class.extend({
 		
 		SMTH.EVENT_MANAGER.listen("characterSelector", function(e) {
 			this.popup(new SelectorLayer(), 10);
+//			SMTH.EVENT_MANAGER.notice("characterSelected");
 		}.bind(this));
 	}
 });

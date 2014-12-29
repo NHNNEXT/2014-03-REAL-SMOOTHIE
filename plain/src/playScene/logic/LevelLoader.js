@@ -65,5 +65,5 @@ var LevelLoader = cc.Class.extend({
 				SMTH.CONTAINER.PIPES.push(block);             
 			}
 		}
-	},
+	}
 });

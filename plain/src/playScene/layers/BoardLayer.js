@@ -7,13 +7,13 @@ var BoardLayer = cc.Layer.extend ({
 
 	init: function() {
 		
-		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		SMTH.CONTAINER.BOARD = this;
 		SMTH.STATUS.GAME_STATE = SMTH.CONST.GAME_STATE.NOT_END;
 		
 		//SMTH.CONTAINER안에 pipe를 초기화
 		SMTH.CONTAINER.PIPES =[];
-
+		
+		this._level = SMTH.STATUS.CURRENT_LEVEL;
 		var row = this._level.row;
 		var col = this._level.col;
 		var winSize = cc.director.getWinSize()
@@ -26,14 +26,14 @@ var BoardLayer = cc.Layer.extend ({
         
         SMTH.EVENT_MANAGER.notice("gameStart");
         
-        if(this._level.CHARACTER) {
+        if(SMTH.STATUS.CURRENT_LEVEL.CHARACTER) {
         	cc.log("characterSelector");
         	SMTH.EVENT_MANAGER.notice("characterSelector");
         }
 	},
 	
 	_createMap : function(row, col) { 
-		var map = this._level.MAP;
+		//var map = this._level.MAP;
 		var levelLoader = new LevelLoader(this._level);
 		for (var r = 0; r < row; r++) {
 			for (var c = 0; c < col; c++) {
