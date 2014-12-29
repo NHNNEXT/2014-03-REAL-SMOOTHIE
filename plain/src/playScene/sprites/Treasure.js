@@ -1,6 +1,6 @@
 var Treasure = Block.extend({
 	ctor:function (type) {
-		this._super(IsolationType[type].resouceName);
+		this._super(IsolationType[type].resourceName);
 		this.init();
 	},
 	init: function() {

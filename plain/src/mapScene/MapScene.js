@@ -34,7 +34,7 @@ var MapScene = cc.Scene.extend({
 			userLabel.setFontSize(35);
 			userLabel.setColor( cc.color(255,255,255));
 			//JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).name
-			userLabel.setString(JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).name);
+			userLabel.setString(SMTH.DATA.load("name"));
 			userLabel.x = 330;
 			userLabel.y = 60;
 			this.addChild(userLabel);			

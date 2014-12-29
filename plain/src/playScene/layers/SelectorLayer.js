@@ -84,7 +84,7 @@ var SelectorLayer = cc.LayerColor.extend({
 		var count = 0;
 		for(var i in SMTH.STATUS.CURRENT_LEVEL.MAP) {
 			for(var j in SMTH.STATUS.CURRENT_LEVEL.MAP[i]){
-				if(SMTH.STATUS.CURRENT_LEVEL.MAP[i][j] == BLOCK.TYPE.FRIEND.SALLY) {
+				if(SMTH.STATUS.CURRENT_LEVEL.MAP[i][j] == BLOCK.TYPE.FRIEND.EMPTY) {
 					count++;
 					this.selectedChar.push(false);
 				}

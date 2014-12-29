@@ -7,12 +7,6 @@ var BLOCK = {
 			"ISOLATION": 7000,
 			"TREASURE": 8000,
 		},
-		"ROTATION": {
-			UP: 0,
-			RIGHT: 90,
-			DOWN: 180,
-			LEFT: 270		
-		},
 		"DIRECTION": {
 			UP: 0,
 			RIGHT: 90,

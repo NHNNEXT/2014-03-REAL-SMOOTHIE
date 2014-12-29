@@ -1,6 +1,6 @@
 var Enemy = Block.extend({
 	ctor:function (type) {
-		this._super(EnemyTypeInfo[type].resouceName);
+		this._super(EnemyTypeInfo[type].resourceName);
         this.enemyType = type;
 		this.init();
 	},

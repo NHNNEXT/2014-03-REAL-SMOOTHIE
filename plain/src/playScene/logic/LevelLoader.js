@@ -6,7 +6,6 @@ var LevelLoader = cc.Class.extend({
 	init: function() {
 		var enemies =  this._level.EMEMYLIST.slice(0);
 		var fixedPipes = this._level.FIXEDPIPE;
-		var friendIndex = 0;
 		SMTH.CONTAINER.PIPES = [];
 		
 		for (var r in this._level.MAP) {
@@ -24,16 +23,10 @@ var LevelLoader = cc.Class.extend({
 				}
 				// FRIEND
 				else if (type < 6000) {
-					var friendName = SAVE.ATTACK_ORDER[friendIndex];
-					friendIndex++;
-					if (friendIndex >= SAVE.ATTACK_ORDER.length) {
-						friendIndex = 0;
-					}
-					
-					var friendInfo = SAVE.FRIENDS[friendName];
-					block = new Friend(friendInfo.type);
-					block.setItem(friendInfo.item);
-					block.setCups(friendInfo.cups);
+					// type == 5000, empty type. will be filled after select
+					block = new Friend(type);
+//					block.setItem(friendInfo.item);
+//					block.setCups(friendInfo.cups);
 				}
 				// ENEMY
 				else if (type < 7000) {
@@ -63,6 +56,29 @@ var LevelLoader = cc.Class.extend({
 				
 				block.setPositionByRowCol(r, c);
 				SMTH.CONTAINER.PIPES.push(block);             
+			}
+		}
+	},
+	setFriends: function(friends) {
+		var fIdx = 0;
+		for (var r in this._level.MAP) {
+			var row = this._level.MAP[r];
+			for (var c in row) {
+				var type = row[c];
+				if (type == BLOCK.TYPE.FRIEND.EMPTY) {
+					// getOriginal
+					var idx = r * this._level.col + c
+					var originalBlock = SMTH.CONTAINER.PIPES[idx];
+					var friendType = friends[fIdx];
+					fIdx++;
+					// replace
+					var block = new Friends(friendType);
+					block.setPositionByRowCol(r, c);
+					SMTH.CONTAINER.PIPES[idx] = block;
+					
+					SMTH.CONTAINER.BOARD.removeChild(originalBlock);
+					SMTH.CONTAINER.BOARD.addChild(block);
+				}
 			}
 		}
 	}

@@ -51,7 +51,7 @@ var GameClearLayer = cc.LayerColor.extend({
 		if(SAVE.LAST_CLEAR <= SMTH.STATUS.CURRENT_LEVEL.ID + 1) {
 			SAVE.LAST_CLEAR = SMTH.STATUS.CURRENT_LEVEL.ID + 1;
 		}
-                                 
+        SMTH.DATA.updateSavedGame();                      
 	},
 
 	test: function() {
