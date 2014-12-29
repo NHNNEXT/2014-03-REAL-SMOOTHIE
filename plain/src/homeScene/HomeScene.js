@@ -16,6 +16,8 @@ var HomeScene = cc.Scene.extend({
         
         this._setTitle();
 		
+		this._startIntroAnimation();
+		
 		SMTH.EVENT_MANAGER.listen("fbLoggedIn", this._connectToggleHandlerCache);
 		SMTH.EVENT_MANAGER.listen("fbLoggedOut", this._connectToggleHandlerCache);
 	},
@@ -114,12 +116,15 @@ var HomeScene = cc.Scene.extend({
 		var winsize = cc.director.getWinSize();
 		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
 
-
 		this.title = new cc.Sprite(res.home_title_png);
 		this.title.setPosition(centerPos.x, winsize.height + 100);
 		this.title.setOpacity(0);
 		this.addChild(this.title);
-		
+	},
+	_startIntroAnimation: function() {
+		var winsize = cc.director.getWinSize();
+		var centerPos = cc.p(winsize.width / 2, winsize.height / 2);
+				
 		this.title.runAction(
 			cc.sequence(
 				cc.spawn(
@@ -145,8 +150,7 @@ var HomeScene = cc.Scene.extend({
 				)
 
 			)
-		);
-		
+		);		
 	},
 	_setPlayButton: function() {
 		var winsize = cc.director.getWinSize();

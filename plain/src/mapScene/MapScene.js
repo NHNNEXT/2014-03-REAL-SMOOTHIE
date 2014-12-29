@@ -19,15 +19,15 @@ var MapScene = cc.Scene.extend({
 		this.addChild(powerMenu, 1, 2);
 		powerMenu.x = 70;
 		powerMenu.y = 70;	
-		
-                               cc.log("facebook._isLoggedIn");cc.log(facebook._isLoggedIn);
-                               
-		if(facebook._isLoggedIn === true) { 
-
+		                               
+		if(SMTH.MODULE.DATA.isLoggedIn()) {
+			
+/*
 			var userSprite = new cc.Sprite(res.userPic);
 			this.addChild(userSprite);
 			userSprite.x = 180;
 			userSprite.y = 70;
+*/
 			
 			var userLabel = new cc.LabelTTF();
 			userLabel.setFontName(res.LINEBold_ttf);
@@ -35,7 +35,7 @@ var MapScene = cc.Scene.extend({
 			userLabel.setColor( cc.color(255,255,255));
 			//JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).name
 			cc.log();
-			userLabel.setString(JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).name);
+			userLabel.setString(SMTH.CONTAINER.LOCALSTORAGE.getItem("name"));
 			userLabel.x = 330;
 			userLabel.y = 60;
 			this.addChild(userLabel);			
