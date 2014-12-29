@@ -16,9 +16,10 @@ var SelectorLayer = cc.LayerColor.extend({
 		var touchListener = cc.EventListener.create({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
 			swallowTouches: true,
-			onTouchBegan: function (touch, event) { 
+			onTouchBegan: function (touch, event) {
 				// 모든 터치이벤트리스너를 돌며 이 파이프를 선택한 것인지 계산한다.
 				var target = event.getCurrentTarget();
+				cc.log(JSON.stringify(target));
 				var locationInNode = target.convertToNodeSpace(touch.getLocation());    
 
 				for(var i in target.children) {
@@ -27,11 +28,12 @@ var SelectorLayer = cc.LayerColor.extend({
 					var rect = cc.rect(pos.x-(size.width/2), pos.y-(size.height/2), size.width, size.height);
 					
 					if (cc.rectContainsPoint(rect, locationInNode)) {
-						if(target.children[i].type.SALLY) {
+						if(!target.children[i].type) return false;
+						if(target.children[i].friendType) {
 							cc.audioEngine.playEffect(res.button_mp3);
 							for(var j =0 ; j< this.selectedChar.length ; j++) {
 								if(this.selectedChar[j] == false) {
-									var char = new Friend(target.children[i].type.SALLY);
+									var char = new Friend(target.children[i].friendType);
 									char.setPositionByRowCol(emptyRow, startCol+j);
 									this.selectedChar[j] = char;
 									this.addChild(this.selectedChar[j]);
@@ -46,11 +48,11 @@ var SelectorLayer = cc.LayerColor.extend({
 									this.selectedChar[j] = false;
 								}
 							}
-						}
+						} 
 						return true;
 					}
 				}
-				return false;
+				return true;
 			}.bind(this),
 		});
 		cc.eventManager.addListener(touchListener.clone(), this);
