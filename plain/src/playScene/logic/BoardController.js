@@ -49,6 +49,7 @@ var BoardController = cc.Class.extend({
 			cc.log("enemyDied");
 			var deadEnemy = e.getUserData();
 			this.replaceBlock(deadEnemy);
+			SMTH.EVENT_MANAGER.notice("gameOver");
 		}.bind(this));
 	},
 	_increaseBlockFalling : function() {
@@ -60,7 +61,6 @@ var BoardController = cc.Class.extend({
 			SMTH.EVENT_MANAGER.notice("allBlockFallingEnd");
 	},
 	replaceBlock: function(block) {
-		cc.log("replace!");
 		var row = Number(block.row);
 		var col = Number(block.col);
 		var levelCol = this._level.col;
