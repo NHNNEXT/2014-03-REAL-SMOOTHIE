@@ -21,11 +21,13 @@ var MapScene = cc.Scene.extend({
 		powerMenu.y = 70;	
 		
 		if(SMTH.DATA.isLoggedIn()) { 
-
+			
+/*
 			var userSprite = new cc.Sprite(res.userPic);
 			this.addChild(userSprite);
 			userSprite.x = 180;
 			userSprite.y = 70;
+*/
 			
 			var userLabel = new cc.LabelTTF();
 			userLabel.setFontName(res.LINEBold_ttf);

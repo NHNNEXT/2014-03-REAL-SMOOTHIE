@@ -15,13 +15,6 @@ var PlayScene = cc.Scene.extend({
 			layer.init();
 			layer.run();
 		}
-//		this.tutorial = new TutorialLayerFactory();
-//		var tutorialLayer = this.tutorial.getLayer(SMTH.STATUS.CURRENT_LEVEL.ID)
-//		if (tutorialLayer !== null) {
-//			tutorialLayer.init();
-//			this.addChild(tutorialLayer);
-//			tutorialLayer.run();
-//		}
 		
 	    var screenSize = cc.view.getFrameSize();
 
@@ -36,45 +29,12 @@ var PlayScene = cc.Scene.extend({
 		mapMenu.x = 70;
 		mapMenu.y = 70;	
 		
+<<<<<<< HEAD
+=======
 		
 		if(SMTH.DATA.isLoggedIn()) {
+>>>>>>> a19c49a64b397a409cffea9a02c85440a5724e0c
 
-			var userSprite = new cc.Sprite(res.userPic);
-			this.addChild(userSprite);
-			userSprite.x = 180;
-			userSprite.y = 70;
-			
-			var userLabel = new cc.LabelTTF();
-			userLabel.setFontName(res.LINEBold_ttf);
-			userLabel.setFontSize(35);
-			userLabel.setColor( cc.color(255,255,255));
-			//JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).name
-			cc.log();
-			userLabel.setString(JSON.parse(SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo")).name);
-			userLabel.x = 330;
-			userLabel.y = 60;
-			this.addChild(userLabel);			
-		}
-		
-		var fbId = 123;
-		
-//		var fbInfo = SMTH.CONTAINER.LOCALSTORAGE.getItem("facebookInfo");
-//		var fbId = fbInfo.id || 1234567890;
-//		
-//		SMTH.MODULE.DATA.load(fbId, function() {
-//			cc.log("QWEQWE"+JSON.stringify(SMTH.LOAD_CACHE));
-//		});
-//		var data = {"name": "yg"};
-//		SMTH.MODULE.DATA.save(fbId, data, function() {
-//			cc.log("@@@#@#");
-//		});
-//		Ajax.getInstance().POST({
-//			url: "http://httpbin.org/post",
-//			data: "name=sally",
-//			callback: function(response) {
-//				cc.log(response);
-//			}
-//		});
 	},
 	
 	initSMTH: function() {
