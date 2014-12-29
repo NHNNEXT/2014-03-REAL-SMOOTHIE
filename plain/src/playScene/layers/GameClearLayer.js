@@ -63,7 +63,7 @@ var GameClearLayer = cc.LayerColor.extend({
         cc.audioEngine.playEffect(res.button_mp3);
 		this.parent.removeChild(this);
 		cc.audioEngine.stopAllEffects();
-		cc.director.runScene(new PlayScene());
+		cc.director.runScene(new MapScene());
 	},
 	
 	sendResult : function() {

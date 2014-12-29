@@ -9,7 +9,9 @@ var TutorialLayer = cc.Layer.extend({
 		
 		this.fingerToShow = 0;
 		this.guideFinger.setAnchorPoint(0.4, 0.8);
+		this.guideFinger.setScale(0.5);
 		this.pressFinger.setAnchorPoint(0.4, 0.8);
+		this.pressFinger.setScale(0.5);
 		this.guideFinger.setOpacity(255);
 		this.pressFinger.setOpacity(0);
 		this.addChild(this.guideFinger);
