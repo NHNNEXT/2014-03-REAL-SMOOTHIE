@@ -28,13 +28,6 @@ var PlayScene = cc.Scene.extend({
 		this.addChild(mapMenu, 1, 2);
 		mapMenu.x = 70;
 		mapMenu.y = 70;	
-		
-<<<<<<< HEAD
-=======
-		
-		if(SMTH.DATA.isLoggedIn()) {
->>>>>>> a19c49a64b397a409cffea9a02c85440a5724e0c
-
 	},
 	
 	initSMTH: function() {
