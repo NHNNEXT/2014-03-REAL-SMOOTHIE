@@ -68,7 +68,10 @@ var Enemy = Block.extend({
 	},
 	willBeHealed: function(smoothie) {
 		this.hpBar.stopBlinking();
-		var damage = smoothie.amount / 100;
+		if(smoothie != undefined)
+			var damage = smoothie.amount / 100;
+		else
+			var damage = 0;
 		this.expectedDamage = damage;
 		this.hpBar.blink(damage);
 		this.isBlinking = true;

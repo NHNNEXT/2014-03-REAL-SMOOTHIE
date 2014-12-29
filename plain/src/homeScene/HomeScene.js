@@ -11,8 +11,8 @@ var HomeScene = cc.Scene.extend({
 		this.initSMTH();
 					
 		// 로컬 스토리지의 게임 세이브 데이터를 SAVE 글로벌 객체로 리스토어
-		var savedGame = SMTH.DATA.load("savedGame");
-		if(savedGame.length == 0) {
+		var savedGame = SMTH.DATA.load("savedGame") || "";
+		if( savedGame.length == 0) {
 			// 설치 후 첫 실행이므로 SAVE 전역 변수의 값을 로컬스토리지에 저장 
 			cc.log("설치 후 첫 실행");
 			SMTH.DATA.save("savedGame", JSON.stringify(SAVE));

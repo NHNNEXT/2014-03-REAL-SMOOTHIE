@@ -49,11 +49,16 @@ var GameController = cc.Class.extend({
 			for (var i in SMTH.CONTAINER.PIPES) {
 				var block = SMTH.CONTAINER.PIPES[i];
 				if (block.type == BLOCK.TYPE.ENEMY) {
+				cc.log("block.type: "+JSON.stringify(block.type));
+				cc.log("BLOCK.TYPE.ENEMY: "+JSON.stringify(BLOCK.TYPE.ENEMY));
 					// 치료될 수 있다면 데미지를 입지 않음
 					if (block.expectedDamage > 0) continue;
 					var sickness = block.sickness;
-					var poison = new Smoothie("Item0000", -100 * sickness.hurt, 1)
-					block.hurt(poison);
+
+					if(sickness) {
+						var poison = new Smoothie("Item0000", -100 * sickness.hurt, 1);
+						block.hurt(poison);
+					}
 				}
 			}
 			// hurt로 사라지는 블록은 제외하고
