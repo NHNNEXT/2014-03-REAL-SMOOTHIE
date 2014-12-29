@@ -46,6 +46,7 @@ var DataModule = cc.Class.extend({
 			data_ = JSON.stringify(data);
 		}
 		// 기본적으로 로컬스토리지에 저장
+
 		this.local.setItem(key, data_);
 	},
 	load: function(key) {
@@ -94,6 +95,7 @@ var DataModule = cc.Class.extend({
 			}.bind(this)
 		});		
 	},
+
 	fetchUserData: function(param) {
 		var userId = param.id;
 		var callback = param.callback;

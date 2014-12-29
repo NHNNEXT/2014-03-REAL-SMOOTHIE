@@ -17,18 +17,20 @@ var SelectorLayer = cc.LayerColor.extend({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
 			swallowTouches: true,
 			onTouchBegan: function (touch, event) {
-				// 모든 터치이벤트리스너를 돌며 이 파이프를 선택한 것인지 계산한다.
+				// 현재 터치된 아이의 위치와 타겟(레이어)을 가져온다.
 				var target = event.getCurrentTarget();
-				cc.log(JSON.stringify(target));
-				var locationInNode = target.convertToNodeSpace(touch.getLocation());    
-
+				var locationInNode = target.convertToNodeSpace(touch.getLocation());   
+				
+				// 가져온 레이어의 자식들을 돌면서 해당된 자식의 레이어상에 위치를 받는다.
 				for(var i in target.children) {
 					var pos = target.children[i].getPosition();
 					var size = target.children[i].getContentSize();
 					var rect = cc.rect(pos.x-(size.width/2), pos.y-(size.height/2), size.width, size.height);
-					
+					//터치된 아이의 위치와 해당된 자식의 레이어가 서로 포함되는지 확인한다.
 					if (cc.rectContainsPoint(rect, locationInNode)) {
-						if(!target.children[i].type) return false;
+						//선택된 자식이 원한것이 아닌경우에 리턴 
+						if(!target.children[i].type == undefined) return true;
+						//선택된 자식이 프렌드 인경우에 선택된 프랜드를 리스에 넣는다.
 						if(target.children[i].friendType) {
 							cc.audioEngine.playEffect(res.button_mp3);
 							for(var j =0 ; j< this.selectedChar.length ; j++) {
@@ -40,6 +42,7 @@ var SelectorLayer = cc.LayerColor.extend({
 									break;
 								}
 							}
+						//선택된 자식이 빈 블록인 경우에 해당되는 아이를 리스트에서 제거
 						} else if(target.children[i].type) {
 							cc.audioEngine.playEffect(res.button_mp3);
 							for(var j =0 ; j< this.selectedChar.length ; j++) {
@@ -49,7 +52,6 @@ var SelectorLayer = cc.LayerColor.extend({
 								}
 							}
 						} 
-						return true;
 					}
 				}
 				return true;
@@ -81,7 +83,7 @@ var SelectorLayer = cc.LayerColor.extend({
 		var count = 0;
 		for(var i in SMTH.STATUS.CURRENT_LEVEL.MAP) {
 			for(var j in SMTH.STATUS.CURRENT_LEVEL.MAP[i]){
-				if(SMTH.STATUS.CURRENT_LEVEL.MAP[i][j] == BLOCK.TYPE.FRIEND.SALLY) {
+				if(SMTH.STATUS.CURRENT_LEVEL.MAP[i][j] == BLOCK.TYPE.FRIEND.EMPTY) {
 					count++;
 					this.selectedChar.push(false);
 				}

@@ -2,13 +2,13 @@ var IsolationType = [
 {
 	type: 0,
 	name: "isolation",
-	resouceName: res.isolation_png,
+	resourceName: res.isolation_png,
 	HP: 1
 },
 {
 	type: 1,
 	name: "tresasure",
-	resouceName: res.treasure_png,
+	resourceName: res.treasure_png,
 	HP: 1
 }
 ]
