@@ -21,15 +21,15 @@ var DataModule = cc.Class.extend({
 		this.save("picture", facebookInfo.picture);
 		this.save("isLoggedIn", "true");	
 	},
-	save: function(key, data, callback) {
+	save: function(userId, data, callback) {
 		if (typeof data == "object") {
 			data = JSON.stringify(data);
 		}
 		// 기본적으로 로컬스토리지에 저장
-		this.local.setItem(key, data);
+		this.local.setItem(userId, data);
 		
 		Ajax.getInstance().POST({
-			url: "http://125.209.194.223:8080/userInfo/"+key,
+			url: "http://125.209.194.223:8080/userInfo/"+userId,
 			data: data,
 			// 인터넷이 연결되어있다면 서버에도 저장
 			callback: function(response) {
@@ -48,16 +48,16 @@ var DataModule = cc.Class.extend({
 		});
 		
 	},
-	load: function(key, callback) {
+	load: function(userId, callback) {
 		// 로컬이 더 최신인 경우 로컬에서 로드
 		if (this.local.getItem("needUpload") == "true") {
-			var value = SMTH.CONTAINER.LOCALSTORAGE.getItem(key);
+			var value = SMTH.CONTAINER.LOCALSTORAGE.getItem(userId);
 			callback(value);
 			return;
 		}
 		
 		Ajax.getInstance().GET({
-			url: "http://125.209.194.223:8080/userInfo/"+key,
+			url: "http://125.209.194.223:8080/userInfo/"+userId,
 			// 인터넷이 연결되어있다면 서버에서 로딩
 			callback: function(response) {
 				cc.log("load Data");
@@ -68,7 +68,7 @@ var DataModule = cc.Class.extend({
 			// 아니라면 로컬스토리지에서 로딩
 			error: function(response) {
 				cc.log("error");
-				var value = SMTH.CONTAINER.LOCALSTORAGE.getItem(key);
+				var value = SMTH.CONTAINER.LOCALSTORAGE.getItem(userId);
 				callback(value);
 			}
 		});

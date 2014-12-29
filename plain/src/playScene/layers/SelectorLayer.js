@@ -50,7 +50,7 @@ var SelectorLayer = cc.LayerColor.extend({
 						return true;
 					}
 				}
-				return false;
+				return true;
 			}.bind(this),
 		});
 		cc.eventManager.addListener(touchListener.clone(), this);

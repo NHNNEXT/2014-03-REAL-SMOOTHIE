@@ -1,7 +1,7 @@
 var NullBlock = Block.extend({
 	ctor:function () {
 		// 로직만을 위한 블록이므로 혹시라도 남아있다면 눈에 띄어야 한다. 
-		this._super(IsolationType[0].resouceName);
+		this._super(IsolationType[0].resourceName);
 		this.init();
 	},
 	init: function() {
