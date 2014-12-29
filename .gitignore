@@ -2,6 +2,7 @@
 .DS_Store
 
 /plain/runtime
+/plain/runtime-src
 /plain/frameworks/cocos2d-html5
 /plain/frameworks/js-bindings
 /plain/frameworks/runtime-src/proj.linux
