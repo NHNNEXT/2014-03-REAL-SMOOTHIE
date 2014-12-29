@@ -21,6 +21,7 @@ var HomeScene = cc.Scene.extend({
 			if(savedGame.length > 0)
 				SAVE = JSON.parse(savedGame);
 		}
+
 		// 만약에 로그인 된 상태라면 서버에 요청해서 savedGame 정보를 저장한다.
 		if(SMTH.DATA.isLoggedIn()) {
 			cc.log("ID: "+SMTH.DATA.load("id"));
