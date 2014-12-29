@@ -18,8 +18,8 @@
 	var LEVEL = {
 		"STAGE1": {
 			"ID": 0,
-			"CHARACTER": true,
 			"TITLE": "Connect Straw",
+			"CHARACTER": true,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":1,"treasure":false},
@@ -41,8 +41,8 @@
 		},
 		"STAGE2": {
 			"ID": 1,
-			"CHARACTER": true,
 			"TITLE": "Turn Left",
+			"CHARACTER": true,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
                 {"id":6001,"hp":1,"treasure":false},
@@ -64,8 +64,8 @@
 		},
 		"STAGE3": {
 			"ID": 2,
-			"CHARACTER": true,
 			"TITLE": "One Shot Two Heal",
+			"CHARACTER": true,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":1,"treasure":false},
@@ -90,6 +90,7 @@
 		"STAGE4": {
 			"ID": 3,
 			"TITLE": "Suck Twice",
+			"CHARACTER": true,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":2,"treasure":false},
@@ -111,6 +112,7 @@
 		"STAGE5": {
 			"ID": 4,
 			"TITLE": "Two Cup in one chance",
+			"CHARACTER": true,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":2,"treasure":false},
@@ -133,6 +135,7 @@
 		"STAGE6": {
 			"ID": 5,
 			"TITLE": "Treasure!",
+			"CHARACTER": true,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
                 {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":0.1},"treasure":true},
@@ -159,6 +162,7 @@
 		"STAGE7": {
 			"ID": 6,
 			"TITLE": "Carrot Smoothie",
+			"CHARACTER": true,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6002,"hp":2,"sick":{"name":"cough", "hurt":0.1},"treasure":true},
@@ -186,6 +190,7 @@
 		"STAGE8": {
 			"ID": 7,
 			"TITLE": "Something Fixed",
+			"CHARACTER": true,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			    {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":0.1},"treasure":true},
@@ -214,6 +219,7 @@
 		"STAGE9": {
 			"ID": 8,
 			"TITLE": "Strange Empty",
+			"CHARACTER": true,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
 			   {"id":6001,"hp":2,"sick":{"name":"cough", "hurt":0.1},"treasure":true},
@@ -245,6 +251,7 @@
 		"STAGE10": {
 			"ID": 9,
 			"TITLE": "Try All Together",
+			"CHARACTER": true,
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [
                 {"id":6002,"hp":2,"sick":{"name":"cough", "hurt":0.1},"treasure":true},

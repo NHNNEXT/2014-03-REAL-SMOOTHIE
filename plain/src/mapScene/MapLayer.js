@@ -46,8 +46,8 @@ var MapLayer = cc.Layer.extend({
 				var pipe = this.pipes[idx];
 				var time = Math.abs(pipe.rotation - angle) / 120
 				pipe.runAction(cc.sequence(
-						cc.delayTime(routeIdx * 0.2), 
-						cc.rotateTo(1, angle), 
+						cc.delayTime(routeIdx * 0.1), 
+						cc.rotateTo(0.5, angle), 
 						cc.callFunc(function(pipe) {
 							pipe.setColor(cc.color(245,235,56))
 						}.bind(this, pipe))
@@ -77,12 +77,12 @@ var MapLayer = cc.Layer.extend({
 			this.addChild(stageLabel);
 			
 			levelCircle.runAction(cc.sequence(
-					cc.delayTime(routeIdx * 0.2 + 0.5),
-					cc.fadeIn(1)
+					cc.delayTime(routeIdx * 0.1 + 0.25),
+					cc.fadeIn(0.5)
 			));
 			stageLabel.runAction(cc.sequence(
-					cc.delayTime(routeIdx * 0.2 + 0.5),
-					cc.fadeIn(1)
+					cc.delayTime(routeIdx * 0.1 + 0.25),
+					cc.fadeIn(0.5)
 			));
 			pipe.setListener(l);
 		}
