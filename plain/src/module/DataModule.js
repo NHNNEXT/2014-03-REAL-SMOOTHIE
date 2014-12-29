@@ -95,5 +95,4 @@ var DataModule = cc.Class.extend({
 
 });
 
-SMTH.MODULE = SMTH.MODULE || {};
-SMTH.MODULE.DATA = new DataModule();
+SMTH.DATA = new DataModule();

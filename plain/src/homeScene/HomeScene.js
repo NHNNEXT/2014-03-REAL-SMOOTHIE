@@ -23,7 +23,7 @@ var HomeScene = cc.Scene.extend({
 	},
 	_setInitialFacebookButton: function() {
 		//로컬스토리지에 해당키에 값이 지는지 없는지 확인
-		if(SMTH.MODULE.DATA.isLoggedIn()) {
+		if(SMTH.DATA.isLoggedIn()) {
 			var facebookBtn = this._createLogoutButton.apply(this);			
 		} else {
 			var facebookBtn = this._createConnectButton.apply(this);
@@ -45,7 +45,7 @@ var HomeScene = cc.Scene.extend({
 
 		var logoutBtn = new cc.MenuItemSprite(logoutNormal, logoutSelected, logoutDisabled, function(){
 			SMTH.FB.logout(function() {
-				SMTH.MODULE.DATA.removeUserInfo();
+				SMTH.DATA.removeUserInfo();
 				cc.log("---- fbLoggedOut 이벤트 dispatched!");
 				SMTH.EVENT_MANAGER.notice("fbLoggedOut");
 			});			
@@ -59,7 +59,7 @@ var HomeScene = cc.Scene.extend({
 	
 		var connectBtn = new cc.MenuItemSprite(connectNormal, connectSelected, connectDisabled, function(){
 			SMTH.FB.login(function(facebookInfo) {
-				SMTH.MODULE.DATA.updateUserInfo(facebookInfo);
+				SMTH.DATA.updateUserInfo(facebookInfo);
 				cc.log("---- fbLoggedIn 이벤트 dispatched!");
 				SMTH.EVENT_MANAGER.notice("fbLoggedIn");
 			});											
@@ -72,7 +72,7 @@ var HomeScene = cc.Scene.extend({
 		var facebookBtn = null;
         this.removeChild(this.facebookMenu);
 
-        if(SMTH.MODULE.DATA.isLoggedIn())
+        if(SMTH.DATA.isLoggedIn())
 	        facebookBtn = this._createLogoutButton.apply(this);
         else 
 	        facebookBtn = this._createConnectButton.apply(this);
@@ -160,7 +160,7 @@ var HomeScene = cc.Scene.extend({
 		var playSelected = new cc.Sprite(res.playSelected_png);
 		var playDisabled = new cc.Sprite(res.playNormal_png);
 		var play = new cc.MenuItemSprite(playNormal, playSelected, playDisabled, function() {
-			if(SMTH.MODULE.DATA.isLoggedIn()) {
+			if(SMTH.DATA.isLoggedIn()) {
 				var pic_url = SMTH.CONTAINER.LOCALSTORAGE.getItem("picture");
 				res.userPic = pic_url;
 				cc.LoaderScene.preload([pic_url], function () {

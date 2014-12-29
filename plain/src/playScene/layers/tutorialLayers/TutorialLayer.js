@@ -25,6 +25,15 @@ var TutorialLayer = cc.Layer.extend({
 		});
 		cc.eventManager.addListener(touchAndRemove.clone(), this);
 	},
+	setDescription: function(desc) {
+		var description = new cc.LabelTTF("", res.LINEBold_ttf, 35);
+		description.setColor( cc.color(190, 219, 57));
+		description.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+		description.setString(desc);
+		description.x = SMTH.STATUS.CURRENT_LEVEL.col / 2 * BLOCK.SIZE.WIDTH;
+		description.y = -100;
+		this.addChild(description);
+	},
 	run: function() {
 		// Animations are implemented here
 	},

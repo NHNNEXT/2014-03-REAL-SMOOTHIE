@@ -1,8 +1,8 @@
 var Tutorial1 = TutorialLayer.extend({
 	ctor: function() {
 		this._super();
+		this.setDescription("Drag straw to rotate");
 	},
-	
 	run: function() {
 		this.runAction(cc.repeatForever(cc.sequence(
 			cc.callFunc(function() {
