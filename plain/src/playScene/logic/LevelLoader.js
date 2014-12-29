@@ -59,4 +59,27 @@ var LevelLoader = cc.Class.extend({
 			}
 		}
 	},
+	setFriends: function(friends) {
+		var fIdx = 0;
+		for (var r in this._level.MAP) {
+			var row = this._level.MAP[r];
+			for (var c in row) {
+				var type = row[c];
+				if (type == BLOCK.TYPE.FRIEND.EMPTY) {
+					// getOriginal
+					var idx = r * this._level.col + c
+					var originalBlock = SMTH.CONTAINER.PIPES[idx];
+					var friendType = friends[fIdx];
+					fIdx++;
+					// replace
+					var block = new Friends(friendType);
+					block.setPositionByRowCol(r, c);
+					SMTH.CONTAINER.PIPES[idx] = block;
+					
+					SMTH.CONTAINER.BOARD.removeChild(originalBlock);
+					SMTH.CONTAINER.BOARD.addChild(block);
+				}
+			}
+		}
+	}
 });

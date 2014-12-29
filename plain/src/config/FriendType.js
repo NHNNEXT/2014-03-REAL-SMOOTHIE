@@ -1,6 +1,6 @@
 var FriendType = {
 	"EMPTY": 5000,
-	"SALLY": 5001
+	"SALLY": 5001,
 	"LEONARD": 5002
 }
 
