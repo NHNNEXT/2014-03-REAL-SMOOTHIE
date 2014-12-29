@@ -18,7 +18,8 @@ var HomeScene = cc.Scene.extend({
 			SMTH.DATA.save("savedGame", JSON.stringify(SAVE));
 		} else {
 			cc.log("재실행 웰컴백!");
-			SAVE = JSON.parse(savedGame);
+			if(savedGame.length > 0)
+				SAVE = JSON.parse(savedGame);
 		}
 		// 만약에 로그인 된 상태라면 서버에 요청해서 savedGame 정보를 저장한다.
 		if(SMTH.DATA.isLoggedIn()) {
