@@ -10,13 +10,13 @@ var BoardController = cc.Class.extend({
 		this.fadeoutCount = 0;
 	},
 	initListener: function() {
-		SMTH.EVENT_MANAGER.listen("characterSelected", function(e) {
-			this.board._level = SMTH.STATUS.CURRENT_LEVEL;
-			var row = this._level.row;
-			var col = this._level.col;
-
-			this.board._createMap(row, col);
-		}.bind(this));
+//		SMTH.EVENT_MANAGER.listen("characterSelected", function(e) {
+//			this.board._level = SMTH.STATUS.CURRENT_LEVEL;
+//			var row = this._level.row;
+//			var col = this._level.col;
+//
+//			this.board._createMap(row, col);
+//		}.bind(this));
 		// 이벤트 핸들러 등록 하기 
 		SMTH.EVENT_MANAGER.listen("attackEnd", function(e) {
 			var pipes = SMTH.CONTAINER.PIPES;

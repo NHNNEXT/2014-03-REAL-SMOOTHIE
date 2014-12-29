@@ -13,6 +13,7 @@ var SelectorLayer = cc.LayerColor.extend({
 		var emptyRow = 2;
 		this.setContentSize(winsize);
 		this.selectedChar =[];
+		this.selectedCharType =[];
 		var touchListener = cc.EventListener.create({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
 			swallowTouches: true,
@@ -38,6 +39,7 @@ var SelectorLayer = cc.LayerColor.extend({
 									var char = new Friend(target.children[i].friendType);
 									char.setPositionByRowCol(emptyRow, startCol+j);
 									this.selectedChar[j] = char;
+									this.selectedCharType[j] = target.children[i].friendType;
 									this.addChild(this.selectedChar[j]);
 									break;
 								}
@@ -135,6 +137,6 @@ var SelectorLayer = cc.LayerColor.extend({
 		cc.audioEngine.playEffect(res.button_mp3);
 		this.parent.removeChild(this);
 //		cc.director.runScene(new PlayScene());
-//		SMTH.EVENT_MANAGER.notice("characterSelectored");
+		SMTH.EVENT_MANAGER.notice("characterSelected", this.selectedCharType);
 	}
 });

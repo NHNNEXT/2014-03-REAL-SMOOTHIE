@@ -2,6 +2,11 @@ var LevelLoader = cc.Class.extend({
 	ctor: function(level) {
 		this._level = level;
 		this.init();
+		SMTH.EVENT_MANAGER.listen("characterSelected", function(e) {
+			var friends = e.getUserData();
+			cc.log(friends);
+			this.setFriends(friends);
+		}.bind(this));
 	},
 	init: function() {
 		var enemies =  this._level.EMEMYLIST.slice(0);
@@ -66,13 +71,16 @@ var LevelLoader = cc.Class.extend({
 			for (var c in row) {
 				var type = row[c];
 				if (type == BLOCK.TYPE.FRIEND.EMPTY) {
+					cc.log("SETFRIENDS")
 					// getOriginal
-					var idx = r * this._level.col + c
+					var idx = Number(r) * this._level.col + Number(c)
 					var originalBlock = SMTH.CONTAINER.PIPES[idx];
-					var friendType = friends[fIdx];
-					fIdx++;
 					// replace
-					var block = new Friends(friendType);
+					var friendType = friends[fIdx];
+					var block = new Friend(friendType);
+					block.setItem("none");
+					block.setCups([1,0,0,0]);
+					fIdx++;
 					block.setPositionByRowCol(r, c);
 					SMTH.CONTAINER.PIPES[idx] = block;
 					
