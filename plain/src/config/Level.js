@@ -64,6 +64,7 @@
 		},
 		"STAGE3": {
 			"ID": 2,
+			"CHARACTER": true,
 			"TITLE": "One Shot Two Heal",
 			"TYPE": "PRESET",
 			"EMEMYLIST" : [

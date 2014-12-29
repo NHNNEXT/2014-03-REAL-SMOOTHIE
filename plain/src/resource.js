@@ -37,9 +37,11 @@ var res = {
 		// Characters
 		sally : "res/sally.png",
 		cony : "res/cony.png",
+		leonard: "res/leonard.png",
 		cony_headsick: "res/cony_headsick.png",
 		sadSally_png: "res/sadSally.png",
 		happySally_png: "res/happySally.png",
+
 		// HP
 		hpfull_png: "res/hp_full_140.png",
 		hpempty_png: "res/hp_empty_140.png",

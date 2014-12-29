@@ -1,6 +1,7 @@
 var Friend = Block.extend({
 	ctor:function (type) {
 		this._super(FriendTypeInfo[type].resourceName);
+		this.friendType = type;
 		this.init();
 	},
 	init: function() {
