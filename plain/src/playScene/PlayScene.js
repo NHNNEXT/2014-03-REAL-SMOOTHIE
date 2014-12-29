@@ -37,7 +37,7 @@ var PlayScene = cc.Scene.extend({
 		mapMenu.y = 70;	
 		
 		
-		if(facebook._isLoggedIn === true) {
+		if(SMTH.DATA.isLoggedIn()) {
 
 			var userSprite = new cc.Sprite(res.userPic);
 			this.addChild(userSprite);

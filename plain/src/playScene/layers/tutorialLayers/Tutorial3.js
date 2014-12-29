@@ -1,6 +1,7 @@
 var Tutorial3 = TutorialLayer.extend({
 	ctor: function() {
 		this._super();
+		this.setDescription("Characters always share Smoothie");
 	},
 
 	run: function() {
