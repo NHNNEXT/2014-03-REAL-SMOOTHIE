@@ -6,6 +6,7 @@ var PopupController = cc.Class.extend({
 		this.currentScene = cc.director.getRunningScene();
 		this.initListener();
 		this.winsize = cc.director.getWinSize();
+		this.popupFlag = false;
 	},
 	popup: function(layer, zindex) {
 		cc.log("popup");
@@ -21,11 +22,15 @@ var PopupController = cc.Class.extend({
 	},
 	initListener: function() {
 		SMTH.EVENT_MANAGER.listen("gameOver", function(e) {
+			if (this.popupFlag) return;
 			this.popup(new GameOverLayer());
+			this.popupFlag = true;
 		}.bind(this));
 		
 		SMTH.EVENT_MANAGER.listen("gameClear", function(e) {
+			if (this.popupFlag) return;
 			this.popup(new GameClearLayer());
+			this.popupFlag = true;
 		}.bind(this));
 		
 		SMTH.EVENT_MANAGER.listen("characterSelector", function(e) {

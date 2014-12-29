@@ -37,7 +37,7 @@ var PlayScene = cc.Scene.extend({
 		mapMenu.y = 70;	
 		
 		
-		if(facebook._isLoggedIn === true) {
+		if(SMTH.DATA.isLoggedIn()) {
 
 			var userSprite = new cc.Sprite(res.userPic);
 			this.addChild(userSprite);
@@ -82,6 +82,11 @@ var PlayScene = cc.Scene.extend({
 		for( var i in SMTH.LEVEL ) {
 			levelArr[SMTH.LEVEL[i].ID] = SMTH.LEVEL[i];
 		}
+		cc.log("StartLEvelIndex: "+SMTH.START_LEVEL_INDEX);
+		// 마지막 라운드 실행 시 StartlevelIndex == 0 으로 돌아가게 됨. 그런데 게임오버시 --1 -> idx == -1
+		// idx < 0 일 경우 처리 로직
+		SMTH.START_LEVEL_INDEX = (SMTH.START_LEVEL_INDEX + levelArr.length) % levelArr.length;
+		
 		SMTH.STATUS.CURRENT_LEVEL = levelArr[SMTH.START_LEVEL_INDEX];
 		SMTH.START_LEVEL_INDEX++;
 		SMTH.START_LEVEL_INDEX = SMTH.START_LEVEL_INDEX % levelArr.length;

@@ -1,6 +1,7 @@
 var Tutorial2 = TutorialLayer.extend({
 	ctor: function() {
 		this._super();
+		this.setDescription("Drag Left to rotate left!");
 	},
 
 	run: function() {
