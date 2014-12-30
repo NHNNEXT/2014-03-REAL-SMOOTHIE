@@ -113,15 +113,7 @@ var SelectorLayer = cc.LayerColor.extend({
 	},
 	
 	setFriendsToLevel: function() {
-//		var count = 0;
-//		for(var i in SMTH.STATUS.CURRENT_LEVEL.MAP) {
-//			for(var j in SMTH.STATUS.CURRENT_LEVEL.MAP[i]){
-//				if(SMTH.STATUS.CURRENT_LEVEL.MAP[i][j] == BLOCK.TYPE.FRIEND.SALLY) {
-//					SMTH.STATUS.CURRENT_LEVEL.MAP[i][j] = this.selectedChar[count].friendType
-//					count++;
-//				}
-//			}
-//		}
+		SMTH.STATUS.CHAR_SELECTED = this.selectedCharType;
 	},
 	
 	test: function() {

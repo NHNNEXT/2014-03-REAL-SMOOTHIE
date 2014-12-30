@@ -22,6 +22,7 @@ var PlayScene = cc.Scene.extend({
 		var mapSelected = new cc.Sprite(res.map_png);
 		var mapDisabled = new cc.Sprite(res.map_png);
 		var map = new cc.MenuItemSprite(mapNormal, mapSelected, mapDisabled, function() {
+			SMTH.STATUS.CHAR_SELECTED = null;
 			cc.director.runScene(new MapScene());
 		}.bind(this));
 		var mapMenu = new cc.Menu(map);
