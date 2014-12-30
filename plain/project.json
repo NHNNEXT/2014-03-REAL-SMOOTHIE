@@ -70,10 +70,5 @@
         "src/mapScene/MapScene.js",
         "src/homeScene/HomeScene.js",
         "src/managers/EventManager.js"
-    ],
-    "exclude":[
-        "src/plugin/Plugin.js",
-        "src/plugin/platform/facebook_sdk.js",
-        "src/plugin/platform/facebook.js"
     ]
 }
