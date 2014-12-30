@@ -85,6 +85,7 @@ var HomeScene = cc.Scene.extend({
 					callback: function() {
 						cc.log("---- fbLoggedIn 이벤트 dispatched!");
 						SMTH.EVENT_MANAGER.notice("fbLoggedIn");
+						cc.director.runScene(new MapScene());
 					}
 				});
 			});											
