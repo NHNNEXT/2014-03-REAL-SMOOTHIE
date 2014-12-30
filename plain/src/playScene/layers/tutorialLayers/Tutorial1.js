@@ -25,7 +25,21 @@ var Tutorial1 = TutorialLayer.extend({
 			cc.callFunc(function() {
 				this.toggle();
 			}.bind(this)),
-			cc.delayTime(0.5)
+			cc.delayTime(0.5),
+			cc.callFunc(function() {
+				var pos = this.getPositionOf(4,0);
+				this.guideFinger.runAction(cc.moveTo(0.5,pos))
+				this.pressFinger.runAction(cc.moveTo(0.5,pos))
+			}.bind(this)),
+			cc.delayTime(1),
+			cc.callFunc(function() {
+				this.toggle();
+			}.bind(this)),
+			cc.delayTime(0.5),
+			cc.callFunc(function() {
+				this.toggle();
+			}.bind(this)),
+			cc.delayTime(1)
 		)));
 	}
 });
