@@ -52,7 +52,12 @@ cc.game.onStart = function(){
 
     var screenSize = cc.view.getFrameSize();
     
- 	cc.view.setDesignResolutionSize(screenSize.width, screenSize.height, cc.ResolutionPolicy.SHOW_ALL);
+	if( cc.view._viewName === "Cocos2dHTML5" ) {
+ 		cc.view.setDesignResolutionSize(768, 1024, cc.ResolutionPolicy.SHOW_ALL);
+    } else {
+ 		cc.view.setDesignResolutionSize(screenSize.width, screenSize.height, cc.ResolutionPolicy.SHOW_ALL);
+	}
+
 	cc.view.resizeWithBrowserSize(true);
 
     //load resources

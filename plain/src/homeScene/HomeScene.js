@@ -11,8 +11,8 @@ var HomeScene = cc.Scene.extend({
 		this.initSMTH();
 					
 		// 로컬 스토리지의 게임 세이브 데이터를 SAVE 글로벌 객체로 리스토어
-		var savedGame = SMTH.DATA.load("savedGame");
-		if(savedGame.length == 0) {
+		var savedGame = SMTH.DATA.load("savedGame") || "";
+		if( savedGame.length == 0) {
 			// 설치 후 첫 실행이므로 SAVE 전역 변수의 값을 로컬스토리지에 저장 
 			cc.log("설치 후 첫 실행");
 			SMTH.DATA.save("savedGame", JSON.stringify(SAVE));
@@ -21,6 +21,7 @@ var HomeScene = cc.Scene.extend({
 			if(savedGame.length > 0)
 				SAVE = JSON.parse(savedGame);
 		}
+
 		// 만약에 로그인 된 상태라면 서버에 요청해서 savedGame 정보를 저장한다.
 		if(SMTH.DATA.isLoggedIn()) {
 			cc.log("ID: "+SMTH.DATA.load("id"));
@@ -28,9 +29,7 @@ var HomeScene = cc.Scene.extend({
 				id: SMTH.DATA.load("id")
 			});
 		}		
-					
-		//cc.log(SMTH.DATA.load("savedGame"));
-		
+							
 		this._setBG();
 		this._setPlayButton();	
 		this._setInitialFacebookButton();	
@@ -86,6 +85,7 @@ var HomeScene = cc.Scene.extend({
 					callback: function() {
 						cc.log("---- fbLoggedIn 이벤트 dispatched!");
 						SMTH.EVENT_MANAGER.notice("fbLoggedIn");
+						cc.director.runScene(new MapScene());
 					}
 				});
 			});											

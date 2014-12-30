@@ -26,10 +26,20 @@ var BoardLayer = cc.Layer.extend ({
         
         SMTH.EVENT_MANAGER.notice("gameStart");
         
-        if(SMTH.STATUS.CURRENT_LEVEL.CHARACTER) {
+        // 설정된 케릭터 값이 없을 때
+        // 1. 처음 시작할 때
+        // 2. 맵씬으로 나왔을 때
+        // 3. 케릭터 숫자가 늘어났을 때?
+        if (!SMTH.STATUS.CHAR_SELECTED) {
         	cc.log("characterSelector");
         	SMTH.EVENT_MANAGER.notice("characterSelector");
+        } else {
+        	SMTH.EVENT_MANAGER.notice("characterSelected", SMTH.STATUS.CHAR_SELECTED);
         }
+//        if(SMTH.STATUS.CURRENT_LEVEL.CHARACTER) {
+//        	cc.log("characterSelector");
+//        	SMTH.EVENT_MANAGER.notice("characterSelector");
+//        }
 	},
 	
 	_createMap : function(row, col) { 

@@ -3,9 +3,15 @@ var TutorialLayer = cc.Layer.extend({
 		this._super();
 		this.guideFinger = new cc.Sprite(res.finger_png);
 		this.pressFinger = new cc.Sprite(res.fingerPress_png);
+		this.blackBack = new BlackLayer();
+		this.description = new cc.LabelTTF("", res.LINEBold_ttf, 35);
 	},
 	init: function() {
 		this.setPosition(SMTH.CONTAINER.BOARD.getPosition());
+		
+		this.blackBack.x = -this.x;
+		this.blackBack.y = -this.y;
+		this.addChild(this.blackBack);
 		
 		this.fingerToShow = 0;
 		this.guideFinger.setAnchorPoint(0.4, 0.8);
@@ -16,6 +22,12 @@ var TutorialLayer = cc.Layer.extend({
 		this.pressFinger.setOpacity(0);
 		this.addChild(this.guideFinger);
 		this.addChild(this.pressFinger);
+		
+		this.description.setColor( cc.color(190, 219, 57));
+		this.description.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+		this.description.x = SMTH.STATUS.CURRENT_LEVEL.col / 2 * BLOCK.SIZE.WIDTH;
+		this.description.y = -100;
+		this.addChild(this.description, 1);
 		
 		var touchAndRemove = cc.EventListener.create({
 			event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -28,13 +40,7 @@ var TutorialLayer = cc.Layer.extend({
 		cc.eventManager.addListener(touchAndRemove.clone(), this);
 	},
 	setDescription: function(desc) {
-		var description = new cc.LabelTTF("", res.LINEBold_ttf, 35);
-		description.setColor( cc.color(190, 219, 57));
-		description.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
-		description.setString(desc);
-		description.x = SMTH.STATUS.CURRENT_LEVEL.col / 2 * BLOCK.SIZE.WIDTH;
-		description.y = -100;
-		this.addChild(description);
+		this.description.setString(desc);
 	},
 	run: function() {
 		// Animations are implemented here

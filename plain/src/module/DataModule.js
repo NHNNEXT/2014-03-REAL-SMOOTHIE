@@ -20,13 +20,14 @@ var DataModule = cc.Class.extend({
 		this.save("id", facebookInfo.id);
 		this.save("picture", facebookInfo.picture);
 		this.save("isLoggedIn", "true");
-
+/*
 		// 회원가입이 되어 있는 상태라면 서버에 전체 이미지를 보내 저장한다.
 		if(this.local.getItem("isLoggedIn")) {
 			this.pushUserData({
 				id: this.local.getItem("id")
 			});			
 		}
+*/
 	},
 	updateSavedGame: function() {
 		// 저장된 게임정보를 Local Storage 에 저장한다.
